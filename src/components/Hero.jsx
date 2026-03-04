@@ -68,7 +68,6 @@ const Hero = () => {
                             <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
                         </div>
                     </div>
-
                     {/* Bento Grid layout */}
                     <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
 
