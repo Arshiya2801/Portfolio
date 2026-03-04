@@ -3,11 +3,11 @@ import { Home, GraduationCap, Briefcase, FolderGit2, Code2, Mail } from 'lucide-
 
 const navItems = [
     { name: 'Home', icon: Home, href: '#home' },
-    { name: 'Education', icon: GraduationCap, href: '#education' },
     { name: 'Experience', icon: Briefcase, href: '#experience' },
-    { name: 'Projects', icon: FolderGit2, href: '#projects' },
+    { name: 'Project', icon: FolderGit2, href: '#project' },
+    { name: 'Education', icon: GraduationCap, href: '#education' },
     { name: 'Skills', icon: Code2, href: '#skills' },
-    { name: 'Contact', icon: Mail, href: '#contact' }
+    { name: 'Contact Me', icon: Mail, href: '#contact' }
 ];
 
 const Navbar = () => {
