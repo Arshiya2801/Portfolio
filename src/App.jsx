@@ -1,16 +1,28 @@
 import React from 'react'
 import Navbar from './components/Navbar'
+import Sidebar from './components/Sidebar'
 import Hero from './components/Hero'
+import Experience from './components/Experience'
 
 function App() {
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
       <Navbar />
 
-      <main>
-        <Hero />
-        {/* Placeholder for future sections */}
-        <div className="h-40"></div>
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-24 pb-16">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+
+          {/* Global Sticky Left Sidebar */}
+          <Sidebar />
+
+          {/* Global Scrolling Right Content Area */}
+          <div className="flex-1 flex flex-col w-full">
+            <Hero />
+            <Experience />
+            {/* Other sections like Education, Skills, Projects, Contact will go here later */}
+          </div>
+
+        </div>
       </main>
     </div>
   )
