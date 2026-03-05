@@ -21,7 +21,7 @@ function App() {
           <Sidebar />
 
           {/* Global Scrolling Right Content Area */}
-          <div className="flex-1 flex flex-col w-full">
+          <div className="flex-1 flex flex-col w-full gap-40">
             <Hero />
             <Experience />
             <Projects />
