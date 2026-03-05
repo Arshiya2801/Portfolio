@@ -8,7 +8,7 @@ const educationData = [
         date: "2023 – Present",
         grade: "Current CGPA: 8.43",
         details: [
-            { label: "Relevant Coursework", value: "Data Structures and Algorithms, Database Management System, Operating Systems, Computer Networks, Software Development Life Cycle (SDLC)" }
+            { label: "Relevant Coursework", value: "Data Structures and Algorithms, Database Management System, Operating Systems, Computer Networks, Software Engineering, Software Development Life Cycle (SDLC)" }
         ]
     },
     {
