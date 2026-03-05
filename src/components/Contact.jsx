@@ -101,7 +101,7 @@ const Contact = () => {
                             Connect with me professionally on LinkedIn.
                         </p>
                         <p className="text-[#888888] text-[14px]">
-                            Profile: <a href="https://linkedin.com/in/arshiya-singh-03ab90288/" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">/in/arshiya-singh-03ab90288</a>
+                            Profile: <a href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">/in/arshiya-singh-03ab90288</a>
                         </p>
                     </div>
                 </div>
