@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Linkedin, Github, Mail, Phone } from 'lucide-react';
+import { Send, Linkedin, Github, Mail, Phone, Twitter } from 'lucide-react';
 
 const Contact = () => {
     // Basic state for the form
@@ -169,6 +169,22 @@ const Contact = () => {
                                 </p>
                                 <p className="text-[#888888] text-[14px]">
                                     Profile: <a href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">/in/arshiya-singh</a>
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Twitter Card */}
+                        <div className="bg-[#11131a] border border-[#1f2937] rounded-xl p-6 flex items-start gap-4 hover:border-[#374151] transition-colors duration-300">
+                            <div className="w-10 h-10 rounded-lg bg-[#1da1f2]/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <Twitter className="text-[#1da1f2]" size={20} />
+                            </div>
+                            <div className="flex flex-col">
+                                <h4 className="text-white font-bold text-[18px] mb-1">Twitter (X)</h4>
+                                <p className="text-[#a3a3a3] text-[14px] leading-relaxed mb-3">
+                                    Follow me for tech discussions and updates.
+                                </p>
+                                <p className="text-[#888888] text-[14px]">
+                                    Profile: <a href="https://x.com/ash240272" target="_blank" rel="noopener noreferrer" className="text-[#1da1f2] hover:underline">@ash240272</a>
                                 </p>
                             </div>
                         </div>

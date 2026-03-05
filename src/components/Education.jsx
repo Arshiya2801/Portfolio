@@ -7,6 +7,7 @@ const educationData = [
         degree: "B.Tech in Information Technology",
         date: "2023 – Present",
         grade: "Current CGPA: 8.43",
+        logo: "/iiit-logo.png",
         details: [
             { label: "Relevant Coursework", value: "Data Structures and Algorithms, Database Management System, Operating Systems, Computer Networks, Software Engineering, Software Development Life Cycle (SDLC)" }
         ]
@@ -16,6 +17,7 @@ const educationData = [
         degree: "CBSE(XII), Maths & Computer Science",
         date: "2020 – 2022",
         grade: "91%",
+        logo: "/ryan-logo.png",
         details: [
             { label: "Stream", value: "Completed Senior Secondary (Class 12th) with Computer Science as an optional subject." }
         ]
@@ -25,6 +27,7 @@ const educationData = [
         degree: "CBSE(X), All Subjects with Computer Science",
         date: "2019 – 2020",
         grade: "96.8%",
+        logo: "/ryan-logo.png",
         details: [
             { label: "Academics", value: "Completed High School (Class 10th) with outstanding academic performance." }
         ]
@@ -34,9 +37,13 @@ const educationData = [
 const EducationCard = ({ data }) => {
     return (
         <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 mb-6 flex flex-col md:flex-row gap-6 hover:border-[#333] transition-colors duration-300">
-            {/* Left/Top: Logo Placeholder */}
-            <div className="w-[50px] h-[50px] flex-shrink-0 bg-white rounded-lg flex items-center justify-center overflow-hidden">
-                <Building2 size={24} className="text-[#0f0f0f]" />
+            {/* Left/Top: Logo */}
+            <div className="w-[50px] h-[50px] flex-shrink-0 bg-white rounded-lg flex items-center justify-center overflow-hidden p-1">
+                {data.logo ? (
+                    <img src={data.logo} alt={data.institution} className="w-full h-full object-contain" />
+                ) : (
+                    <Building2 size={24} className="text-[#0f0f0f]" />
+                )}
             </div>
 
             {/* Middle & Right Content */}

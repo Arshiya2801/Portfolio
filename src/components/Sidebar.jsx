@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linkedin, Instagram, Mail } from 'lucide-react';
+import { Linkedin, Github, Mail } from 'lucide-react';
 
 const Sidebar = () => {
     return (
@@ -21,11 +21,11 @@ const Sidebar = () => {
 
                 {/* Social Icons */}
                 <div className="flex items-center justify-center gap-8 mb-4 w-full mt-auto">
-                    <a href="#" className="text-[#f97316] hover:scale-110 transition-transform flex items-center justify-center">
+                    <a href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer" className="text-[#f97316] hover:scale-110 transition-transform flex items-center justify-center">
                         <Linkedin size={26} className="stroke-[1.5]" />
                     </a>
-                    <a href="#" className="text-[#f97316] hover:scale-110 transition-transform flex items-center justify-center">
-                        <Instagram size={26} className="stroke-[1.5]" />
+                    <a href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer" className="text-[#f97316] hover:scale-110 transition-transform flex items-center justify-center">
+                        <Github size={26} className="stroke-[1.5]" />
                     </a>
                     <a href="mailto:singharshiya.work@gmail.com" className="text-[#f97316] hover:scale-110 transition-transform flex items-center justify-center">
                         <Mail size={26} className="stroke-[1.5]" />
