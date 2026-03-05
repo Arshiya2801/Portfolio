@@ -3,6 +3,9 @@ import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
 import Hero from './components/Hero'
 import Experience from './components/Experience'
+import Projects from './components/Projects'
+import Skills from './components/Skills'
+import Education from './components/Education'
 
 function App() {
   return (
@@ -19,7 +22,10 @@ function App() {
           <div className="flex-1 flex flex-col w-full">
             <Hero />
             <Experience />
-            {/* Other sections like Education, Skills, Projects, Contact will go here later */}
+            <Projects />
+            <Skills />
+            <Education />
+            {/* Other sections like Contact will go here later */}
           </div>
 
         </div>
