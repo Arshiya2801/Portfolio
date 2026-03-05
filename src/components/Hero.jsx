@@ -27,7 +27,7 @@ const Hero = () => {
                         <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Years of<br />Experience</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-white mb-2">+3</span>
+                        <span className="text-5xl font-bold text-white mb-2">+6</span>
                         <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
@@ -75,7 +75,7 @@ const Hero = () => {
                             <h3 className="text-black font-bold text-xl xl:text-2xl uppercase leading-tight mb-4">
                                 View My <br />Resume
                             </h3>
-                            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors cursor-pointer">
+                            <a href="https://drive.google.com/file/d/1qjWUoItEAOurpBab3T7TqC0ELhvo_u5L/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors cursor-pointer">
                                 <ArrowRight size={20} className="-rotate-45" />
                             </a>
                         </div>
