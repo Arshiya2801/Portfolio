@@ -92,7 +92,7 @@ const SkillCard = ({ skill }) => {
 
 const Skills = () => {
     return (
-        <section id="skills" className="relative">
+        <section id="skills" className="relative scroll-mt-32">
             {/* Header */}
             <h3 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white-300 leading-[0.9] tracking-tight uppercase mb-16">
                 TECHNICAL

@@ -27,7 +27,7 @@ const Contact = () => {
     };
 
     return (
-        <section id="contact" className="relative">
+        <section id="contact" className="relative scroll-mt-32">
             {/* Header */}
             <h3 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase mb-12">
                 LET'S WORK
