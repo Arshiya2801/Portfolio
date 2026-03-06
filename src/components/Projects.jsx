@@ -1,5 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 
 const PrimaryProjects = [
     {
@@ -131,109 +133,114 @@ const ProjectRow = ({ project }) => {
     const contentRef = useRef(null);
 
     return (
-        <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden mb-4 transition-colors hover:border-[#333]">
-            {/* Default View (Always visible header) */}
-            <div
-                className="p-5 flex items-center justify-between cursor-pointer group"
-                onClick={() => setIsExpanded(!isExpanded)}
+        <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} scale={1.02} transitionSpeed={1500} glareEnable={true} glareMaxOpacity={0.08} className="mb-4">
+            <motion.div
+                variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }}
+                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden transition-colors hover:border-[#333]"
             >
-                <div className="flex items-center gap-6 flex-1 pr-4">
-                    {/* Thumbnail Image */}
-                    <div className="w-[80px] h-[80px] flex-shrink-0 bg-[#1a1a1a] rounded-xl flex items-center justify-center border border-[#222] overflow-hidden">
-                        {project.thumbnail ? (
-                            <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
-                        ) : project.icon ? (
-                            <project.icon size={36} className="text-[#4D4D4D] group-hover:text-[#f97316] transition-colors duration-300" />
-                        ) : (
-                            <span className="text-[#4D4D4D] text-xs font-semibold">80x80</span>
-                        )}
-                    </div>
+                {/* Default View (Always visible header) */}
+                <div
+                    className="p-5 flex items-center justify-between cursor-pointer group"
+                    onClick={() => setIsExpanded(!isExpanded)}
+                >
+                    <div className="flex items-center gap-6 flex-1 pr-4">
+                        {/* Thumbnail Image */}
+                        <div className="w-[80px] h-[80px] flex-shrink-0 bg-[#1a1a1a] rounded-xl flex items-center justify-center border border-[#222] overflow-hidden">
+                            {project.thumbnail ? (
+                                <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
+                            ) : project.icon ? (
+                                <project.icon size={36} className="text-[#4D4D4D] group-hover:text-[#f97316] transition-colors duration-300" />
+                            ) : (
+                                <span className="text-[#4D4D4D] text-xs font-semibold">80x80</span>
+                            )}
+                        </div>
 
-                    {/* Middle Content */}
-                    <div className="flex flex-col flex-1">
-                        <h3 className="text-white text-[22px] font-bold mb-1">
-                            {project.title}
-                        </h3>
-                        <p className="text-[#a3a3a3] text-[15px] font-medium truncate max-w-[90%]">
-                            {project.tagline}
-                        </p>
-                    </div>
-                </div>
-
-                {/* Right Side Icons */}
-                <div className="flex flex-col items-end justify-between self-stretch">
-                    {/* GitHub Link - Stop propagation so clicking the link doesn't toggle the accordion */}
-                    <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="p-2 hover:bg-[#1f1f1f] rounded-lg transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                    >
-                        <Github size={24} className="text-[#f97316] hover:text-[#ff8f3d] transition-colors" />
-                    </a>
-
-                    {/* Expand Chevron */}
-                    <div className={`p-2 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 text-white' : 'rotate-0 text-[#666] group-hover:text-[#a3a3a3]'}`}>
-                        <ChevronDown size={20} />
-                    </div>
-                </div>
-            </div>
-
-            {/* Expanded View with Smooth Height Transition */}
-            <div
-                ref={contentRef}
-                className="transition-all duration-500 ease-in-out overflow-hidden"
-                style={{
-                    maxHeight: isExpanded ? `${contentRef.current?.scrollHeight}px` : '0px',
-                    opacity: isExpanded ? 1 : 0
-                }}
-            >
-                <div className="p-5 pt-0 pl-[124px] pr-6 border-t border-[#1f1f1f]/50 mt-1">
-                    {/* Detailed Features List */}
-                    <div className="pt-5 mb-6">
-                        {project.features ? (
-                            <ul className="flex flex-col gap-3">
-                                {project.features.map((feature, idx) => (
-                                    <li key={idx} className="text-[#d4d4d4] text-[15px] leading-relaxed">
-                                        <span className="font-semibold text-white">{feature.title}:</span> {feature.desc}
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <p className="text-[#d4d4d4] text-[16px] leading-relaxed">
-                                {project.description}
+                        {/* Middle Content */}
+                        <div className="flex flex-col flex-1">
+                            <h3 className="text-white text-[22px] font-bold mb-1">
+                                {project.title}
+                            </h3>
+                            <p className="text-[#a3a3a3] text-[15px] font-medium truncate max-w-[90%]">
+                                {project.tagline}
                             </p>
-                        )}
-
-                        {/* Why it's Unique */}
-                        {project.whyUnique && (
-                            <div className="mt-6">
-                                <h4 className="text-white font-bold text-[16px] mb-2 font-sans tracking-wide">Why it's Unique</h4>
-                                <p className="text-[#a3a3a3] text-[15px] leading-relaxed border-l-2 border-[#f97316] pl-4 italic">
-                                    {project.whyUnique}
-                                </p>
-                            </div>
-                        )}
+                        </div>
                     </div>
 
-                    {/* Tech Stack Pills */}
-                    <div className="flex flex-wrap gap-2 pb-2">
-                        {project.tags.map((tag, index) => (
-                            <span
-                                key={index}
-                                className={`px-3 py-1 rounded-full text-[13px] font-semibold tracking-wide ${tag.type === 'frontend'
-                                    ? 'bg-[#a3e635]/15 text-[#a3e635] border border-[#a3e635]/30'
-                                    : 'bg-[#f97316]/15 text-[#f97316] border border-[#f97316]/30'
-                                    }`}
-                            >
-                                {tag.name}
-                            </span>
-                        ))}
+                    {/* Right Side Icons */}
+                    <div className="flex flex-col items-end justify-between self-stretch">
+                        {/* GitHub Link - Stop propagation so clicking the link doesn't toggle the accordion */}
+                        <a
+                            href={project.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-2 hover:bg-[#1f1f1f] rounded-lg transition-colors"
+                            onClick={(e) => e.stopPropagation()}
+                        >
+                            <Github size={24} className="text-[#f97316] hover:text-[#ff8f3d] transition-colors" />
+                        </a>
+
+                        {/* Expand Chevron */}
+                        <div className={`p-2 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 text-white' : 'rotate-0 text-[#666] group-hover:text-[#a3a3a3]'}`}>
+                            <ChevronDown size={20} />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
+
+                {/* Expanded View with Smooth Height Transition */}
+                <div
+                    ref={contentRef}
+                    className="transition-all duration-500 ease-in-out overflow-hidden"
+                    style={{
+                        maxHeight: isExpanded ? `${contentRef.current?.scrollHeight}px` : '0px',
+                        opacity: isExpanded ? 1 : 0
+                    }}
+                >
+                    <div className="p-5 pt-0 pl-[124px] pr-6 border-t border-[#1f1f1f]/50 mt-1">
+                        {/* Detailed Features List */}
+                        <div className="pt-5 mb-6">
+                            {project.features ? (
+                                <ul className="flex flex-col gap-3">
+                                    {project.features.map((feature, idx) => (
+                                        <li key={idx} className="text-[#d4d4d4] text-[15px] leading-relaxed">
+                                            <span className="font-semibold text-white">{feature.title}:</span> {feature.desc}
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-[#d4d4d4] text-[16px] leading-relaxed">
+                                    {project.description}
+                                </p>
+                            )}
+
+                            {/* Why it's Unique */}
+                            {project.whyUnique && (
+                                <div className="mt-6">
+                                    <h4 className="text-white font-bold text-[16px] mb-2 font-sans tracking-wide">Why it's Unique</h4>
+                                    <p className="text-[#a3a3a3] text-[15px] leading-relaxed border-l-2 border-[#f97316] pl-4 italic">
+                                        {project.whyUnique}
+                                    </p>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* Tech Stack Pills */}
+                        <div className="flex flex-wrap gap-2 pb-2">
+                            {project.tags.map((tag, index) => (
+                                <span
+                                    key={index}
+                                    className={`px-3 py-1 rounded-full text-[13px] font-semibold tracking-wide ${tag.type === 'frontend'
+                                        ? 'bg-[#a3e635]/15 text-[#a3e635] border border-[#a3e635]/30'
+                                        : 'bg-[#f97316]/15 text-[#f97316] border border-[#f97316]/30'
+                                        }`}
+                                >
+                                    {tag.name}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </motion.div>
+        </Tilt>
     );
 };
 
@@ -244,20 +251,36 @@ const Projects = () => {
     return (
         <section id="project" className="relative scroll-mt-32">
             {/* Header */}
-            <h3 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white-300 leading-[0.9] tracking-tight uppercase mb-12">
+            <motion.h3
+                initial={{ clipPath: "inset(0 100% 0 0)" }}
+                whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8 }}
+                className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white-300 leading-[0.9] tracking-tight uppercase mb-12"
+            >
                 RECENT
                 <span className="text-[#4D4D4D]"> PROJECTS</span>
-            </h3>
+            </motion.h3>
 
             {/* Primary Projects Stack */}
-            <div className="flex flex-col pointer-events-auto">
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
+                className="flex flex-col pointer-events-auto"
+            >
                 {PrimaryProjects.map((project, index) => (
                     <ProjectRow key={`primary-${index}`} project={project} />
                 ))}
-            </div>
+            </motion.div>
 
             {/* Expandable Secondary Projects Stack */}
-            <div
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
                 ref={secondaryListRef}
                 className="transition-all duration-700 ease-in-out overflow-hidden"
                 style={{
@@ -271,11 +294,13 @@ const Projects = () => {
                         <ProjectRow key={`secondary-${index}`} project={project} />
                     ))}
                 </div>
-            </div>
+            </motion.div>
 
             {/* View More / View Less Button */}
             <div className="flex justify-center mt-8 mb-8">
-                <button
+                <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     onClick={() => setShowMore(!showMore)}
                     className="px-8 py-3 rounded-full bg-[#1a1a1a] border border-[#333] text-white font-medium hover:bg-[#222] hover:border-[#f97316] transition-all duration-300 group flex items-center gap-2"
                 >
@@ -283,7 +308,7 @@ const Projects = () => {
                     <div className={`transition-transform duration-300 ${showMore ? 'rotate-180' : ''}`}>
                         <ChevronDown size={18} strokeWidth={2.5} />
                     </div>
-                </button>
+                </motion.button>
             </div>
 
         </section>

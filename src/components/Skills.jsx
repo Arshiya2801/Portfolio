@@ -6,6 +6,8 @@ import {
     Terminal, Container, Cloud,
     GitBranch, Github, Code, Send, Image, Key, Sparkles, PenTool
 } from 'lucide-react';
+import { motion } from 'framer-motion';
+import Tilt from 'react-parallax-tilt';
 
 const skillCategories = [
     {
@@ -71,22 +73,26 @@ const skillCategories = [
 const SkillCard = ({ skill }) => {
     const Icon = skill.icon;
     return (
-        <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4 flex items-center gap-4 hover:border-[#333] transition-colors duration-300 group">
-            {/* Icon Container */}
-            <div className="w-12 h-12 rounded-lg bg-[#1a1a1a] border border-[#222] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                <Icon size={24} className={`${skill.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
-            </div>
+        <motion.div variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="h-full">
+            <Tilt tiltMaxAngleX={12} tiltMaxAngleY={12} scale={1.03} transitionSpeed={1000} className="h-full">
+                <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4 flex items-center gap-4 hover:border-[#333] transition-colors duration-300 group h-full cursor-pointer">
+                    {/* Icon Container */}
+                    <div className="w-12 h-12 rounded-lg bg-[#1a1a1a] border border-[#222] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                        <Icon size={24} className={`${skill.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
+                    </div>
 
-            {/* Text Content */}
-            <div className="flex flex-col overflow-hidden">
-                <span className="text-white font-bold text-[16px] xl:text-[17px] truncate tracking-wide">
-                    {skill.name}
-                </span>
-                <span className="text-[#888] text-[13px] xl:text-[14px] truncate font-medium mt-0.5">
-                    {skill.subtitle}
-                </span>
-            </div>
-        </div>
+                    {/* Text Content */}
+                    <div className="flex flex-col overflow-hidden">
+                        <span className="text-white font-bold text-[16px] xl:text-[17px] truncate tracking-wide">
+                            {skill.name}
+                        </span>
+                        <span className="text-[#888] text-[13px] xl:text-[14px] truncate font-medium mt-0.5">
+                            {skill.subtitle}
+                        </span>
+                    </div>
+                </div>
+            </Tilt>
+        </motion.div>
     );
 };
 
@@ -94,10 +100,16 @@ const Skills = () => {
     return (
         <section id="skills" className="relative scroll-mt-32">
             {/* Header */}
-            <h3 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white-300 leading-[0.9] tracking-tight uppercase mb-16">
+            <motion.h3
+                initial={{ clipPath: "inset(0 100% 0 0)" }}
+                whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8 }}
+                className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white-300 leading-[0.9] tracking-tight uppercase mb-16"
+            >
                 TECHNICAL
                 <span className="text-[#4D4D4D]"> SKILLS</span>
-            </h3>
+            </motion.h3>
 
             <div className="flex flex-col gap-12">
                 {skillCategories.map((category, idx) => (
@@ -108,11 +120,17 @@ const Skills = () => {
                         </h4>
 
                         {/* Bento Grid layout for cards */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <motion.div
+                            initial="hidden"
+                            whileInView="visible"
+                            viewport={{ once: true, margin: "-80px" }}
+                            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+                        >
                             {category.skills.map((skill, sIdx) => (
                                 <SkillCard key={sIdx} skill={skill} />
                             ))}
-                        </div>
+                        </motion.div>
                     </div>
                 ))}
             </div>

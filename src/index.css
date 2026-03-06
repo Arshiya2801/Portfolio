@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme {
   --font-sans: "Inter", sans-serif;
   --color-background: #0f0f0f;

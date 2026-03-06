@@ -1,6 +1,25 @@
 import React from 'react';
 import { Linkedin, Instagram, Mail, ArrowRight, Download, Code2, FolderGit2, Flame } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
+
+const AnimatedCounter = ({ from, to, prefix = "+" }) => {
+    const ref = React.useRef(null);
+    const motionValue = useMotionValue(from);
+    const inView = useInView(ref, { once: true, margin: "-80px" });
+    const rounded = useTransform(motionValue, (latest) => Math.round(latest));
+
+    React.useEffect(() => {
+        if (inView) {
+            animate(motionValue, to, { duration: 1.5, ease: "easeOut" });
+        }
+    }, [motionValue, inView, to]);
+
+    return (
+        <span ref={ref} className="inline-flex">
+            {prefix}<motion.span>{rounded}</motion.span>
+        </span>
+    );
+};
 
 const Hero = () => {
     return (
@@ -10,28 +29,42 @@ const Hero = () => {
 
                 {/* Main Heading Stack */}
                 <div className="mb-12">
-                    <h2 className="text-20xl sm:text-20xl lg:text-[5.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase">
-                        Software<br />
-                        <span className="text-white">Development</span><br />
-                        <span className="text-[#333333]">Engineer</span>
-                    </h2>
-                    <p className="text-gray-400 font-medium text-[20px] mb-10 max-w leading-relaxed relative z-20">
+                    <motion.h2
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true, margin: "-80px" }}
+                        variants={{
+                            visible: { transition: { staggerChildren: 0.15 } }
+                        }}
+                        className="text-20xl sm:text-20xl lg:text-[5.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase"
+                    >
+                        <motion.span variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="block">Software</motion.span>
+                        <motion.span variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="block text-white">Development</motion.span>
+                        <motion.span variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="block text-[#333333]">Engineer</motion.span>
+                    </motion.h2>
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ delay: 0.6, duration: 0.8 }}
+                        className="text-gray-400 font-medium text-[20px] mb-10 max-w leading-relaxed relative z-20"
+                    >
                         Full-Stack Engineer & Algorithmic Problem Solver
-                    </p>
+                    </motion.p>
                 </div>
 
                 {/* Stats Row */}
                 <div className="grid grid-cols-3 gap-6 mb-16 border-b border-[#222] pb-12">
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-white mb-2">+1</span>
+                        <span className="text-5xl font-bold text-white mb-2"><AnimatedCounter from={0} to={1} /></span>
                         <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Years of<br />Experience</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-white mb-2">+6</span>
+                        <span className="text-5xl font-bold text-white mb-2"><AnimatedCounter from={0} to={6} /></span>
                         <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-white mb-2">+400</span>
+                        <span className="text-5xl font-bold text-white mb-2"><AnimatedCounter from={0} to={400} /></span>
                         <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
                     </div>
                 </div>
@@ -39,7 +72,13 @@ const Hero = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
 
                     {/* Orange Card */}
-                    <div className="lg:col-span-4 bg-[#f96332] rounded-[2rem] p-8 pb-10 relative overflow-hidden group flex flex-col justify-end min-h-[200px]">
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6, delay: 0.2 }}
+                        className="lg:col-span-4 bg-[#f96332] rounded-[2rem] p-8 pb-10 relative overflow-hidden group flex flex-col justify-end min-h-[200px]"
+                    >
                         {/* SVG Wavy Background */}
                         <div className="absolute inset-0 pointer-events-none z-0">
                             <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
@@ -55,10 +94,16 @@ const Hero = () => {
                         <p className="text-white font-small text-[12px] sm:text-[14px] lg:text-[14px] xl:text-[14px] leading-relaxed relative z-10 w-[95%] text-justify ">
                             Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset with deep MERN stack expertise to deliver high-performance, optimized system architectures. Whether I am integrating AI-driven features or streamlining backend data processing, I bridge the gap between complex logical challenges and intuitive user experiences through clean, well-documented code.
                         </p>
-                    </div>
+                    </motion.div>
 
                     {/* Green Card (View Resume) */}
-                    <div className="lg:col-span-2 bg-[#b3ff3b] rounded-[2rem] p-8 flex flex-col justify-between relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 border border-[#a4e612]">
+                    <motion.div
+                        initial={{ opacity: 0, y: 40 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6, delay: 0.35 }}
+                        className="lg:col-span-2 bg-[#b3ff3b] rounded-[2rem] p-8 flex flex-col justify-between relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 border border-[#a4e612]"
+                    >
                         {/* SVG Zig-Zag Background */}
                         <div className="absolute inset-0 pointer-events-none z-0">
                             <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
@@ -75,11 +120,15 @@ const Hero = () => {
                             <h3 className="text-black font-bold text-xl xl:text-2xl uppercase leading-tight mb-4">
                                 View My <br />Resume
                             </h3>
-                            <a href="https://drive.google.com/file/d/1qjWUoItEAOurpBab3T7TqC0ELhvo_u5L/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors cursor-pointer">
+                            <motion.a
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
+                                href="https://drive.google.com/file/d/1qjWUoItEAOurpBab3T7TqC0ELhvo_u5L/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors cursor-pointer"
+                            >
                                 <ArrowRight size={20} className="-rotate-45" />
-                            </a>
+                            </motion.a>
                         </div>
-                    </div>
+                    </motion.div>
 
                 </div>
             </div>

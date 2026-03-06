@@ -1,5 +1,6 @@
 import React from 'react';
 import { GraduationCap, Building2 } from 'lucide-react'; // Fallback icons for placeholders
+import { motion } from 'framer-motion';
 
 const educationData = [
     {
@@ -36,7 +37,7 @@ const educationData = [
 
 const EducationCard = ({ data }) => {
     return (
-        <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 mb-6 flex flex-col md:flex-row gap-6 hover:border-[#333] transition-colors duration-300">
+        <motion.div variants={{ hidden: { opacity: 0, x: -40 }, visible: { opacity: 1, x: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl p-6 mb-6 flex flex-col md:flex-row gap-6 hover:border-[#333] transition-colors duration-300">
             {/* Left/Top: Logo */}
             <div className="w-[50px] h-[50px] flex-shrink-0 bg-white rounded-lg flex items-center justify-center overflow-hidden p-1">
                 {data.logo ? (
@@ -91,7 +92,7 @@ const EducationCard = ({ data }) => {
                     </ul>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
@@ -99,16 +100,28 @@ const Education = () => {
     return (
         <section id="education" className="relative scroll-mt-32">
             {/* Header */}
-            <h3 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase mb-12">
+            <motion.h3
+                initial={{ clipPath: "inset(0 100% 0 0)" }}
+                whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8 }}
+                className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase mb-12"
+            >
                 EDUCATION
-            </h3>
+            </motion.h3>
 
             {/* Education Cards */}
-            <div className="flex flex-col">
+            <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
+                variants={{ visible: { transition: { staggerChildren: 0.2 } } }}
+                className="flex flex-col"
+            >
                 {educationData.map((edu, index) => (
                     <EducationCard key={index} data={edu} />
                 ))}
-            </div>
+            </motion.div>
         </section>
     );
 };
