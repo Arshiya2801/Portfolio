@@ -11,6 +11,7 @@ import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
 import { ThemeProvider } from './components/ThemeContext'
 import GlobalBackground from './components/GlobalBackground'
+import { ReactLenis } from 'lenis/react'
 
 function App() {
   return (
@@ -20,24 +21,26 @@ function App() {
         <CustomCursor />
         <Navbar />
 
-        <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-24 pb-16">
-          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+        <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothWheel: true }}>
+          <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-24 pb-16">
+            <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
 
-            {/* Global Sticky Left Sidebar */}
-            <Sidebar />
+              {/* Global Sticky Left Sidebar */}
+              <Sidebar />
 
-            {/* Global Scrolling Right Content Area */}
-            <div className="flex-1 min-w-0 flex flex-col w-full gap-40">
-              <Hero />
-              <Experience />
-              <Projects />
-              <Skills />
-              <Education />
-              <Contact />
+              {/* Global Scrolling Right Content Area */}
+              <div className="flex-1 min-w-0 flex flex-col w-full gap-40">
+                <Hero />
+                <Experience />
+                <Projects />
+                <Skills />
+                <Education />
+                <Contact />
+              </div>
+
             </div>
-
-          </div>
-        </main>
+          </main>
+        </ReactLenis>
 
         <Footer />
       </div>
