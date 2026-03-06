@@ -76,6 +76,7 @@ const SecondaryProjects = [
             { name: 'Tailwind CSS', type: 'frontend' },
             { name: 'Real-time API', type: 'backend' }
         ],
+        thumbnail: '/thumb-currency.png',
         link: '#'
     },
     {
@@ -86,6 +87,7 @@ const SecondaryProjects = [
             { name: 'React', type: 'frontend' },
             { name: 'UI/UX', type: 'frontend' }
         ],
+        thumbnail: '/thumb-bg.png',
         link: '#'
     },
     {
@@ -109,6 +111,7 @@ const SecondaryProjects = [
             { name: 'K-Means', type: 'backend' },
             { name: 'PCA', type: 'backend' }
         ],
+        thumbnail: '/thumb-customer.png',
         link: '#'
     }
 ];
@@ -126,8 +129,12 @@ const ProjectRow = ({ project }) => {
             >
                 <div className="flex items-center gap-6 flex-1 pr-4">
                     {/* Thumbnail Image */}
-                    <div className="w-[80px] h-[80px] flex-shrink-0 bg-[#1a1a1a] rounded-xl flex items-center justify-center border border-[#222]">
-                        <span className="text-[#4D4D4D] text-xs font-semibold">80x80</span>
+                    <div className="w-[80px] h-[80px] flex-shrink-0 bg-[#1a1a1a] rounded-xl flex items-center justify-center border border-[#222] overflow-hidden">
+                        {project.thumbnail ? (
+                            <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
+                        ) : (
+                            <span className="text-[#4D4D4D] text-xs font-semibold">80x80</span>
+                        )}
                     </div>
 
                     {/* Middle Content */}
