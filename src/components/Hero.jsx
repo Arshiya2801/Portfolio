@@ -67,7 +67,7 @@ const Hero = () => {
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Years of<br />Experience</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={6} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={7} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">

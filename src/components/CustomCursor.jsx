@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useSpring } from 'framer-motion';
+import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { useTheme } from './ThemeContext';
 
 const CustomCursor = () => {
-    const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
+    const { theme } = useTheme();
     const [isHovering, setIsHovering] = useState(false);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+    const cursorX = useMotionValue(-100);
+    const cursorY = useMotionValue(-100);
+
+    const springConfig = { stiffness: 150, damping: 20 };
+    const ringX = useSpring(cursorX, springConfig);
+    const ringY = useSpring(cursorY, springConfig);
 
     // Detect touch device
     useEffect(() => {
@@ -20,11 +28,14 @@ const CustomCursor = () => {
     useEffect(() => {
         if (isTouchDevice) return;
 
-        const move = (e) => setMousePos({ x: e.clientX, y: e.clientY });
+        const move = (e) => {
+            cursorX.set(e.clientX);
+            cursorY.set(e.clientY);
+        };
         window.addEventListener("mousemove", move);
 
         return () => window.removeEventListener("mousemove", move);
-    }, [isTouchDevice]);
+    }, [isTouchDevice, cursorX, cursorY]);
 
     // Track hover on interactive elements
     useEffect(() => {
@@ -47,11 +58,6 @@ const CustomCursor = () => {
         });
     }, [isTouchDevice]);
 
-    // Spring for ring and spotlight lag
-    const springConfig = { stiffness: 150, damping: 20 };
-    const ringX = useSpring(mousePos.x, springConfig);
-    const ringY = useSpring(mousePos.y, springConfig);
-
     if (isTouchDevice) return null;
 
     return (
@@ -62,12 +68,14 @@ const CustomCursor = () => {
                 style={{ x: ringX, y: ringY }}
             >
                 <div
-                    className="rounded-full"
+                    className="rounded-full flex items-center justify-center pointer-events-none"
                     style={{
                         width: 500,
                         height: 500,
                         transform: "translate(-50%, -50%)",
-                        background: "radial-gradient(circle, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 40%, transparent 70%)"
+                        background: theme === 'dark'
+                            ? "radial-gradient(circle, rgba(255,115,34,0.06) 0%, rgba(255,115,34,0.02) 40%, transparent 70%)"
+                            : "radial-gradient(circle, rgba(37,99,235,0.06) 0%, rgba(37,99,235,0.02) 40%, transparent 70%)"
                     }}
                 />
             </motion.div>
@@ -78,13 +86,13 @@ const CustomCursor = () => {
                 style={{ x: ringX, y: ringY }}
             >
                 <motion.div
-                    className="rounded-full"
-                    style={{ x: "-50%", y: "-50%" }}
+                    className="rounded-full flex items-center justify-center relative pointer-events-none"
+                    style={{ transform: "translate(-50%, -50%)" }}
                     animate={{
                         width: isHovering ? 60 : 36,
                         height: isHovering ? 60 : 36,
-                        border: "2px solid #f97316",
-                        backgroundColor: isHovering ? "rgba(249, 115, 22, 0.25)" : "transparent"
+                        border: theme === 'dark' ? "2px solid #f97316" : "2px solid #2563eb",
+                        backgroundColor: isHovering ? (theme === 'dark' ? "rgba(249, 115, 22, 0.25)" : "rgba(37, 99, 235, 0.25)") : "transparent"
                     }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                 />
@@ -93,11 +101,11 @@ const CustomCursor = () => {
             {/* ELEMENT 1 — Small Dot (Instant follow) */}
             <motion.div
                 className="fixed top-0 left-0 pointer-events-none z-[99999]"
-                style={{ x: mousePos.x, y: mousePos.y }}
+                style={{ x: cursorX, y: cursorY }}
             >
                 <motion.div
-                    className="rounded-full bg-white"
-                    style={{ x: "-50%", y: "-50%" }}
+                    className={`rounded-full relative ${theme === 'dark' ? 'bg-white' : 'bg-black'}`}
+                    style={{ transform: "translate(-50%, -50%)" }}
                     animate={{
                         width: isHovering ? 4 : 8,
                         height: isHovering ? 4 : 8,

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart } from 'lucide-react';
+import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart, Briefcase } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import { useTheme } from './ThemeContext';
@@ -26,7 +26,7 @@ const PrimaryProjects = [
             { name: 'Gemini API', type: 'backend' },
             { name: 'Tailwind CSS', type: 'frontend' }
         ],
-        link: '#'
+        link: 'https://github.com/Arshiya2801/MindClash'
     },
     {
         title: 'TalentIQ',
@@ -47,7 +47,7 @@ const PrimaryProjects = [
             { name: 'Stream', type: 'backend' },
             { name: 'Clerk', type: 'backend' }
         ],
-        link: '#'
+        link: 'https://github.com/Arshiya2801/TalentIQ'
     },
     {
         title: 'Streamly Backend API',
@@ -68,7 +68,28 @@ const PrimaryProjects = [
             { name: 'Multer', type: 'backend' },
             { name: 'Cloudinary', type: 'backend' }
         ],
-        link: '#'
+        link: 'https://github.com/Arshiya2801/Streamly'
+    },
+    {
+        title: 'Niche-Nest',
+        icon: Briefcase,
+        tagline: 'Job portal connecting employers and talent with automated recruitment.',
+        features: [
+            { title: 'End-to-End Recruitment', desc: 'Streamlines the entire job lifecycle, from candidate registration and profile management to seamless job posting and application tracking.' },
+            { title: 'Automated Engagement', desc: 'Leverages Node Cron to handle automated newsletters, ensuring consistent candidate communication and job updates without manual intervention.' },
+            { title: 'Robust State Architecture', desc: 'Implements Redux Toolkit to manage complex application state, resulting in a highly performant and responsive UI across user dashboards.' }
+        ],
+        whyUnique: 'It moves beyond a basic job board by solving the engagement problem through automated scheduling and enterprise-grade state management, offering a professional experience for recruiters and job seekers.',
+        tags: [
+            { name: 'MongoDB', type: 'backend' },
+            { name: 'Express.js', type: 'backend' },
+            { name: 'React', type: 'frontend' },
+            { name: 'Node.js', type: 'backend' },
+            { name: 'Redux', type: 'frontend' },
+            { name: 'Redux Toolkit', type: 'frontend' },
+            { name: 'Node Cron', type: 'backend' }
+        ],
+        link: 'https://github.com/Arshiya2801/Niche-Nest'
     }
 ];
 
@@ -84,7 +105,7 @@ const SecondaryProjects = [
             { name: 'Real-time API', type: 'backend' }
         ],
         // thumbnail: '/thumb-customer.png',
-        link: '#'
+        link: 'https://github.com/Arshiya2801/Currency-Convertor'
     },
     {
         title: 'Background Changer',
@@ -97,7 +118,7 @@ const SecondaryProjects = [
         ],
 
         // thumbnail: '/thumb-currency.png',
-        link: '#'
+        link: 'https://github.com/Arshiya2801/Background-Changer'
     },
     {
         title: 'To-Do List',
@@ -110,7 +131,7 @@ const SecondaryProjects = [
             { name: 'localStorage', type: 'backend' }
         ],
         // thumbnail: '/thumb-todo.png',
-        link: '#'
+        link: 'https://github.com/Arshiya2801/To-Do-List-Application'
     },
     {
         title: 'Customer Segmentation',
@@ -125,7 +146,7 @@ const SecondaryProjects = [
         ],
 
         // thumbnail: '/thumb-bg.png',
-        link: '#'
+        link: 'https://github.com/Arshiya2801/Customer-Segmentation'
     }
 ];
 
