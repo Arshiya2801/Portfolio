@@ -3,7 +3,7 @@ import { Linkedin, Github, Mail } from 'lucide-react';
 
 const Sidebar = () => {
     return (
-        <div className="w-full lg:w-[350px] flex-shrink-10 relative">
+        <div className="w-full lg:w-[335px] flex-shrink-10 relative">
             <div className="sticky top-28 bg-white text-black rounded-[2rem] p-6 pb-12 flex flex-col items-center text-center shadow-2xl mt-4">
 
                 {/* Profile Image */}

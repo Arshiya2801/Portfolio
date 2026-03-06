@@ -10,7 +10,7 @@ const Hero = () => {
 
                 {/* Main Heading Stack */}
                 <div className="mb-12">
-                    <h2 className="text-10xl sm:text-7xl lg:text-[5.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase">
+                    <h2 className="text-20xl sm:text-20xl lg:text-[5.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase">
                         Software<br />
                         <span className="text-white">Development</span><br />
                         <span className="text-[#333333]">Engineer</span>
