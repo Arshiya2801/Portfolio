@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Linkedin, Github, Mail, Phone, Twitter } from 'lucide-react';
 import { motion } from 'framer-motion';
+import MagneticButton from './MagneticButton';
 
 const Contact = () => {
     // Basic state for the form
@@ -104,16 +105,18 @@ const Contact = () => {
                         </motion.div>
 
                         {/* Submit Button */}
-                        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="mt-2">
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.97 }}
-                                type="submit"
-                                className="inline-flex items-center justify-center gap-2 bg-[#f97316] hover:bg-[#ff8f3d] text-white font-bold text-[15px] py-4 px-8 rounded-full transition-colors w-full"
-                            >
-                                <span>Send Message</span>
-                                <Send size={18} />
-                            </motion.button>
+                        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="mt-2 text-center md:text-left">
+                            <MagneticButton>
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    type="submit"
+                                    className="inline-flex items-center justify-center gap-2 bg-[#f97316] hover:bg-[#ff8f3d] text-white font-bold text-[15px] py-4 px-8 rounded-full transition-colors w-full md:w-auto"
+                                >
+                                    <span>Send Message</span>
+                                    <Send size={18} />
+                                </motion.button>
+                            </MagneticButton>
                         </motion.div>
                     </motion.form>
                 </div>

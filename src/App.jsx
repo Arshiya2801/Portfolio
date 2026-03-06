@@ -9,11 +9,13 @@ import Education from './components/Education'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
+import PageTransition from './components/PageTransition'
 
 function App() {
   return (
     <div className="min-h-screen bg-[#0f0f0f]">
       <CustomCursor />
+      <PageTransition />
       <Navbar />
 
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-24 pb-16">

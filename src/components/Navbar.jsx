@@ -1,6 +1,7 @@
 import React from 'react';
 import { Home, GraduationCap, Briefcase, FolderGit2, Code2, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { triggerTransition } from './PageTransition';
 
 const navItems = [
     { name: 'Home', icon: Home, href: '#home' },
@@ -43,7 +44,10 @@ const Navbar = () => {
                                 <a
                                     key={item.name}
                                     href={item.href}
-                                    onClick={() => setActiveSection(item.href)}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        triggerTransition(item.href);
+                                    }}
                                     className="relative flex items-center text-gray-300 hover:text-white transition-opacity duration-300 ease-in-out opacity-100 py-2 group"
                                 >
                                     <item.icon className={`w-4 h-4 mr-2 stroke-[1.5px] transition-colors ${activeSection === item.href ? 'text-[#f97316]' : 'text-gray-400 group-hover:text-white'}`} />
