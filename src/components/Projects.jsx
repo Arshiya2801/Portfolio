@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { Github, ChevronDown } from 'lucide-react';
+import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart } from 'lucide-react';
 
 const PrimaryProjects = [
     {
         title: 'MindClash',
+        icon: Brain,
         tagline: 'A gamified, real-time debate arena with AI-driven moderation.',
         features: [
             { title: 'Seamless Interaction', desc: 'Enables 1v1 and team-based debating with <1s latency, ensuring participants stay synced without refreshing.' },
@@ -26,6 +27,7 @@ const PrimaryProjects = [
     },
     {
         title: 'TalentIQ',
+        icon: Laptop,
         tagline: 'The all-in-one technical interview environment for remote assessments.',
         features: [
             { title: 'Unified Workspace', desc: 'Combines real-time coding, video conferencing, and chat into one interface, eliminating the need to toggle between Zoom, VS Code, and Slack.' },
@@ -46,6 +48,7 @@ const PrimaryProjects = [
     },
     {
         title: 'Streamly Backend API',
+        icon: Server,
         tagline: 'A secure video management backend designed for speed and reliability.',
         features: [
             { title: 'Robust Media Pipeline', desc: 'Automates complex media workflows, handling everything from high-resolution uploads to playlist organization.' },
@@ -69,6 +72,7 @@ const PrimaryProjects = [
 const SecondaryProjects = [
     {
         title: 'Currency Converter',
+        icon: Coins,
         tagline: 'Sleek React app, API-based real-time conversion, Tailwind CSS.',
         description: 'A responsive currency converter leveraging real-time exchange rates, built with React and styled elegantly using Tailwind CSS for a modern user experience.',
         tags: [
@@ -76,22 +80,25 @@ const SecondaryProjects = [
             { name: 'Tailwind CSS', type: 'frontend' },
             { name: 'Real-time API', type: 'backend' }
         ],
-        thumbnail: '/thumb-currency.png',
+        // thumbnail: '/thumb-customer.png',
         link: '#'
     },
     {
         title: 'Background Changer',
+        icon: Palette,
         tagline: 'React app, color palette history, dark/light mode toggle.',
         description: 'An interactive utility that allows users to instantly change the background color of the application, keeping a history of selected palettes and supporting dark/light UI modes.',
         tags: [
             { name: 'React', type: 'frontend' },
             { name: 'UI/UX', type: 'frontend' }
         ],
-        thumbnail: '/thumb-bg.png',
+
+        // thumbnail: '/thumb-currency.png',
         link: '#'
     },
     {
         title: 'To-Do List',
+        icon: CheckSquare,
         tagline: 'Responsive app, local storage persistence, filterable tags, Vite/React.',
         description: 'A high-performance task management application featuring persistent local storage, dynamic tag filtering, and a lightning-fast Vite-based React setup.',
         tags: [
@@ -99,10 +106,12 @@ const SecondaryProjects = [
             { name: 'Vite', type: 'frontend' },
             { name: 'localStorage', type: 'backend' }
         ],
+        // thumbnail: '/thumb-todo.png',
         link: '#'
     },
     {
         title: 'Customer Segmentation',
+        icon: PieChart,
         tagline: 'Streamlit ML dashboard, K-Means clustering, PCA visualization.',
         description: 'A comprehensive machine learning dashboard built in Streamlit. It applies K-Means clustering on customer data and visualizes the results intuitively using PCA along with detailed data charts.',
         tags: [
@@ -111,7 +120,8 @@ const SecondaryProjects = [
             { name: 'K-Means', type: 'backend' },
             { name: 'PCA', type: 'backend' }
         ],
-        thumbnail: '/thumb-customer.png',
+
+        // thumbnail: '/thumb-bg.png',
         link: '#'
     }
 ];
@@ -132,6 +142,8 @@ const ProjectRow = ({ project }) => {
                     <div className="w-[80px] h-[80px] flex-shrink-0 bg-[#1a1a1a] rounded-xl flex items-center justify-center border border-[#222] overflow-hidden">
                         {project.thumbnail ? (
                             <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
+                        ) : project.icon ? (
+                            <project.icon size={36} className="text-[#4D4D4D] group-hover:text-[#f97316] transition-colors duration-300" />
                         ) : (
                             <span className="text-[#4D4D4D] text-xs font-semibold">80x80</span>
                         )}
