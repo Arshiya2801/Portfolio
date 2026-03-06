@@ -9,36 +9,39 @@ import Education from './components/Education'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import CustomCursor from './components/CustomCursor'
-import PageTransition from './components/PageTransition'
+import { ThemeProvider } from './components/ThemeContext'
+import GlobalBackground from './components/GlobalBackground'
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#0f0f0f]">
-      <CustomCursor />
-      <PageTransition />
-      <Navbar />
+    <ThemeProvider>
+      <div className="min-h-screen bg-[var(--color-bg-primary)] transition-colors duration-300 relative">
+        <GlobalBackground />
+        <CustomCursor />
+        <Navbar />
 
-      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-24 pb-16">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+        <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative pt-24 pb-16">
+          <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
 
-          {/* Global Sticky Left Sidebar */}
-          <Sidebar />
+            {/* Global Sticky Left Sidebar */}
+            <Sidebar />
 
-          {/* Global Scrolling Right Content Area */}
-          <div className="flex-1 flex flex-col w-full gap-40">
-            <Hero />
-            <Experience />
-            <Projects />
-            <Skills />
-            <Education />
-            <Contact />
+            {/* Global Scrolling Right Content Area */}
+            <div className="flex-1 min-w-0 flex flex-col w-full gap-40">
+              <Hero />
+              <Experience />
+              <Projects />
+              <Skills />
+              <Education />
+              <Contact />
+            </div>
+
           </div>
+        </main>
 
-        </div>
-      </main>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </ThemeProvider>
   )
 }
 

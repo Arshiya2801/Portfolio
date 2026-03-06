@@ -1,16 +1,18 @@
 import React from 'react';
 import { Linkedin, Github, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTheme } from './ThemeContext';
 
 const Sidebar = () => {
+    const { theme } = useTheme();
     return (
         <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 }}
-            className="w-full lg:w-[335px] flex-shrink-10 relative"
+            className="w-full lg:w-[335px] flex-shrink-0 relative"
         >
-            <div className="sticky top-28 bg-white text-black rounded-[2rem] p-6 pb-12 flex flex-col items-center text-center shadow-2xl mt-4">
+            <div className={`sticky top-28 rounded-[2rem] p-6 pb-12 flex flex-col items-center text-center shadow-2xl mt-4 border ${theme === 'dark' ? 'bg-[#e5e5e5] text-[#0f172a] border-[#e5e5e5]' : 'bg-[#1a1a1a] text-[#ffffff] border-[#1a1a1a]'}`}>
 
                 {/* Profile Image */}
                 <div className="w-full aspect-[4/5] mx-auto rounded-[1.5rem] overflow-hidden mb-8 mt-2 shadow-inner relative group">

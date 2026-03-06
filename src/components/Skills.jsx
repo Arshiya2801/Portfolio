@@ -75,18 +75,18 @@ const SkillCard = ({ skill }) => {
     return (
         <motion.div variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="h-full">
             <Tilt tiltMaxAngleX={12} tiltMaxAngleY={12} scale={1.03} transitionSpeed={1000} className="h-full">
-                <div className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-xl p-4 flex items-center gap-4 hover:border-[#333] transition-colors duration-300 group h-full cursor-pointer">
+                <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4 flex items-center gap-4 hover:border-[var(--color-accent)] transition-colors duration-300 group h-full cursor-pointer">
                     {/* Icon Container */}
-                    <div className="w-12 h-12 rounded-lg bg-[#1a1a1a] border border-[#222] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                    <div className="w-12 h-12 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
                         <Icon size={24} className={`${skill.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
                     </div>
 
                     {/* Text Content */}
                     <div className="flex flex-col overflow-hidden">
-                        <span className="text-white font-bold text-[16px] xl:text-[17px] truncate tracking-wide">
+                        <span className="text-[var(--color-text-primary)] font-bold text-[16px] xl:text-[17px] truncate tracking-wide">
                             {skill.name}
                         </span>
-                        <span className="text-[#888] text-[13px] xl:text-[14px] truncate font-medium mt-0.5">
+                        <span className="text-[var(--color-text-secondary)] text-[13px] xl:text-[14px] truncate font-medium mt-0.5">
                             {skill.subtitle}
                         </span>
                     </div>
@@ -100,16 +100,26 @@ const Skills = () => {
     return (
         <section id="skills" className="relative scroll-mt-32">
             {/* Header */}
-            <motion.h3
-                initial={{ clipPath: "inset(0 100% 0 0)" }}
-                whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8 }}
-                className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white-300 leading-[0.9] tracking-tight uppercase mb-16"
-            >
-                TECHNICAL
-                <span className="text-[#4D4D4D]"> SKILLS</span>
-            </motion.h3>
+            <h3 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-[var(--color-text-primary)] leading-[0.9] tracking-tight uppercase overflow-hidden flex flex-wrap mb-16">
+                <motion.span
+                    initial={{ x: -100, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
+                    className="mr-3"
+                >
+                    TECHNICAL
+                </motion.span>
+                <motion.span
+                    initial={{ x: 100, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
+                    className="text-[#4D4D4D]"
+                >
+                    SKILLS
+                </motion.span>
+            </h3>
 
             <div className="flex flex-col gap-12">
                 {skillCategories.map((category, idx) => (

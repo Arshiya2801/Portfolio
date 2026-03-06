@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
+import { useTheme } from './ThemeContext';
 
 const PrimaryProjects = [
     {
@@ -129,6 +130,7 @@ const SecondaryProjects = [
 ];
 
 const ProjectRow = ({ project }) => {
+    const { theme } = useTheme();
     const [isExpanded, setIsExpanded] = useState(false);
     const contentRef = useRef(null);
 
@@ -136,7 +138,7 @@ const ProjectRow = ({ project }) => {
         <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} scale={1.02} transitionSpeed={1500} glareEnable={true} glareMaxOpacity={0.08} className="mb-4">
             <motion.div
                 variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }}
-                className="bg-[#0f0f0f] border border-[#1f1f1f] rounded-2xl overflow-hidden transition-colors hover:border-[#333]"
+                className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl overflow-hidden transition-colors hover:border-[#333]"
             >
                 {/* Default View (Always visible header) */}
                 <div
@@ -145,7 +147,7 @@ const ProjectRow = ({ project }) => {
                 >
                     <div className="flex items-center gap-6 flex-1 pr-4">
                         {/* Thumbnail Image */}
-                        <div className="w-[80px] h-[80px] flex-shrink-0 bg-[#1a1a1a] rounded-xl flex items-center justify-center border border-[#222] overflow-hidden">
+                        <div className={`w-[80px] h-[80px] flex-shrink-0 rounded-xl flex items-center justify-center border overflow-hidden ${theme === 'dark' ? 'bg-[#1a1a1a] border-[#222]' : 'bg-[#e5e5e5] border-[#d4d4d4]'}`}>
                             {project.thumbnail ? (
                                 <img src={project.thumbnail} alt={project.title} className="w-full h-full object-cover" />
                             ) : project.icon ? (
@@ -157,10 +159,10 @@ const ProjectRow = ({ project }) => {
 
                         {/* Middle Content */}
                         <div className="flex flex-col flex-1">
-                            <h3 className="text-white text-[22px] font-bold mb-1">
+                            <h3 className="text-[var(--color-text-primary)] text-[22px] font-bold mb-1">
                                 {project.title}
                             </h3>
-                            <p className="text-[#a3a3a3] text-[15px] font-medium truncate max-w-[90%]">
+                            <p className="text-[var(--color-text-secondary)] text-[15px] font-medium truncate max-w-[90%]">
                                 {project.tagline}
                             </p>
                         </div>
@@ -180,7 +182,7 @@ const ProjectRow = ({ project }) => {
                         </a>
 
                         {/* Expand Chevron */}
-                        <div className={`p-2 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 text-white' : 'rotate-0 text-[#666] group-hover:text-[#a3a3a3]'}`}>
+                        <div className={`p-2 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 text-[var(--color-text-primary)]' : 'rotate-0 text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)]'}`}>
                             <ChevronDown size={20} />
                         </div>
                     </div>
@@ -195,19 +197,19 @@ const ProjectRow = ({ project }) => {
                         opacity: isExpanded ? 1 : 0
                     }}
                 >
-                    <div className="p-5 pt-0 pl-[124px] pr-6 border-t border-[#1f1f1f]/50 mt-1">
+                    <div className="p-5 pt-0 pl-[124px] pr-6 border-t border-[var(--color-border)] mt-1">
                         {/* Detailed Features List */}
                         <div className="pt-5 mb-6">
                             {project.features ? (
                                 <ul className="flex flex-col gap-3">
                                     {project.features.map((feature, idx) => (
-                                        <li key={idx} className="text-[#d4d4d4] text-[15px] leading-relaxed">
-                                            <span className="font-semibold text-white">{feature.title}:</span> {feature.desc}
+                                        <li key={idx} className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">
+                                            <span className="font-semibold text-[var(--color-text-primary)]">{feature.title}:</span> {feature.desc}
                                         </li>
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-[#d4d4d4] text-[16px] leading-relaxed">
+                                <p className="text-[var(--color-text-secondary)] text-[16px] leading-relaxed">
                                     {project.description}
                                 </p>
                             )}
@@ -215,8 +217,8 @@ const ProjectRow = ({ project }) => {
                             {/* Why it's Unique */}
                             {project.whyUnique && (
                                 <div className="mt-6">
-                                    <h4 className="text-white font-bold text-[16px] mb-2 font-sans tracking-wide">Why it's Unique</h4>
-                                    <p className="text-[#a3a3a3] text-[15px] leading-relaxed border-l-2 border-[#f97316] pl-4 italic">
+                                    <h4 className="text-[var(--color-text-primary)] font-bold text-[16px] mb-2 font-sans tracking-wide">Why it's Unique</h4>
+                                    <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed border-l-2 border-[var(--color-accent)] pl-4 italic">
                                         {project.whyUnique}
                                     </p>
                                 </div>
@@ -251,16 +253,26 @@ const Projects = () => {
     return (
         <section id="project" className="relative scroll-mt-32">
             {/* Header */}
-            <motion.h3
-                initial={{ clipPath: "inset(0 100% 0 0)" }}
-                whileInView={{ clipPath: "inset(0 0% 0 0)" }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8 }}
-                className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-white-300 leading-[0.9] tracking-tight uppercase mb-12"
-            >
-                RECENT
-                <span className="text-[#4D4D4D]"> PROJECTS</span>
-            </motion.h3>
+            <h3 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-[var(--color-text-primary)] leading-[0.9] tracking-tight uppercase overflow-hidden flex flex-wrap mb-12">
+                <motion.span
+                    initial={{ x: -100, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
+                    className="mr-3"
+                >
+                    RECENT
+                </motion.span>
+                <motion.span
+                    initial={{ x: 100, opacity: 0 }}
+                    whileInView={{ x: 0, opacity: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
+                    className="text-[#4D4D4D]"
+                >
+                    PROJECTS
+                </motion.span>
+            </h3>
 
             {/* Primary Projects Stack */}
             <motion.div
@@ -302,7 +314,7 @@ const Projects = () => {
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowMore(!showMore)}
-                    className="px-8 py-3 rounded-full bg-[#1a1a1a] border border-[#333] text-white font-medium hover:bg-[#222] hover:border-[#f97316] transition-all duration-300 group flex items-center gap-2"
+                    className="px-8 py-3 rounded-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium hover:bg-[var(--color-bg-secondary)] hover:border-[var(--color-accent)] transition-all duration-300 group flex items-center gap-2"
                 >
                     {showMore ? 'View Less' : 'View More Projects'}
                     <div className={`transition-transform duration-300 ${showMore ? 'rotate-180' : ''}`}>

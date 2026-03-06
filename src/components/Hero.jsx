@@ -1,6 +1,7 @@
 import React from 'react';
 import { Linkedin, Instagram, Mail, ArrowRight, Download, Code2, FolderGit2, Flame } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
+import TypewriterEffect from './TypewriterEffect';
 
 const AnimatedCounter = ({ from, to, prefix = "+" }) => {
     const ref = React.useRef(null);
@@ -10,7 +11,13 @@ const AnimatedCounter = ({ from, to, prefix = "+" }) => {
 
     React.useEffect(() => {
         if (inView) {
-            animate(motionValue, to, { duration: 1.5, ease: "easeOut" });
+            animate(motionValue, to, {
+                duration: 2,
+                ease: "easeOut",
+                repeat: Infinity,
+                repeatType: "loop",
+                repeatDelay: 1.5 // Decreased delay so it loops more continuously
+            });
         }
     }, [motionValue, inView, to]);
 
@@ -36,36 +43,36 @@ const Hero = () => {
                         variants={{
                             visible: { transition: { staggerChildren: 0.15 } }
                         }}
-                        className="text-20xl sm:text-20xl lg:text-[5.5rem] font-bold text-white leading-[0.9] tracking-tight uppercase"
+                        className="font-bold text-[var(--color-text-primary)] leading-[0.9] tracking-tight uppercase break-words"
                     >
-                        <motion.span variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="block">Software</motion.span>
-                        <motion.span variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="block text-white">Development</motion.span>
-                        <motion.span variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="block text-[#333333]">Engineer</motion.span>
+                        <motion.span variants={{ hidden: { opacity: 0, x: 150, filter: "blur(14px)" }, visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.85 } } }} className="block text-6xl sm:text-7xl lg:text-[7rem] xl:text-[8rem]">Software</motion.span>
+                        <motion.span variants={{ hidden: { opacity: 0, x: 150, filter: "blur(14px)" }, visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.85 } } }} className="block text-[var(--color-text-primary)] text-[2.7rem] sm:text-[3.6rem] lg:text-[5.1rem] xl:text-[5.85rem]">Development</motion.span>
+                        <motion.span variants={{ hidden: { opacity: 0, x: 150, filter: "blur(14px)" }, visible: { opacity: 1, x: 0, filter: "blur(0px)", transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.85 } } }} className="block text-[#737373] dark:text-[#737373] text-6xl sm:text-7xl lg:text-[7rem] xl:text-[8rem]">Engineer</motion.span>
                     </motion.h2>
-                    <motion.p
+                    <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="text-gray-400 font-medium text-[20px] mb-10 max-w leading-relaxed relative z-20"
+                        className="text-[var(--color-text-secondary)] font-medium text-[20px] mb-10 max-w leading-relaxed relative z-20 h-[30px]" // fixed height to prevent jitter
                     >
-                        Full-Stack Engineer & Algorithmic Problem Solver
-                    </motion.p>
+                        <TypewriterEffect text="Full-Stack Engineer & Algorithmic Problem Solver" delay={800} speed={40} />
+                    </motion.div>
                 </div>
 
                 {/* Stats Row */}
-                <div className="grid grid-cols-3 gap-6 mb-16 border-b border-[#222] pb-12">
+                <div className="grid grid-cols-3 gap-6 mb-16 border-b border-[var(--color-border)] pb-12">
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-white mb-2"><AnimatedCounter from={0} to={1} /></span>
-                        <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Years of<br />Experience</span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={1} /></span>
+                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Years of<br />Experience</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-white mb-2"><AnimatedCounter from={0} to={6} /></span>
-                        <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Projects<br />Completed</span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={6} /></span>
+                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-white mb-2"><AnimatedCounter from={0} to={400} /></span>
-                        <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={400} /></span>
+                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
                     </div>
                 </div>
                 {/* Bento Grid layout */}
