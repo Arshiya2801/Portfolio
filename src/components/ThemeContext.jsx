@@ -10,10 +10,7 @@ export const ThemeProvider = ({ children }) => {
             if (savedTheme) {
                 return savedTheme;
             }
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                return 'dark';
-            }
-            return 'light'; // Defaulting to light as it might be what user expects now
+            return 'dark'; // Defaulting to dark mode
         }
         return 'dark'; // Fallback
     });

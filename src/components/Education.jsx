@@ -101,10 +101,10 @@ const Education = () => {
         <section id="education" className="relative scroll-mt-32">
             {/* Header */}
             <motion.h3
-                initial={{ clipPath: "inset(0 100% 0 0)" }}
-                whileInView={{ clipPath: "inset(0 0% 0 0)" }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8 }}
+                transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
                 className="text-5xl sm:text-5xl lg:text-[3.5rem] font-bold text-[var(--color-text-primary)] leading-[0.9] tracking-tight uppercase mb-12"
             >
                 EDUCATION

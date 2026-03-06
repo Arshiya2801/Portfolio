@@ -68,7 +68,7 @@ const Hero = () => {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={7} /></span>
-                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Projects<br />Completed</span>
+                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wideeducar font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={400} /></span>
