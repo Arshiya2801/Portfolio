@@ -130,7 +130,7 @@ const Hero = () => {
                             <motion.a
                                 whileHover={{ scale: 1.03 }}
                                 whileTap={{ scale: 0.97 }}
-                                href="https://drive.google.com/file/d/1qjWUoItEAOurpBab3T7TqC0ELhvo_u5L/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors cursor-pointer"
+                                href="https://drive.google.com/file/d/1FjikijeCaoffE8nxvKPpQTsDe7q9nLHy/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors cursor-pointer"
                             >
                                 <ArrowRight size={20} className="-rotate-45" />
                             </motion.a>
