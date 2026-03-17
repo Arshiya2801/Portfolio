@@ -74,8 +74,8 @@ const CustomCursor = () => {
                         height: 500,
                         transform: "translate(-50%, -50%)",
                         background: theme === 'dark'
-                            ? "radial-gradient(circle, rgba(255,115,34,0.06) 0%, rgba(255,115,34,0.02) 40%, transparent 70%)"
-                            : "radial-gradient(circle, rgba(37,99,235,0.06) 0%, rgba(37,99,235,0.02) 40%, transparent 70%)"
+                            ? "radial-gradient(circle, rgba(255,115,34,0.15) 0%, rgba(255,115,34,0.06) 40%, transparent 70%)"
+                            : "radial-gradient(circle, rgba(37,99,235,0.15) 0%, rgba(37,99,235,0.06) 40%, transparent 70%)"
                     }}
                 />
             </motion.div>
