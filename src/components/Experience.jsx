@@ -37,7 +37,7 @@ const Experience = () => {
                     {/* Top Row: Company & Icon */}
                     <div className="flex justify-between items-start mb-1">
                         <h3 className="text-[22px] font-semibold text-[#b3ff3b] dark:text-[#b3ff3b]">
-                            Microvision
+                            Microvison
                         </h3>
                         {/* <ArrowUpRight size={24} className="text-[#f97316] flex-shrink-0" /> */}
                     </div>
