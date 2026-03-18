@@ -98,9 +98,26 @@ const Hero = () => {
                             </svg>
                         </div>
 
-                        {/* <div className="relative top-0 left-0 z-10 w-10 h-10 flex items-center justify-center rounded-xl bg-transparent border border-white/30 group-hover:bg-white group-hover:text-[#f96332] transition-colors cursor-pointer text-white">
-                                <ArrowRight size={20} strokeWidth={2} />
-                            </div> */}
+                        {/* Top Content Area */}
+                        <div className="relative z-10 mb-6 flex items-start justify-between">
+                            {/* Code badge */}
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20">
+                                    <Code2 size={20} className="text-white" />
+                                </div>
+                                <div>
+                                    <h4 className="text-white font-bold text-[18px] tracking-wide uppercase">About Me</h4>
+                                    <p className="text-white/60 text-[12px] font-medium">Philosophy & Approach</p>
+                                </div>
+                            </div>
+
+                            {/* Decorative dot grid */}
+                            <div className="grid grid-cols-3 gap-1.5 opacity-30">
+                                {[...Array(9)].map((_, i) => (
+                                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-white" />
+                                ))}
+                            </div>
+                        </div>
 
                         <p className="text-white font-small text-[12px] sm:text-[14px] lg:text-[14px] xl:text-[14px] leading-relaxed relative z-10 w-[95%] text-justify ">
                             Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset with deep MERN stack expertise to deliver high-performance, optimized system architectures. Whether I am integrating AI-driven features or streamlining backend data processing, I bridge the gap between complex logical challenges and intuitive user experiences through clean, well-documented code.
