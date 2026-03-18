@@ -3,6 +3,20 @@ import { Linkedin, Instagram, Mail, ArrowRight, Download, Code2, FolderGit2, Fla
 import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
 import TypewriterEffect from './TypewriterEffect';
 import GradientBlob from './GradientBlob';
+import Tilt from 'react-parallax-tilt';
+
+// Reusable animated terminal line component
+const TerminalLine = ({ children, delay, color }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 8 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay, duration: 0.3, ease: 'easeOut' }}
+        style={{ color }}
+    >
+        {children}
+    </motion.div>
+);
 
 const AnimatedCounter = ({ from, to, prefix = "+" }) => {
     const ref = React.useRef(null);
@@ -17,7 +31,7 @@ const AnimatedCounter = ({ from, to, prefix = "+" }) => {
                 ease: "easeOut",
                 repeat: Infinity,
                 repeatType: "loop",
-                repeatDelay: 1.5 // Decreased delay so it loops more continuously
+                repeatDelay: 1.5
             });
         }
     }, [motionValue, inView, to]);
@@ -58,7 +72,7 @@ const Hero = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="text-[var(--color-text-secondary)] font-medium text-[20px] mb-10 max-w leading-relaxed relative z-20 h-[30px]" // fixed height to prevent jitter
+                        className="text-[var(--color-text-secondary)] font-medium text-[20px] mb-10 max-w leading-relaxed relative z-20 h-[30px]"
                     >
                         <TypewriterEffect text="Full-Stack Engineer & Algorithmic Problem Solver" delay={800} speed={40} />
                     </motion.div>
@@ -72,91 +86,214 @@ const Hero = () => {
                     </div>
                     <div className="flex flex-col">
                         <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={7} /></span>
-                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wideeducar font-medium">Projects<br />Completed</span>
+                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
                         <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={400} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
                     </div>
                 </div>
+
                 {/* Bento Grid layout */}
                 <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
 
-                    {/* Orange Card */}
+                    {/* PART 3 — Code Editor Card (Left) */}
                     <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0, x: -80 }}
+                        whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
-                        transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6, delay: 0.2 }}
-                        className="lg:col-span-4 bg-[#f96332] rounded-[2rem] p-8 pb-10 relative overflow-hidden group flex flex-col justify-end min-h-[200px]"
+                        transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8, delay: 0.1 }}
+                        whileHover={{
+                            scale: 1.015,
+                            boxShadow: '0 0 30px rgba(249, 115, 22, 0.15)',
+                            borderColor: 'rgba(249, 115, 22, 0.2)',
+                            transition: { duration: 0.4, ease: 'easeOut' }
+                        }}
+                        className="lg:col-span-4 bg-[#0d1117] rounded-[2rem] p-0 relative overflow-hidden flex flex-col min-h-[200px] border border-[#1e2a3a]"
                     >
-                        {/* SVG Wavy Background */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
-                                <path d="M-50,150 C50,140 100,200 180,180 C260,160 300,50 450,40 L450,350 L-50,350 Z" fill="#e75727" opacity="0.6" />
-                                <path d="M-50,220 C100,200 150,280 250,230 C350,180 400,100 450,150 L450,350 L-50,350 Z" fill="#d84818" opacity="0.4" />
-                            </svg>
+                        {/* Terminal Header Bar */}
+                        <div className="flex items-center gap-2 px-6 py-4 border-b border-[#1e2a3a]">
+                            <div className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                            <div className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                            <div className="w-3 h-3 rounded-full bg-[#28c840]" />
+                            <span className="ml-3 text-[12px] text-[#6b7280] font-mono">arshiya — portfolio</span>
                         </div>
 
-                        {/* Top Content Area */}
-                        <div className="relative z-10 mb-6 flex items-start justify-between">
-                            {/* Code badge */}
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center border border-white/20">
-                                    <Code2 size={20} className="text-white" />
-                                </div>
-                                <div>
-                                    <h4 className="text-white font-bold text-[18px] tracking-wide uppercase">About Me</h4>
-                                    <p className="text-white/60 text-[12px] font-medium">Philosophy & Approach</p>
-                                </div>
-                            </div>
+                        {/* Terminal Body */}
+                        <div className="px-6 py-5 flex-1 flex flex-col gap-1.5 font-mono text-[12px] sm:text-[13px] leading-relaxed">
+                            <TerminalLine delay={0.3} color="#6b7280">{`// about_me.js`}</TerminalLine>
+                            <TerminalLine delay={0.5} color="#c792ea">{`const`} <span className="text-[#82aaff]">arshiya</span> <span className="text-white">=</span> {`{`}</TerminalLine>
+                            <TerminalLine delay={0.7} color="#ffcb6b">{`  role`}<span className="text-white">{`: `}</span><span className="text-[#c3e88d]">"Full-Stack Engineer"</span><span className="text-white">,</span></TerminalLine>
+                            <TerminalLine delay={0.9} color="#c792ea">{`};`}</TerminalLine>
+                            <div className="h-2" />
+                            <TerminalLine delay={1.1} color="#546e7a">{`/**`}</TerminalLine>
+                            <TerminalLine delay={1.3} color="#546e7a">{` * Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset  with deep MERN stack expertise to deliver high-performance, optimized architectures.`}</TerminalLine>
 
-                            {/* Decorative dot grid */}
-                            <div className="grid grid-cols-3 gap-1.5 opacity-30">
-                                {[...Array(9)].map((_, i) => (
-                                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-white" />
-                                ))}
-                            </div>
-                        </div>
+                            <TerminalLine delay={1.6} color="#546e7a">{` * Whether integrating AI-driven features or streamlining backend processing, I bridge complex challenges and intuitive user experiences through clean code.`}</TerminalLine>
 
-                        <p className="text-white font-small text-[12px] sm:text-[14px] lg:text-[14px] xl:text-[14px] leading-relaxed relative z-10 w-[95%] text-justify ">
-                            Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset with deep MERN stack expertise to deliver high-performance, optimized system architectures. Whether I am integrating AI-driven features or streamlining backend data processing, I bridge the gap between complex logical challenges and intuitive user experiences through clean, well-documented code.
-                        </p>
-                    </motion.div>
-
-                    {/* Green Card (View Resume) */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 40 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true, margin: "-80px" }}
-                        transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6, delay: 0.35 }}
-                        className="lg:col-span-2 bg-[#b3ff3b] rounded-[2rem] p-8 flex flex-col justify-between relative overflow-hidden group hover:scale-[1.02] transition-transform duration-300 border border-[#a4e612]"
-                    >
-                        {/* SVG Zig-Zag Background */}
-                        <div className="absolute inset-0 pointer-events-none z-0">
-                            <svg width="100%" height="100%" viewBox="0 0 400 300" preserveAspectRatio="none">
-                                <path d="M0,200 L50,150 L100,350 L150,50 L200,280 L250,20 L300,220 L350,80 L400,250" fill="none" stroke="#addb25" strokeWidth="4" />
-                                <path d="M0,280 L80,220 L120,400 L180,150 L240,350 L300,120 L350,280 L400,150" fill="none" stroke="#9bc91a" strokeWidth="2" opacity="0.5" />
-                            </svg>
-                        </div>
-
-                        <div className="bg-black/10 p-3 rounded-xl backdrop-blur-sm w-max mb-8 relative z-10 text-black">
-                            <FolderGit2 size={24} />
-                        </div>
-
-                        <div className="relative z-10">
-                            <h3 className="text-black font-bold text-xl xl:text-2xl uppercase leading-tight mb-4">
-                                View My <br />Resume
-                            </h3>
-                            <motion.a
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.97 }}
-                                href="https://drive.google.com/file/d/1FjikijeCaoffE8nxvKPpQTsDe7q9nLHy/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors cursor-pointer"
+                            {/* Blinking cursor — appears after all lines */}
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                whileInView={{ opacity: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 2.2 }}
                             >
-                                <ArrowRight size={20} className="-rotate-45" />
-                            </motion.a>
+                                <motion.span
+                                    className="inline-block w-2 h-4 bg-[#f97316] ml-0.5"
+                                    animate={{ opacity: [1, 0, 1] }}
+                                    transition={{ duration: 0.6, repeat: Infinity, ease: 'steps(2)' }}
+                                />
+                            </motion.div>
                         </div>
                     </motion.div>
+
+                    {/* Right Column — Two Stacked Cards */}
+                    <div className="lg:col-span-3 flex flex-col gap-6">
+
+                        {/* PART 4 — View Resume Card (Top Right) */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 80 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.7, delay: 0.1 }}
+                        >
+                            <Tilt
+                                tiltMaxAngleX={10}
+                                tiltMaxAngleY={10}
+                                scale={1.03}
+                                transitionSpeed={1500}
+                                glareEnable={true}
+                                glareMaxOpacity={0.08}
+                                glareColor="#ffffff"
+                                className="rounded-[2rem]"
+                            >
+                                <div className="bg-[#b3ff3b] rounded-[2rem] p-6 sm:p-8 flex items-center justify-between relative overflow-hidden group border border-[#a4e612]">
+                                    {/* SVG Zig-Zag Background */}
+                                    <div className="absolute inset-0 pointer-events-none z-0">
+                                        <svg width="100%" height="100%" viewBox="0 0 400 150" preserveAspectRatio="none">
+                                            <path d="M0,100 L50,60 L100,130 L150,30 L200,110 L250,20 L300,90 L350,40 L400,100" fill="none" stroke="#addb25" strokeWidth="3" />
+                                            <path d="M0,120 L80,80 L120,140 L180,50 L240,120 L300,60 L350,100 L400,70" fill="none" stroke="#9bc91a" strokeWidth="2" opacity="0.4" />
+                                        </svg>
+                                    </div>
+
+                                    <div className="relative z-10 flex flex-col gap-2">
+                                        {/* Pulsing icon */}
+                                        <motion.div
+                                            className="bg-black/10 p-2.5 rounded-xl backdrop-blur-sm w-max text-black"
+                                            animate={{ scale: [1, 1.05, 1] }}
+                                            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                                        >
+                                            <FolderGit2 size={20} />
+                                        </motion.div>
+                                        <h3 className="text-black font-bold text-lg xl:text-xl uppercase leading-tight">
+                                            View My Resume
+                                        </h3>
+                                    </div>
+
+                                    <motion.a
+                                        whileHover={{ scale: 1.1, rotate: -45 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        href="https://drive.google.com/file/d/1FjikijeCaoffE8nxvKPpQTsDe7q9nLHy/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+                                        className="relative z-10 bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors duration-300 cursor-pointer flex-shrink-0"
+                                    >
+                                        <ArrowRight size={20} className="-rotate-45" />
+                                    </motion.a>
+                                </div>
+                            </Tilt>
+                        </motion.div>
+
+                        {/* PART 1 & 2 — New Terminal Card (Bottom Right) */}
+                        <motion.div
+                            initial={{ opacity: 0, x: 80 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-80px" }}
+                            transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.8, delay: 0.3 }}
+                            whileHover={{
+                                scale: 1.015,
+                                boxShadow: '0 0 30px rgba(132, 204, 22, 0.12)',
+                                borderColor: 'rgba(132, 204, 22, 0.2)',
+                                transition: { duration: 0.4, ease: 'easeOut' }
+                            }}
+                            className="bg-[#0d1117] rounded-[2rem] p-0 relative overflow-hidden flex-1 flex flex-col border border-[#1e2a3a]"
+                        >
+                            {/* Terminal Header Bar */}
+                            <div className="flex items-center gap-2 px-5 py-3 border-b border-[#1e2a3a]">
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+                                <span className="ml-2 text-[11px] text-[#6b7280] font-mono">arshiya — terminal</span>
+                            </div>
+
+                            {/* Terminal Body */}
+                            <div className="px-5 py-4 flex-1 flex flex-col gap-1 font-mono text-[11px] sm:text-[12px] leading-relaxed">
+
+
+                                {/* availability */}
+                                <TerminalLine delay={2.0} color="#f97316">{`$ availability`}</TerminalLine>
+                                <TerminalLine delay={2.2} color="#6b7280">
+                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span>open_to_hire: </span>
+                                    <span className="text-[#84cc16]">true</span>
+                                    <span className="ml-2 inline-flex">
+                                        <motion.span
+                                            className="inline-block w-2 h-2 rounded-full bg-[#84cc16]"
+                                            animate={{
+                                                scale: [1, 1.5, 1],
+                                                boxShadow: [
+                                                    '0 0 0px #84cc16',
+                                                    '0 0 8px #84cc16',
+                                                    '0 0 0px #84cc16'
+                                                ]
+                                            }}
+                                            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+                                        />
+                                    </span>
+                                </TerminalLine>
+                                <TerminalLine delay={2.4} color="#6b7280">
+                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span>type: </span>
+                                    <span className="text-[#84cc16]">fulltime/intern</span>
+                                </TerminalLine>
+                                <TerminalLine delay={2.6} color="#6b7280">
+                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span>remote: </span>
+                                    <span className="text-[#84cc16]">true</span>
+                                </TerminalLine>
+                                <TerminalLine delay={2.6} color="#6b7280">
+                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span>open_to_relocation: </span>
+                                    <span className="text-[#84cc16]">true</span>
+                                </TerminalLine>
+                                <TerminalLine delay={2.8} color="#6b7280">
+                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span>location: </span>
+                                    <span className="text-[#f97316]">"India"</span>
+                                </TerminalLine>
+                                <TerminalLine delay={2.6} color="#6b7280">
+                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span>response_time: </span>
+                                    <span className="text-[#84cc16]">"24 hours"</span>
+                                </TerminalLine>
+
+
+                                {/* Blinking cursor — appears after all lines */}
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    whileInView={{ opacity: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: 3.0 }}
+                                    className="mt-1"
+                                >
+                                    <motion.span
+                                        className="inline-block w-2 h-3.5 bg-[#f97316]"
+                                        animate={{ opacity: [1, 0, 1] }}
+                                        transition={{ duration: 0.6, repeat: Infinity, ease: 'steps(2)' }}
+                                    />
+                                </motion.div>
+                            </div>
+                        </motion.div>
+
+                    </div>
 
                 </div>
             </div>
