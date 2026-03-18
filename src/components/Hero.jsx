@@ -2,6 +2,7 @@ import React from 'react';
 import { Linkedin, Instagram, Mail, ArrowRight, Download, Code2, FolderGit2, Flame } from 'lucide-react';
 import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
 import TypewriterEffect from './TypewriterEffect';
+import GradientBlob from './GradientBlob';
 
 const AnimatedCounter = ({ from, to, prefix = "+" }) => {
     const ref = React.useRef(null);
@@ -31,8 +32,11 @@ const AnimatedCounter = ({ from, to, prefix = "+" }) => {
 const Hero = () => {
     return (
         <section id="home" className="relative">
+            {/* Gradient Blob Background */}
+            <GradientBlob />
+
             {/* Right Column (Main Content) */}
-            <div className="flex-1 flex flex-col">
+            <div className="flex-1 flex flex-col relative z-10">
 
                 {/* Main Heading Stack */}
                 <div className="mb-12">

@@ -7,91 +7,118 @@ import {
     GitBranch, Github, Code, Send, Image, Key, Sparkles, PenTool
 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import Tilt from 'react-parallax-tilt';
+import { useTheme } from './ThemeContext';
 
 const skillCategories = [
     {
         title: "Languages",
-        color: "text-[#f97316]",
+        color: "#f97316",
         skills: [
-            { name: "C", subtitle: "Programming Language", icon: Code2, color: "text-blue-400" },
-            { name: "C++", subtitle: "System Language", icon: FileCode2, color: "text-blue-500" },
-            { name: "Python", subtitle: "Scripting", icon: Terminal, color: "text-yellow-400" },
-            { name: "JavaScript", subtitle: "Web Language", icon: Braces, color: "text-yellow-300" }
+            { name: "C", subtitle: "Programming", icon: Code2, color: "#60a5fa" },
+            { name: "C++", subtitle: "System Lang", icon: FileCode2, color: "#3b82f6" },
+            { name: "Python", subtitle: "Scripting", icon: Terminal, color: "#facc15" },
+            { name: "JavaScript", subtitle: "Web Lang", icon: Braces, color: "#fde047" }
         ]
     },
     {
         title: "Frontend",
-        color: "text-[#a3e635]",
+        color: "#a3e635",
         skills: [
-            { name: "React.js", subtitle: "UI Library", icon: Atom, color: "text-cyan-400" },
-            { name: "Tailwind CSS", subtitle: "Styling Framework", icon: Wind, color: "text-teal-400" },
-            { name: "HTML5", subtitle: "Markup", icon: LayoutTemplate, color: "text-orange-500" },
-            { name: "CSS3", subtitle: "Styling", icon: Palette, color: "text-blue-400" },
-            { name: "Framer Motion", subtitle: "Animation Library", icon: Figma, color: "text-pink-400" }
+            { name: "React.js", subtitle: "UI Library", icon: Atom, color: "#22d3ee" },
+            { name: "Tailwind", subtitle: "CSS Framework", icon: Wind, color: "#2dd4bf" },
+            { name: "HTML5", subtitle: "Markup", icon: LayoutTemplate, color: "#f97316" },
+            { name: "CSS3", subtitle: "Styling", icon: Palette, color: "#60a5fa" },
+            { name: "Framer", subtitle: "Animation", icon: Figma, color: "#f472b6" }
         ]
     },
     {
         title: "Backend & Databases",
-        color: "text-[#f97316]",
+        color: "#f97316",
         skills: [
-            { name: "Node.js", subtitle: "Runtime", icon: Server, color: "text-green-500" },
-            { name: "Express.js", subtitle: "Framework", icon: Box, color: "text-gray-300" },
-            { name: "MongoDB", subtitle: "NoSQL DB", icon: Database, color: "text-green-600" },
-            { name: "Mongoose", subtitle: "ODM", icon: LayoutGrid, color: "text-red-400" },
-            { name: "Redis", subtitle: "Caching", icon: Cpu, color: "text-red-500" },
-            { name: "SQL", subtitle: "Relational DB", icon: Database, color: "text-blue-300" },
-            { name: "Socket.io", subtitle: "Real-time", icon: Network, color: "text-white" },
-            { name: "REST APIs", subtitle: "Integration", icon: Webhook, color: "text-purple-400" }
+            { name: "Node.js", subtitle: "Runtime", icon: Server, color: "#22c55e" },
+            { name: "Express", subtitle: "Framework", icon: Box, color: "#d1d5db" },
+            { name: "MongoDB", subtitle: "NoSQL DB", icon: Database, color: "#16a34a" },
+            { name: "Mongoose", subtitle: "ODM", icon: LayoutGrid, color: "#f87171" },
+            { name: "Redis", subtitle: "Caching", icon: Cpu, color: "#ef4444" },
+            { name: "SQL", subtitle: "Relational DB", icon: Database, color: "#93c5fd" },
+            { name: "Socket.io", subtitle: "Real-time", icon: Network, color: "#e5e7eb" },
+            { name: "REST APIs", subtitle: "Integration", icon: Webhook, color: "#a78bfa" }
         ]
     },
     {
         title: "DevOps & Cloud",
-        color: "text-[#a3e635]",
+        color: "#a3e635",
         skills: [
-            { name: "Linux", subtitle: "OS", icon: Terminal, color: "text-yellow-200" },
-            { name: "Docker", subtitle: "Containerization", icon: Container, color: "text-blue-500" },
-            { name: "AWS", subtitle: "Cloud Infrastructure", icon: Cloud, color: "text-orange-400" }
+            { name: "Linux", subtitle: "OS", icon: Terminal, color: "#fef08a" },
+            { name: "Docker", subtitle: "Containers", icon: Container, color: "#3b82f6" },
+            { name: "AWS", subtitle: "Cloud Infra", icon: Cloud, color: "#fb923c" }
         ]
     },
     {
         title: "Tools",
-        color: "text-[#f97316]",
+        color: "#f97316",
         skills: [
-            { name: "Git", subtitle: "Version Control", icon: GitBranch, color: "text-orange-500" },
-            { name: "GitHub", subtitle: "Collaboration", icon: Github, color: "text-white" },
-            { name: "VS Code", subtitle: "IDE", icon: Code, color: "text-blue-500" },
-            { name: "Postman", subtitle: "API Testing", icon: Send, color: "text-orange-400" },
-            { name: "Cloudinary", subtitle: "Media Storage", icon: Image, color: "text-blue-400" },
-            { name: "Clerk", subtitle: "Auth", icon: Key, color: "text-indigo-400" },
-            { name: "Gemini API", subtitle: "AI Integration", icon: Sparkles, color: "text-blue-300" },
-            { name: "Canva", subtitle: "Design", icon: PenTool, color: "text-cyan-300" }
+            { name: "Git", subtitle: "Version Ctrl", icon: GitBranch, color: "#f97316" },
+            { name: "GitHub", subtitle: "Collaboration", icon: Github, color: "#e5e7eb" },
+            { name: "VS Code", subtitle: "IDE", icon: Code, color: "#3b82f6" },
+            { name: "Postman", subtitle: "API Testing", icon: Send, color: "#fb923c" },
+            { name: "Cloudinary", subtitle: "Media", icon: Image, color: "#60a5fa" },
+            { name: "Clerk", subtitle: "Auth", icon: Key, color: "#818cf8" },
+            { name: "Gemini API", subtitle: "AI Integr.", icon: Sparkles, color: "#93c5fd" },
+            { name: "Canva", subtitle: "Design", icon: PenTool, color: "#67e8f9" }
         ]
     }
 ];
 
-const SkillCard = ({ skill }) => {
+const FloatingSkillIcon = ({ skill, index }) => {
+    const { theme } = useTheme();
     const Icon = skill.icon;
-    return (
-        <motion.div variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="h-full">
-            <Tilt tiltMaxAngleX={12} tiltMaxAngleY={12} scale={1.03} transitionSpeed={1000} className="h-full">
-                <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-4 flex items-center gap-4 hover:border-[var(--color-accent)] transition-colors duration-300 group h-full cursor-pointer">
-                    {/* Icon Container */}
-                    <div className="w-12 h-12 rounded-lg bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
-                        <Icon size={24} className={`${skill.color} opacity-80 group-hover:opacity-100 transition-opacity`} />
-                    </div>
+    const color = skill.color;
 
-                    {/* Text Content */}
-                    <div className="flex flex-col overflow-hidden">
-                        <span className="text-[var(--color-text-primary)] font-bold text-[16px] xl:text-[17px] truncate tracking-wide">
-                            {skill.name}
-                        </span>
-                        <span className="text-[var(--color-text-secondary)] text-[13px] xl:text-[14px] truncate font-medium mt-0.5">
-                            {skill.subtitle}
-                        </span>
-                    </div>
+    return (
+        <motion.div
+            className="flex flex-col items-center gap-2"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.06, duration: 0.4, ease: 'easeOut' }}
+        >
+            <motion.div
+                animate={{
+                    y: [0, -8, 0, 6, 0],
+                }}
+                transition={{
+                    duration: 5 + index * 0.5,
+                    repeat: Infinity,
+                    ease: 'easeInOut',
+                    delay: index * 0.3,
+                }}
+            >
+                {/* Icon container */}
+                <div
+                    className="relative w-20 h-20 rounded-2xl flex items-center justify-center border backdrop-blur-sm transition-all duration-300 hover:scale-110"
+                    style={{
+                        borderColor: `${color}30`,
+                        backgroundColor: theme === 'dark'
+                            ? `${color}12`
+                            : `${color}18`,
+                    }}
+                >
+                    {/* Glow */}
+                    <div
+                        className="absolute inset-0 rounded-2xl blur-xl opacity-20"
+                        style={{ background: color }}
+                    />
+                    <Icon size={38} style={{ color }} className="relative z-10" />
                 </div>
-            </Tilt>
+            </motion.div>
+            {/* Label */}
+            <span className="text-[15px] font-bold tracking-wide text-[var(--color-text-primary)]">
+                {skill.name}
+            </span>
+            <span className="text-[12px] font-medium text-[var(--color-text-secondary)] opacity-60 -mt-1">
+                {skill.subtitle}
+            </span>
         </motion.div>
     );
 };
@@ -121,30 +148,26 @@ const Skills = () => {
                 </motion.span>
             </h3>
 
-            <div className="flex flex-col gap-12">
+            <div className="flex flex-col gap-14">
                 {skillCategories.map((category, idx) => (
                     <div key={idx} className="flex flex-col">
                         {/* Category Header */}
-                        <h4 className={`text-[20px] font-bold mb-6 font-sans tracking-wider uppercase ${category.color}`}>
+                        <h4
+                            className="text-[20px] font-bold mb-8 font-sans tracking-wider uppercase"
+                            style={{ color: category.color }}
+                        >
                             {category.title}
                         </h4>
 
-                        {/* Bento Grid layout for cards */}
-                        <motion.div
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true, margin: "-80px" }}
-                            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-                            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-                        >
+                        {/* Floating Icons Row */}
+                        <div className="flex flex-wrap justify-start gap-8 sm:gap-10 lg:gap-12">
                             {category.skills.map((skill, sIdx) => (
-                                <SkillCard key={sIdx} skill={skill} />
+                                <FloatingSkillIcon key={sIdx} skill={skill} index={sIdx} />
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
                 ))}
             </div>
-
         </section>
     );
 };
