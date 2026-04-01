@@ -5,18 +5,55 @@ import TypewriterEffect from './TypewriterEffect';
 import GradientBlob from './GradientBlob';
 import Tilt from 'react-parallax-tilt';
 
-// Reusable animated terminal line component
-const TerminalLine = ({ children, delay, color }) => (
-    <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay, duration: 0.3, ease: 'easeOut' }}
-        style={{ color }}
-    >
-        {children}
-    </motion.div>
-);
+// Typewriter terminal line — types out text character by character
+const TerminalLine = ({ children, delay, color, text }) => {
+    const ref = React.useRef(null);
+    const isInView = useInView(ref, { once: true });
+    const [displayedChars, setDisplayedChars] = React.useState(0);
+    const [started, setStarted] = React.useState(false);
+
+    // If 'text' prop is provided, use typewriter effect
+    const useTypewriter = typeof text === 'string';
+    const charSpeed = 25; // ms per character
+
+    React.useEffect(() => {
+        if (!isInView || !useTypewriter) return;
+        const timer = setTimeout(() => setStarted(true), delay * 1000);
+        return () => clearTimeout(timer);
+    }, [isInView, delay, useTypewriter]);
+
+    React.useEffect(() => {
+        if (!started || !useTypewriter) return;
+        if (displayedChars >= text.length) return;
+        const timer = setTimeout(() => setDisplayedChars(prev => prev + 1), charSpeed);
+        return () => clearTimeout(timer);
+    }, [started, displayedChars, text, useTypewriter]);
+
+    if (useTypewriter) {
+        return (
+            <div ref={ref} style={{ color, minHeight: '1.2em' }}>
+                {started ? text.slice(0, displayedChars) : ''}
+                {started && displayedChars < text.length && (
+                    <span className="inline-block w-1.5 h-3.5 bg-current opacity-70 ml-px animate-pulse" />
+                )}
+            </div>
+        );
+    }
+
+    // Fallback for JSX children — use fade-in
+    return (
+        <motion.div
+            ref={ref}
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay, duration: 0.3, ease: 'easeOut' }}
+            style={{ color }}
+        >
+            {children}
+        </motion.div>
+    );
+};
 
 const AnimatedCounter = ({ from, to, prefix = "+" }) => {
     const ref = React.useRef(null);
@@ -121,15 +158,16 @@ const Hero = () => {
 
                         {/* Terminal Body */}
                         <div className="px-6 py-5 flex-1 flex flex-col gap-1.5 font-mono text-[12px] sm:text-[13px] leading-relaxed">
-                            <TerminalLine delay={0.3} color="#6b7280">{`// about_me.js`}</TerminalLine>
-                            <TerminalLine delay={0.5} color="#c792ea">{`const`} <span className="text-[#82aaff]">arshiya</span> <span className="text-white">=</span> {`{`}</TerminalLine>
-                            <TerminalLine delay={0.7} color="#ffcb6b">{`  role`}<span className="text-white">{`: `}</span><span className="text-[#c3e88d]">"Full-Stack Engineer"</span><span className="text-white">,</span></TerminalLine>
-                            <TerminalLine delay={0.9} color="#c792ea">{`};`}</TerminalLine>
+                            <TerminalLine delay={0.3} color="#6b7280" text="// about_me.js" />
+                            <TerminalLine delay={0.8} color="#c792ea" text='const arshiya = {' />
+                            <TerminalLine delay={1.5} color="#ffcb6b" text='  role: "Full-Stack Engineer",' />
+                            <TerminalLine delay={2.5} color="#c792ea" text="};" />
                             <div className="h-2" />
-                            <TerminalLine delay={1.1} color="#546e7a">{`/**`}</TerminalLine>
-                            <TerminalLine delay={1.3} color="#546e7a">{` * Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset  with deep MERN stack expertise to deliver high-performance, optimized architectures.`}</TerminalLine>
+                            <TerminalLine delay={2.8} color="#546e7a" text="/**" />
+                            <TerminalLine delay={3.0} color="#546e7a" text=" * Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset with deep MERN stack expertise to deliver high-performance, optimized architectures." />
 
-                            <TerminalLine delay={1.6} color="#546e7a">{` * Whether integrating AI-driven features or streamlining backend processing, I bridge complex challenges and intuitive user experiences through clean code.`}</TerminalLine>
+                            <TerminalLine delay={8.0} color="#546e7a" text=" * Whether integrating AI-driven features or streamlining backend processing, I bridge complex challenges and intuitive user experiences through clean code." />
+                            <TerminalLine delay={12.0} color="#546e7a" text=" */" />
 
                             {/* Blinking cursor — appears after all lines */}
                             <motion.div
@@ -167,25 +205,20 @@ const Hero = () => {
                                 glareColor="#ffffff"
                                 className="rounded-[2rem]"
                             >
-                                <div className="bg-[#b3ff3b] rounded-[2rem] p-6 sm:p-8 flex items-center justify-between relative overflow-hidden group border border-[#a4e612]">
-                                    {/* SVG Zig-Zag Background */}
-                                    <div className="absolute inset-0 pointer-events-none z-0">
-                                        <svg width="100%" height="100%" viewBox="0 0 400 150" preserveAspectRatio="none">
-                                            <path d="M0,100 L50,60 L100,130 L150,30 L200,110 L250,20 L300,90 L350,40 L400,100" fill="none" stroke="#addb25" strokeWidth="3" />
-                                            <path d="M0,120 L80,80 L120,140 L180,50 L240,120 L300,60 L350,100 L400,70" fill="none" stroke="#9bc91a" strokeWidth="2" opacity="0.4" />
-                                        </svg>
-                                    </div>
+                                <div className="bg-white/5 backdrop-blur-xl rounded-[2rem] p-6 sm:p-8 flex items-center justify-between relative overflow-hidden group border border-white/10 hover:border-[#2563eb]/30 dark:hover:border-[#f97316]/30 transition-all duration-300">
+                                    {/* Accent left stripe — blue in light, orange in dark */}
+                                    <div className="absolute left-0 top-4 bottom-4 w-1 rounded-full bg-gradient-to-b from-[#2563eb] to-[#3b82f6] dark:from-[#f97316] dark:to-[#f59e0b]" />
 
-                                    <div className="relative z-10 flex flex-col gap-2">
+                                    <div className="relative z-10 flex flex-col gap-2 pl-3">
                                         {/* Pulsing icon */}
                                         <motion.div
-                                            className="bg-black/10 p-2.5 rounded-xl backdrop-blur-sm w-max text-black"
+                                            className="bg-[#2563eb]/10 dark:bg-[#f97316]/10 p-2.5 rounded-xl w-max text-[#2563eb] dark:text-[#f97316]"
                                             animate={{ scale: [1, 1.05, 1] }}
                                             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                                         >
                                             <FolderGit2 size={20} />
                                         </motion.div>
-                                        <h3 className="text-black font-bold text-lg xl:text-xl uppercase leading-tight">
+                                        <h3 className="text-[var(--color-text-primary)] font-bold text-lg xl:text-xl uppercase leading-tight">
                                             View My Resume
                                         </h3>
                                     </div>
@@ -194,7 +227,7 @@ const Hero = () => {
                                         whileHover={{ scale: 1.1, rotate: -45 }}
                                         whileTap={{ scale: 0.95 }}
                                         href="https://drive.google.com/file/d/1FjikijeCaoffE8nxvKPpQTsDe7q9nLHy/view?usp=sharing" target="_blank" rel="noopener noreferrer"
-                                        className="relative z-10 bg-black text-[#b3ff3b] w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-black transition-colors duration-300 cursor-pointer flex-shrink-0"
+                                        className="relative z-10 bg-[#2563eb] dark:bg-[#f97316] text-white w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-[#2563eb] dark:group-hover:text-[#f97316] transition-colors duration-300 cursor-pointer flex-shrink-0"
                                     >
                                         <ArrowRight size={20} className="-rotate-45" />
                                     </motion.a>
@@ -229,8 +262,8 @@ const Hero = () => {
 
 
                                 {/* availability */}
-                                <TerminalLine delay={2.0} color="#f97316">{`$ availability`}</TerminalLine>
-                                <TerminalLine delay={2.2} color="#6b7280">
+                                <TerminalLine delay={0.3} color="#f97316" text="$ availability" />
+                                <TerminalLine delay={0.8} color="#6b7280">
                                     <span className="text-[#84cc16]">▸ </span>
                                     <span>open_to_hire: </span>
                                     <span className="text-[#84cc16]">true</span>
@@ -249,30 +282,30 @@ const Hero = () => {
                                         />
                                     </span>
                                 </TerminalLine>
-                                <TerminalLine delay={2.4} color="#6b7280">
+                                <TerminalLine delay={1.0} color="#6b7280">
                                     <span className="text-[#84cc16]">▸ </span>
                                     <span>type: </span>
                                     <span className="text-[#84cc16]">fulltime/intern</span>
                                 </TerminalLine>
-                                <TerminalLine delay={2.6} color="#6b7280">
+                                <TerminalLine delay={1.2} color="#6b7280">
                                     <span className="text-[#84cc16]">▸ </span>
                                     <span>remote: </span>
                                     <span className="text-[#84cc16]">true</span>
                                 </TerminalLine>
-                                <TerminalLine delay={2.6} color="#6b7280">
+                                <TerminalLine delay={1.4} color="#6b7280">
                                     <span className="text-[#84cc16]">▸ </span>
                                     <span>open_to_relocation: </span>
                                     <span className="text-[#84cc16]">true</span>
                                 </TerminalLine>
-                                <TerminalLine delay={2.8} color="#6b7280">
+                                <TerminalLine delay={1.6} color="#6b7280">
                                     <span className="text-[#84cc16]">▸ </span>
                                     <span>location: </span>
                                     <span className="text-[#f97316]">"India"</span>
                                 </TerminalLine>
-                                <TerminalLine delay={2.6} color="#6b7280">
+                                <TerminalLine delay={1.8} color="#6b7280">
                                     <span className="text-[#84cc16]">▸ </span>
                                     <span>response_time: </span>
-                                    <span className="text-[#84cc16]">"24 hours"</span>
+                                    <span className="text-[#84cc16]">" less 24 hours"</span>
                                 </TerminalLine>
 
 
@@ -281,7 +314,7 @@ const Hero = () => {
                                     initial={{ opacity: 0 }}
                                     whileInView={{ opacity: 1 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: 3.0 }}
+                                    transition={{ delay: 2.2 }}
                                     className="mt-1"
                                 >
                                     <motion.span
