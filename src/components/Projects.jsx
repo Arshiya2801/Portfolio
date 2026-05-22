@@ -29,6 +29,29 @@ const PrimaryProjects = [
         link: 'https://github.com/Arshiya2801/MindClash'
     },
     {
+        title: 'Apollo — AI Coding Coach & Workspace',
+        icon: Laptop,
+        tagline: 'An AI-powered coding workspace and interview simulator.',
+        features: [
+              { title: 'Intelligent Coding Assistance', desc: 'Provides real-time code explanation, debugging, and review through 20+ specialized AI personas, enhancing learning and productivity.' },
+              { title: 'Interactive Development Environment', desc: 'Integrates Monaco Editor and Judge0 for secure multi-language execution with instant feedback and collaborative live sessions.' },
+              { title: 'Interview Simulator', desc: 'Features dynamic problem generation, adaptive difficulty scaling, timed assessments, and AI evaluations that mirror real interview experiences.' },
+              { title: 'Secure & Personalized Experience', desc: 'Implements JWT authentication, bcrypt hashing, and MongoDB-backed session management to maintain secure user accounts and coding history.' }
+        ],
+           whyUnique: 'Combines an AI mentor, coding workspace, and interview coach into a single environment that explains code, reviews solutions, simulates interviews, and provides personalized feedback.',
+        tags: [
+            { name: 'React', type: 'frontend' },
+            { name: 'Node.js', type: 'backend' },
+            { name: 'Express.js', type: 'backend' },
+            { name: 'Monaco', type: 'frontend' },
+            { name: 'Gemini API', type: 'backend' },
+            { name: 'WebRTC', type: 'backend' },
+            { name: 'Socket.io', type: 'backend' },
+            { name: 'Judge0', type: 'backend' }
+        ],
+        link: 'https://github.com/Arshiya2801/Apollo'
+    },
+    {
         title: 'TalentIQ',
         icon: Laptop,
         tagline: 'The all-in-one technical interview environment for remote assessments.',
@@ -70,27 +93,7 @@ const PrimaryProjects = [
         ],
         link: 'https://github.com/Arshiya2801/Streamly'
     },
-    {
-        title: 'Niche-Nest',
-        icon: Briefcase,
-        tagline: 'Job portal connecting employers and talent with automated recruitment.',
-        features: [
-            { title: 'End-to-End Recruitment', desc: 'Streamlines the entire job lifecycle, from candidate registration and profile management to seamless job posting and application tracking.' },
-            { title: 'Automated Engagement', desc: 'Leverages Node Cron to handle automated newsletters, ensuring consistent candidate communication and job updates without manual intervention.' },
-            { title: 'Robust State Architecture', desc: 'Implements Redux Toolkit to manage complex application state, resulting in a highly performant and responsive UI across user dashboards.' }
-        ],
-        whyUnique: 'It moves beyond a basic job board by solving the engagement problem through automated scheduling and enterprise-grade state management, offering a professional experience for recruiters and job seekers.',
-        tags: [
-            { name: 'MongoDB', type: 'backend' },
-            { name: 'Express.js', type: 'backend' },
-            { name: 'React', type: 'frontend' },
-            { name: 'Node.js', type: 'backend' },
-            { name: 'Redux', type: 'frontend' },
-            { name: 'Redux Toolkit', type: 'frontend' },
-            { name: 'Node Cron', type: 'backend' }
-        ],
-        link: 'https://github.com/Arshiya2801/Niche-Nest'
-    }
+    
 ];
 
 const SecondaryProjects = [
@@ -177,6 +180,7 @@ const ProjectRow = ({ project }) => {
                                 <span className="text-[#4D4D4D] text-xs font-semibold">80x80</span>
                             )}
                         </div>
+                        
 
                         {/* Middle Content */}
                         <div className="flex flex-col flex-1">
@@ -244,22 +248,24 @@ const ProjectRow = ({ project }) => {
                                     </p>
                                 </div>
                             )}
+                        
+                            {/* Tech Stack Pills (hidden until expanded) */}
+                            <div className="flex flex-wrap gap-2 pb-2 mt-4">
+                                {project.tags.map((tag, index) => (
+                                    <span
+                                        key={index}
+                                        className={`px-3 py-1 rounded-full text-[13px] font-semibold tracking-wide ${tag.type === 'frontend'
+                                            ? 'bg-[#a3e635]/15 text-[#a3e635] border border-[#a3e635]/30'
+                                            : 'bg-[#f97316]/15 text-[#f97316] border border-[#f97316]/30'
+                                            }`}
+                                    >
+                                        {tag.name}
+                                    </span>
+                                ))}
+                            </div>
                         </div>
 
-                        {/* Tech Stack Pills */}
-                        <div className="flex flex-wrap gap-2 pb-2">
-                            {project.tags.map((tag, index) => (
-                                <span
-                                    key={index}
-                                    className={`px-3 py-1 rounded-full text-[13px] font-semibold tracking-wide ${tag.type === 'frontend'
-                                        ? 'bg-[#a3e635]/15 text-[#a3e635] border border-[#a3e635]/30'
-                                        : 'bg-[#f97316]/15 text-[#f97316] border border-[#f97316]/30'
-                                        }`}
-                                >
-                                    {tag.name}
-                                </span>
-                            ))}
-                        </div>
+                        
                     </div>
                 </div>
             </motion.div>
