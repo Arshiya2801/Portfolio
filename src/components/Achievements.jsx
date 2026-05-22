@@ -19,6 +19,20 @@ const achievementsData = [
         color: '#3b82f6'
     },
     {
+        icon: Code2,
+        title: 'Competitive Programming',
+        highlight: '500+ Problems Solved',
+        desc: 'Across LeetCode (Rating: 1665), CodeChef (3 Star) & GeeksforGeeks.',
+        color: '#f97316'
+    },
+    {
+        icon: Users,
+        title: 'Open Source Contributor',
+        highlight: 'GSSoC 2024',
+        desc: 'Active contributor during GirlScript Summer of Code 2024.',
+        color: '#8b5cf6'
+    },
+    {
         icon: Flame,
         title: 'Adobe GenSolve Hackathon',
         highlight: 'Round 2 Qualifier',
@@ -31,20 +45,6 @@ const achievementsData = [
         highlight: 'Gold & Bronze Medals',
         desc: 'Gold Medal in Basketball and Bronze Medal in 400m Relay at IIIT Una.',
         color: '#22c55e'
-    },
-    {
-        icon: Code2,
-        title: 'Competitive Programming',
-        highlight: '450+ Problems Solved',
-        desc: 'Across LeetCode (Rating: 1600), CodeChef & GeeksforGeeks.',
-        color: '#f97316'
-    },
-    {
-        icon: Users,
-        title: 'Open Source Contributor',
-        highlight: 'GSSoC 2024',
-        desc: 'Active contributor during GirlScript Summer of Code 2024.',
-        color: '#8b5cf6'
     },
     {
         icon: Award,
