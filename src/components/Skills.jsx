@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from './ThemeContext';
+import msLogo from '../assets/microsoft-logo.svg';
+import cwLogo from '../assets/commonwealth-logo.svg';
 
 const skillCategories = [
     {
@@ -129,6 +131,29 @@ const FloatingSkillIcon = ({ skill, index }) => {
 };
 
 const Skills = () => {
+    const certifications = [
+        {
+            id: 1,
+            title: 'Commonwealth Bank Software Engineering Job Simulation',
+            issuer: 'Commonwealth Bank',
+            date: '2024',
+            link: '#',
+            logo: cwLogo,
+            color: '#ffd400',
+            description: 'Completed full-stack engineering tasks involving React state management, REST API testing, and Jest-based unit testing.'
+        },
+        {
+            id: 2,
+            title: 'GitHub Foundations',
+            issuer: 'Microsoft Learn',
+            date: '2023',
+            link: '#',
+            logo: msLogo,
+            color: '#0078D6',
+            description: 'Certification covering GitHub fundamentals and version control.'
+        }
+    ];
+
     return (
         <section id="skills" className="relative scroll-mt-32">
             {/* Header */}
@@ -172,6 +197,61 @@ const Skills = () => {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            {/* Certifications Section (cards) */}
+            <div className="mt-12">
+                <h4
+                    className="text-[20px] font-bold mb-6 font-sans tracking-wider uppercase"
+                    style={{ color: '#60a5fa' }}
+                >
+                    CERTIFICATIONS
+                </h4>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {certifications.map((cert) => (
+                        <motion.div
+                            key={cert.id}
+                            className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl p-4 hover:border-[var(--color-accent)] transition-all duration-300 group relative overflow-hidden"
+                            initial={{ opacity: 0, y: 8 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5 }}
+                        >
+                            {/* Subtle glow like Achievement cards */}
+                            <div
+                                className="absolute -top-10 -left-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none blur-2xl"
+                                style={{ background: cert.color }}
+                            />
+
+                            <div className="relative z-10 flex items-start gap-4">
+                                <div
+                                    className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300"
+                                    style={{ backgroundColor: `${cert.color}15` }}
+                                >
+                                    <img src={cert.logo} alt={`${cert.issuer} logo`} className="w-8 h-8 object-contain" />
+                                </div>
+
+                                <div className="flex-1 min-w-0">
+                                    <div className="text-sm text-[var(--color-text-secondary)]">{cert.issuer} • <span className="font-medium">{cert.date}</span></div>
+                                    <div className="text-[16px] font-semibold mt-2">{cert.title}</div>
+                                    <div className="text-[13px] text-[var(--color-text-secondary)] mt-2">{cert.description}</div>
+                                </div>
+
+                                <div className="ml-4">
+                                    <a
+                                        href={cert.link}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                        className="inline-block px-3 py-1.5 bg-[var(--color-accent)] text-white rounded-md text-sm hover:opacity-95"
+                                    >
+                                        View
+                                    </a>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
         </section>
     );
