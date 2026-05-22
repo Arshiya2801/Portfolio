@@ -10,7 +10,7 @@ const educationData = [
         grade: "Current CGPA: 8.5",
         logo: "/iiit-logo.png",
         details: [
-            { label: "Relevant Coursework", value: "Data Structures and Algorithms, Database Management System, Operating Systems, Computer Networks, Software Engineering, Software Development Life Cycle (SDLC)" }
+            { label: "Relevant Coursework", value: "Data Structures and Algorithms (DSA), Database Management System (DBMS), Operating Systems, Computer Networks, Software Engineering, Object-Oriented Programming (OOP)" }
         ]
     },
     {

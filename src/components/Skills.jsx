@@ -4,7 +4,8 @@ import {
     Atom, Wind, LayoutTemplate, Palette, Figma,
     Server, Box, Database, Network, Cpu, LayoutGrid, Globe, Webhook,
     Terminal, Container, Cloud,
-    GitBranch, Github, Code, Send, Image, Key, Sparkles, PenTool
+    GitBranch, Github, Code, Send, Image, Key, Sparkles, PenTool,
+    Radio, Wifi, Shield, Brain, Monitor
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from './ThemeContext';
@@ -39,10 +40,12 @@ const skillCategories = [
             { name: "Express", subtitle: "Framework", icon: Box, color: "#d1d5db" },
             { name: "MongoDB", subtitle: "NoSQL DB", icon: Database, color: "#16a34a" },
             { name: "Mongoose", subtitle: "ODM", icon: LayoutGrid, color: "#f87171" },
-            { name: "Redis", subtitle: "Caching", icon: Cpu, color: "#ef4444" },
+            { name: "Redis", subtitle: "Caching", icon: Database, color: "#dc382d" },
             { name: "SQL", subtitle: "Relational DB", icon: Database, color: "#93c5fd" },
             { name: "Socket.io", subtitle: "Real-time", icon: Network, color: "#e5e7eb" },
-            { name: "REST APIs", subtitle: "Integration", icon: Webhook, color: "#a78bfa" }
+            { name: "WebRTC", subtitle: "Video Calls", icon: Wifi, color: "#5c6bc0" },
+            { name: "JWT", subtitle: "Authentication", icon: Shield, color: "#ff6b6b" },
+            { name: "REST APIs", subtitle: "Integration", icon: Code2, color: "#14b8a6" }
         ]
     },
     {
@@ -64,7 +67,9 @@ const skillCategories = [
             { name: "Postman", subtitle: "API Testing", icon: Send, color: "#fb923c" },
             { name: "Cloudinary", subtitle: "Media", icon: Image, color: "#60a5fa" },
             { name: "Clerk", subtitle: "Auth", icon: Key, color: "#818cf8" },
-            { name: "Gemini API", subtitle: "AI Integr.", icon: Sparkles, color: "#93c5fd" },
+            { name: "Gemini AI", subtitle: "LLM", icon: Brain, color: "#4285f4" },
+            { name: "Monaco", subtitle: "Code Editor", icon: Monitor, color: "#007acc" },
+            { name: "Judge0", subtitle: "Code Execution", icon: Cpu, color: "#ff6b00" },
             { name: "Canva", subtitle: "Design", icon: PenTool, color: "#67e8f9" }
         ]
     }
