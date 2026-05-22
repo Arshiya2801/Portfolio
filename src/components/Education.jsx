@@ -7,7 +7,7 @@ const educationData = [
         institution: "Indian Institute of Information Technology, Una",
         degree: "B.Tech in Information Technology",
         date: "2023 – Present",
-        grade: "Current CGPA: 8.43",
+        grade: "Current CGPA: 8.5",
         logo: "/iiit-logo.png",
         details: [
             { label: "Relevant Coursework", value: "Data Structures and Algorithms, Database Management System, Operating Systems, Computer Networks, Software Engineering, Software Development Life Cycle (SDLC)" }

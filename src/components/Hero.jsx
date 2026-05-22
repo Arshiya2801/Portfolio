@@ -118,15 +118,15 @@ const Hero = () => {
                 {/* Stats Row */}
                 <div className="grid grid-cols-3 gap-6 mb-16 border-b border-[var(--color-border)] pb-12">
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={1} /></span>
-                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Years of<br />Experience</span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={3} /></span>
+                        <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Months of<br />Experience</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={7} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={8} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={400} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={500} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
                     </div>
                 </div>
@@ -226,7 +226,7 @@ const Hero = () => {
                                     <motion.a
                                         whileHover={{ scale: 1.1, rotate: -45 }}
                                         whileTap={{ scale: 0.95 }}
-                                        href="https://drive.google.com/file/d/1FjikijeCaoffE8nxvKPpQTsDe7q9nLHy/view?usp=sharing" target="_blank" rel="noopener noreferrer"
+                                        href="https://drive.google.com/drive/folders/1TlqxxEr6OPjUVeIj5pLWwdh7ZUR0b5Jy?usp=sharing" target="_blank" rel="noopener noreferrer"
                                         className="relative z-10 bg-[#2563eb] dark:bg-[#f97316] text-white w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-[#2563eb] dark:group-hover:text-[#f97316] transition-colors duration-300 cursor-pointer flex-shrink-0"
                                     >
                                         <ArrowRight size={20} className="-rotate-45" />

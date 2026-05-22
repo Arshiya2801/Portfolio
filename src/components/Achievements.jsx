@@ -35,8 +35,8 @@ const achievementsData = [
     {
         icon: Code2,
         title: 'Competitive Programming',
-        highlight: '400+ Problems Solved',
-        desc: 'Across LeetCode (Rating: 1556), CodeChef & GeeksforGeeks.',
+        highlight: '450+ Problems Solved',
+        desc: 'Across LeetCode (Rating: 1600), CodeChef & GeeksforGeeks.',
         color: '#f97316'
     },
     {
