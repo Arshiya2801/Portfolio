@@ -1,12 +1,39 @@
 import React, { useState, useRef } from 'react';
-import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart, Briefcase } from 'lucide-react';
+import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart, Briefcase, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import { useTheme } from './ThemeContext';
 
 const PrimaryProjects = [
+
+    {
+        title: 'Apollo — AI Coding Coach & Workspace',
+        thumbnail: '/thumb_apollo.png',
+        icon: Laptop,
+        tagline: 'An AI-powered coding workspace and interview simulator.',
+        features: [
+            { title: 'Intelligent Coding Assistance', desc: 'Provides real-time code explanation, debugging, and review through 20+ specialized AI personas, enhancing learning and productivity.' },
+            { title: 'Interactive Development Environment', desc: 'Integrates Monaco Editor and Judge0 for secure multi-language execution with instant feedback and collaborative live sessions.' },
+            { title: 'Interview Simulator', desc: 'Features dynamic problem generation, adaptive difficulty scaling, timed assessments, and AI evaluations that mirror real interview experiences.' },
+            { title: 'Secure & Personalized Experience', desc: 'Implements JWT authentication, bcrypt hashing, and MongoDB-backed session management to maintain secure user accounts and coding history.' }
+        ],
+        whyUnique: 'Combines an AI mentor, coding workspace, and interview coach into a single environment that explains code, reviews solutions, simulates interviews, and provides personalized feedback.',
+        tags: [
+            { name: 'React', type: 'frontend' },
+            { name: 'Node.js', type: 'backend' },
+            { name: 'Express.js', type: 'backend' },
+            { name: 'Monaco', type: 'frontend' },
+            { name: 'Gemini API', type: 'backend' },
+            { name: 'WebRTC', type: 'backend' },
+            { name: 'Socket.io', type: 'backend' },
+            { name: 'Judge0', type: 'backend' }
+        ],
+        link: 'https://github.com/Arshiya2801/Apollo',
+        deploymentLink: 'https://mind-clash-nine.vercel.app'
+    },
     {
         title: 'MindClash',
+        thumbnail: '/thumb-mind.png',
         icon: Brain,
         tagline: 'A gamified, real-time debate arena with AI-driven moderation.',
         features: [
@@ -26,31 +53,11 @@ const PrimaryProjects = [
             { name: 'Gemini API', type: 'backend' },
             { name: 'Tailwind CSS', type: 'frontend' }
         ],
-        link: 'https://github.com/Arshiya2801/MindClash'
+        link: 'https://github.com/Arshiya2801/MindClash',
+        deploymentLink: 'https://mindclash-live.vercel.app',
+
     },
-    {
-        title: 'Apollo — AI Coding Coach & Workspace',
-        icon: Laptop,
-        tagline: 'An AI-powered coding workspace and interview simulator.',
-        features: [
-              { title: 'Intelligent Coding Assistance', desc: 'Provides real-time code explanation, debugging, and review through 20+ specialized AI personas, enhancing learning and productivity.' },
-              { title: 'Interactive Development Environment', desc: 'Integrates Monaco Editor and Judge0 for secure multi-language execution with instant feedback and collaborative live sessions.' },
-              { title: 'Interview Simulator', desc: 'Features dynamic problem generation, adaptive difficulty scaling, timed assessments, and AI evaluations that mirror real interview experiences.' },
-              { title: 'Secure & Personalized Experience', desc: 'Implements JWT authentication, bcrypt hashing, and MongoDB-backed session management to maintain secure user accounts and coding history.' }
-        ],
-           whyUnique: 'Combines an AI mentor, coding workspace, and interview coach into a single environment that explains code, reviews solutions, simulates interviews, and provides personalized feedback.',
-        tags: [
-            { name: 'React', type: 'frontend' },
-            { name: 'Node.js', type: 'backend' },
-            { name: 'Express.js', type: 'backend' },
-            { name: 'Monaco', type: 'frontend' },
-            { name: 'Gemini API', type: 'backend' },
-            { name: 'WebRTC', type: 'backend' },
-            { name: 'Socket.io', type: 'backend' },
-            { name: 'Judge0', type: 'backend' }
-        ],
-        link: 'https://github.com/Arshiya2801/Apollo'
-    },
+
     {
         title: 'TalentIQ',
         icon: Laptop,
@@ -93,12 +100,13 @@ const PrimaryProjects = [
         ],
         link: 'https://github.com/Arshiya2801/Streamly'
     },
-    
+
 ];
 
 const SecondaryProjects = [
     {
         title: 'Currency Converter',
+        thumbnail: '/thumb-currency.png',
         icon: Coins,
         tagline: 'Sleek React app, API-based real-time conversion, Tailwind CSS.',
         description: 'A responsive currency converter leveraging real-time exchange rates, built with React and styled elegantly using Tailwind CSS for a modern user experience.',
@@ -112,6 +120,7 @@ const SecondaryProjects = [
     },
     {
         title: 'Background Changer',
+        thumbnail: '/thumb-bg.png',
         icon: Palette,
         tagline: 'React app, color palette history, dark/light mode toggle.',
         description: 'An interactive utility that allows users to instantly change the background color of the application, keeping a history of selected palettes and supporting dark/light UI modes.',
@@ -125,6 +134,7 @@ const SecondaryProjects = [
     },
     {
         title: 'To-Do List',
+        thumbnail: '/thumb-todo.png',
         icon: CheckSquare,
         tagline: 'Responsive app, local storage persistence, filterable tags, Vite/React.',
         description: 'A high-performance task management application featuring persistent local storage, dynamic tag filtering, and a lightning-fast Vite-based React setup.',
@@ -138,6 +148,7 @@ const SecondaryProjects = [
     },
     {
         title: 'Customer Segmentation',
+        thumbnail: '/thumb-customer.png',
         icon: PieChart,
         tagline: 'Streamlit ML dashboard, K-Means clustering, PCA visualization.',
         description: 'A comprehensive machine learning dashboard built in Streamlit. It applies K-Means clustering on customer data and visualizes the results intuitively using PCA along with detailed data charts.',
@@ -180,7 +191,7 @@ const ProjectRow = ({ project }) => {
                                 <span className="text-[#4D4D4D] text-xs font-semibold">80x80</span>
                             )}
                         </div>
-                        
+
 
                         {/* Middle Content */}
                         <div className="flex flex-col flex-1">
@@ -195,16 +206,34 @@ const ProjectRow = ({ project }) => {
 
                     {/* Right Side Icons */}
                     <div className="flex flex-col items-end justify-between self-stretch">
-                        {/* GitHub Link - Stop propagation so clicking the link doesn't toggle the accordion */}
-                        <a
-                            href={project.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-2 hover:bg-[#1f1f1f] rounded-lg transition-colors"
-                            onClick={(e) => e.stopPropagation()}
-                        >
-                            <Github size={24} className="text-[#f97316] hover:text-[#ff8f3d] transition-colors" />
-                        </a>
+                        <div className="flex items-center">
+                            {/* Deployment Link */}
+                            {project.deploymentLink && (
+                                <a
+                                    href={project.deploymentLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 hover:bg-[#1f1f1f] rounded-lg transition-colors"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="View Live Site"
+                                >
+                                    <ExternalLink size={24} className="text-[#f97316] hover:text-[#ff8f3d] transition-colors" />
+                                </a>
+                            )}
+                            {/* GitHub Link - Stop propagation so clicking the link doesn't toggle the accordion */}
+                            {project.link && (
+                                <a
+                                    href={project.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="p-2 hover:bg-[#1f1f1f] rounded-lg transition-colors"
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="View Source Code"
+                                >
+                                    <Github size={24} className="text-[#f97316] hover:text-[#ff8f3d] transition-colors" />
+                                </a>
+                            )}
+                        </div>
 
                         {/* Expand Chevron */}
                         <div className={`p-2 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 text-[var(--color-text-primary)]' : 'rotate-0 text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)]'}`}>
@@ -248,7 +277,7 @@ const ProjectRow = ({ project }) => {
                                     </p>
                                 </div>
                             )}
-                        
+
                             {/* Tech Stack Pills (hidden until expanded) */}
                             <div className="flex flex-wrap gap-2 pb-2 mt-4">
                                 {project.tags.map((tag, index) => (
@@ -265,7 +294,7 @@ const ProjectRow = ({ project }) => {
                             </div>
                         </div>
 
-                        
+
                     </div>
                 </div>
             </motion.div>
