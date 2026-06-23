@@ -7,7 +7,7 @@ import { useTheme } from './ThemeContext';
 const PrimaryProjects = [
 
     {
-        title: 'Apollo — AI Coding Coach & Workspace',
+        title: 'Apollo',
         thumbnail: '/thumb_apollo.png',
         icon: Laptop,
         tagline: 'An AI-powered coding workspace and interview simulator.',
@@ -61,7 +61,7 @@ const PrimaryProjects = [
         title: 'MediQueue',
         thumbnail: '/thumb-mediqueue.png',
         // icon: Stethoscope,
-        tagline: 'A full-stack hospital appointment and real-time queue management platform.',
+        tagline: 'A Smart Hospital Appointment & Queue Management System',
         features: [
             {
                 title: 'Smart Appointment Booking',
@@ -199,110 +199,135 @@ const SecondaryProjects = [
 
 const PrimaryProjectCard = ({ project }) => {
     const { theme } = useTheme();
+    const [isExpanded, setIsExpanded] = useState(false);
+    const contentRef = useRef(null);
 
     return (
         <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl overflow-hidden mb-12 transition-all hover:border-[var(--color-accent)] group flex flex-col pointer-events-auto">
-            {/* Big Thumbnail */}
-            <div className={`w-full h-[250px] sm:h-[350px] md:h-[450px] relative overflow-hidden flex items-center justify-center border-b ${theme === 'dark' ? 'bg-[#1a1a1a] border-[var(--color-border)]' : 'bg-[#e5e5e5] border-[var(--color-border)]'}`}>
-                {project.thumbnail ? (
-                    <img src={project.thumbnail} alt={project.title} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02] p-4" />
-                ) : project.icon ? (
-                    <project.icon size={80} className="text-[#4D4D4D] group-hover:text-[#f97316] transition-colors duration-300" />
-                ) : null}
-            </div>
-
-            {/* Content below */}
-            <div className="p-6 sm:p-8 md:p-10">
-                <div className="flex flex-col xl:flex-row justify-between items-start gap-6 mb-8">
-                    <div className="flex-1">
-                        <h3 className="text-[var(--color-text-primary)] text-3xl sm:text-4xl font-bold mb-3 tracking-tight">
-                            {project.title}
-                        </h3>
-                        <p className="text-[var(--color-text-secondary)] text-lg sm:text-xl font-medium leading-relaxed">
-                            {project.tagline}
-                        </p>
-                    </div>
-                    {/* Links */}
-                    <div className="flex items-center gap-3 flex-shrink-0">
-                        {project.deploymentLink && (
-                            <a
-                                href={project.deploymentLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-5 py-3 bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] hover:bg-[var(--color-bg-primary)] hover:border-[#f97316] rounded-xl transition-all flex items-center gap-2 group/link shadow-sm"
-                                title="View Live Site"
-                            >
-                                <span className="text-[var(--color-text-primary)] font-semibold hidden sm:block">Live Demo</span>
-                                <ExternalLink size={20} className="text-[#f97316] group-hover/link:scale-110 transition-transform" />
-                            </a>
-                        )}
-                        {project.link && (
-                            <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="px-5 py-3 bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] hover:bg-[var(--color-bg-primary)] hover:border-[#f97316] rounded-xl transition-all flex items-center gap-2 group/link shadow-sm"
-                                title="View Source Code"
-                            >
-                                <span className="text-[var(--color-text-primary)] font-semibold hidden sm:block">GitHub</span>
-                                <Github size={20} className="text-[#f97316] group-hover/link:scale-110 transition-transform" />
-                            </a>
-                        )}
-                    </div>
+            {/* Clickable Header Area (Thumbnail + Title Block) */}
+            <div className="cursor-pointer" onClick={() => setIsExpanded(!isExpanded)}>
+                {/* Big Thumbnail */}
+                <div className={`w-full h-[250px] sm:h-[350px] md:h-[450px] relative overflow-hidden flex items-center justify-center border-b ${theme === 'dark' ? 'bg-[#1a1a1a] border-[var(--color-border)]' : 'bg-[#e5e5e5] border-[var(--color-border)]'}`}>
+                    {project.thumbnail ? (
+                        <img src={project.thumbnail} alt={project.title} className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-[1.02] p-4" />
+                    ) : project.icon ? (
+                        <project.icon size={80} className="text-[#4D4D4D] group-hover:text-[#f97316] transition-colors duration-300" />
+                    ) : null}
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 border-t border-[var(--color-border)] pt-8">
-                    {/* Detailed Features List */}
-                    <div className="lg:col-span-2 flex flex-col gap-8">
-                        <div>
-                            <h4 className="text-[var(--color-text-primary)] font-bold text-lg mb-4 uppercase tracking-wider text-sm opacity-80">Key Features</h4>
-                            {project.features && (
-                                <ul className="flex flex-col gap-4">
-                                    {project.features.map((feature, idx) => (
-                                        <li key={idx} className="text-[var(--color-text-secondary)] text-[16px] leading-relaxed flex gap-3">
-                                            <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2.5 flex-shrink-0" />
-                                            <div>
-                                                <span className="font-semibold text-[var(--color-text-primary)]">{feature.title}:</span> {feature.desc}
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            )}
+                {/* Title Block & Links */}
+                <div className="p-6 sm:p-8 md:p-10 pb-4 sm:pb-6">
+                    <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center gap-6">
+                        <div className="flex-1 pr-4">
+                            <h3 className="text-[var(--color-text-primary)] text-3xl sm:text-4xl font-bold mb-3 tracking-tight">
+                                {project.title}
+                            </h3>
+                            <p className="text-[var(--color-text-secondary)] text-lg sm:text-xl font-medium leading-relaxed">
+                                {project.tagline}
+                            </p>
                         </div>
-
-                    </div>
-                    
-                    {/* Sidebar Area (Tags Only) */}
-                    <div className="flex flex-col gap-8">
-                        {/* Tech Stack Pills */}
-                        <div>
-                            <h4 className="text-[var(--color-text-primary)] font-bold text-sm mb-4 uppercase tracking-wider opacity-80">Tech Stack</h4>
-                            <div className="flex flex-wrap gap-2.5">
-                                {project.tags.map((tag, index) => (
-                                    <span
-                                        key={index}
-                                        className={`px-4 py-1.5 rounded-full text-[13px] font-bold tracking-wide ${tag.type === 'frontend'
-                                            ? 'bg-[#a3e635]/10 text-[#a3e635] border border-[#a3e635]/20'
-                                            : 'bg-[#f97316]/10 text-[#f97316] border border-[#f97316]/20'
-                                            }`}
+                        {/* Links & Arrow */}
+                        <div className="flex items-center gap-3 flex-shrink-0 w-full xl:w-auto justify-between xl:justify-end">
+                            <div className="flex gap-3">
+                                {project.deploymentLink && (
+                                    <a
+                                        href={project.deploymentLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="px-5 py-3 bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] hover:bg-[var(--color-bg-primary)] hover:border-[#f97316] rounded-xl transition-all flex items-center gap-2 group/link shadow-sm"
+                                        title="View Live Site"
                                     >
-                                        {tag.name}
-                                    </span>
-                                ))}
+                                        <span className="text-[var(--color-text-primary)] font-semibold hidden sm:block">Live Demo</span>
+                                        <ExternalLink size={20} className="text-[#f97316] group-hover/link:scale-110 transition-transform" />
+                                    </a>
+                                )}
+                                {project.link && (
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={(e) => e.stopPropagation()}
+                                        className="px-5 py-3 bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] hover:bg-[var(--color-bg-primary)] hover:border-[#f97316] rounded-xl transition-all flex items-center gap-2 group/link shadow-sm"
+                                        title="View Source Code"
+                                    >
+                                        <span className="text-[var(--color-text-primary)] font-semibold hidden sm:block">GitHub</span>
+                                        <Github size={20} className="text-[#f97316] group-hover/link:scale-110 transition-transform" />
+                                    </a>
+                                )}
+                            </div>
+
+                            {/* Expand Chevron */}
+                            <div className={`p-3 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)]' : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] group-hover:bg-[#f97316]/10'}`}>
+                                <ChevronDown size={24} />
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {/* Why it's Unique Full Width */}
-                {project.whyUnique && (
-                    <div className="mt-8 bg-[var(--color-bg-tertiary)] p-6 rounded-2xl border border-[var(--color-border)]">
-                        <h4 className="text-[var(--color-text-primary)] font-bold text-sm mb-3 uppercase tracking-wider opacity-80">Why it's Unique</h4>
-                        <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed italic border-l-2 border-[#f97316] pl-4">
-                            "{project.whyUnique}"
-                        </p>
+            {/* Expandable Details Section */}
+            <div
+                ref={contentRef}
+                className="transition-all duration-500 ease-in-out overflow-hidden"
+                style={{
+                    maxHeight: isExpanded ? `${contentRef.current?.scrollHeight}px` : '0px',
+                    opacity: isExpanded ? 1 : 0
+                }}
+            >
+                <div className="p-6 sm:p-8 md:p-10 pt-0 sm:pt-0">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 border-t border-[var(--color-border)] pt-8 mt-2">
+                        {/* Detailed Features List */}
+                        <div className="lg:col-span-2 flex flex-col gap-8">
+                            <div>
+                                <h4 className="text-[var(--color-text-primary)] font-bold text-lg mb-4 uppercase tracking-wider text-sm opacity-80">Key Features</h4>
+                                {project.features && (
+                                    <ul className="flex flex-col gap-4">
+                                        {project.features.map((feature, idx) => (
+                                            <li key={idx} className="text-[var(--color-text-secondary)] text-[16px] leading-relaxed flex gap-3">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2.5 flex-shrink-0" />
+                                                <div>
+                                                    <span className="font-semibold text-[var(--color-text-primary)]">{feature.title}:</span> {feature.desc}
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Sidebar Area (Tags Only) */}
+                        <div className="flex flex-col gap-8">
+                            {/* Tech Stack Pills */}
+                            <div>
+                                <h4 className="text-[var(--color-text-primary)] font-bold text-sm mb-4 uppercase tracking-wider opacity-80">Tech Stack</h4>
+                                <div className="flex flex-wrap gap-2.5">
+                                    {project.tags.map((tag, index) => (
+                                        <span
+                                            key={index}
+                                            className={`px-4 py-1.5 rounded-full text-[13px] font-bold tracking-wide ${tag.type === 'frontend'
+                                                ? 'bg-[#a3e635]/10 text-[#a3e635] border border-[#a3e635]/20'
+                                                : 'bg-[#f97316]/10 text-[#f97316] border border-[#f97316]/20'
+                                                }`}
+                                        >
+                                            {tag.name}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                )}
+
+                    {/* Why it's Unique Full Width */}
+                    {project.whyUnique && (
+                        <div className="mt-8 bg-[var(--color-bg-tertiary)] p-6 rounded-2xl border border-[var(--color-border)]">
+                            <h4 className="text-[var(--color-text-primary)] font-bold text-sm mb-3 uppercase tracking-wider opacity-80">Why it's Unique</h4>
+                            <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed italic border-l-2 border-[#f97316] pl-4">
+                                "{project.whyUnique}"
+                            </p>
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
