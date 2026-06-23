@@ -44,8 +44,8 @@ const Experience = () => {
 
                     {/* Sub-header: Role & Date */}
                     <p className="text-[var(--color-text-secondary)] text-[16px] font-normal mb-6 flex items-center gap-2">
-                        <span>Web Development Intern | May 2025 - Jul 2025</span>
-                        <a href="https://drive.google.com/file/d/1WDE_LbZ97aW2FscNiotKboAnVQ30QzT8/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="ml-2 text-sm inline-flex items-center gap-1 text-[var(--color-accent)] hover:underline">
+                        <span>Web Development Intern | January 2026 - February 2026</span>
+                        <a href="https://drive.google.com/file/d/16EhqDJlo8M1cNKoCMPLCjz4GN6BD4goD/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="ml-2 text-sm inline-flex items-center gap-1 text-[var(--color-accent)] hover:underline">
                             <ArrowUpRight size={14} />
                         </a>
                     </p>
