@@ -118,15 +118,15 @@ const Hero = () => {
                 {/* Stats Row */}
                 <div className="grid grid-cols-3 gap-6 mb-16 border-b border-[var(--color-border)] pb-12">
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={3} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={2} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Months of<br />Experience</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={8} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={10} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={500} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={550} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
                     </div>
                 </div>
