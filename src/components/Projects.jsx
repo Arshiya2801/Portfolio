@@ -57,6 +57,40 @@ const PrimaryProjects = [
         deploymentLink: 'https://mindclash-live.vercel.app',
 
     },
+    {
+        title: 'MediQueue',
+        thumbnail: '/thumb-mediqueue.png',
+        icon: Stethoscope,
+        tagline: 'A full-stack hospital appointment and real-time queue management platform.',
+        features: [
+            {
+                title: 'Smart Appointment Booking',
+                desc: 'Allows patients to discover doctors by specialization, view availability, select time slots, and securely book appointments through an intuitive healthcare workflow.'
+            },
+            {
+                title: 'Real-Time Queue Tracking',
+                desc: 'Provides live queue monitoring with token-based tracking, estimated waiting time, patients-ahead calculations, and instant status updates powered by Socket.io.'
+            },
+            {
+                title: 'Role-Based Healthcare Management',
+                desc: 'Features dedicated patient and doctor dashboards for appointment management, queue operations, profile management, earnings tracking, and consultation workflows.'
+            }
+        ],
+        whyUnique: 'Unlike traditional appointment booking systems, MediQueue bridges the gap between scheduling and hospital visits through real-time queue intelligence. Patients can monitor their queue position remotely, while doctors manage appointments, queues, and consultations from a unified dashboard, significantly reducing waiting-room congestion and improving operational efficiency.',
+        tags: [
+            { name: 'MongoDB', type: 'backend' },
+            { name: 'Express.js', type: 'backend' },
+            { name: 'React', type: 'frontend' },
+            { name: 'Node.js', type: 'backend' },
+            { name: 'Socket.io', type: 'backend' },
+            { name: 'JWT', type: 'backend' },
+            { name: 'Razorpay', type: 'backend' },
+            { name: 'Tailwind CSS', type: 'frontend' },
+            { name: 'Cloudinary', type: 'backend' }
+        ],
+        link: 'https://github.com/Arshiya2801/MediQueue',
+        deploymentLink: 'https://mediqueue.vercel.app'
+    },
 
     {
         title: 'TalentIQ',
