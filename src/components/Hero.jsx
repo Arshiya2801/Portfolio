@@ -226,7 +226,7 @@ const Hero = () => {
                                     <motion.a
                                         whileHover={{ scale: 1.1, rotate: -45 }}
                                         whileTap={{ scale: 0.95 }}
-                                        href="https://drive.google.com/drive/folders/1TlqxxEr6OPjUVeIj5pLWwdh7ZUR0b5Jy?usp=sharing" rel="noopener noreferrer"
+                                        href="https://drive.google.com/file/d/1-ORzMv6GS6BgxrEa1W5YaFf2i7-9CttY/view?usp=drive_link" rel="noopener noreferrer"
                                         className="relative z-10 bg-[#2563eb] dark:bg-[#f97316] text-white w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-[#2563eb] dark:group-hover:text-[#f97316] transition-colors duration-300 cursor-pointer flex-shrink-0"
                                     >
                                         <ArrowRight size={20} className="-rotate-45" />
