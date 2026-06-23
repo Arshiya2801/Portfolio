@@ -134,20 +134,20 @@ const Skills = () => {
     const certifications = [
         {
             id: 1,
-            title: 'Commonwealth Bank Software Engineering Job Simulation',
-            issuer: 'Commonwealth Bank',
+            title: 'Walmart Advanced Software Engineering Job Simulation',
+            issuer: 'Walmart Global Tech',
             date: '2024',
-            link: '#',
-            logo: cwLogo,
+            link: 'https://drive.google.com/file/d/132FpMU90Ra9-yMfY_UGLKadGxYEDfewV/view',
+            logo: '/walmart.png',
             color: '#ffd400',
-            description: 'Completed full-stack engineering tasks involving React state management, REST API testing, and Jest-based unit testing.'
+            description: 'Implemented custom heap data structures in Java, designed UML class diagrams using SOLID principles, and developed Python data pipelines for database ingestion'
         },
         {
             id: 2,
             title: 'GitHub Foundations',
             issuer: 'Microsoft Learn',
             date: '2023',
-            link: '#',
+            link: 'https://drive.google.com/file/d/1v2Rrt6G6CnHwyaSMABKyZ-uYh1wDYIDS/view',
             logo: msLogo,
             color: '#0078D6',
             description: 'Certification covering GitHub fundamentals and version control.'

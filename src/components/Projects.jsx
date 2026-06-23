@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
 import { useTheme } from './ThemeContext';
 
-const thumb-mediqueue.png = '/thumb-mediqueue.png';
 const PrimaryProjects = [
 
     {
