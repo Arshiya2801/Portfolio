@@ -60,7 +60,7 @@ const PrimaryProjects = [
     {
         title: 'MediQueue',
         thumbnail: '/thumb-mediqueue.png',
-        icon: Stethoscope,
+        // icon: Stethoscope,
         tagline: 'A full-stack hospital appointment and real-time queue management platform.',
         features: [
             {
@@ -89,7 +89,7 @@ const PrimaryProjects = [
             { name: 'Cloudinary', type: 'backend' }
         ],
         link: 'https://github.com/Arshiya2801/MediQueue',
-        deploymentLink: 'https://mediqueue.vercel.app'
+        deploymentLink: 'https://medi-queue-topaz-nine.vercel.app/'
     },
 
     {
