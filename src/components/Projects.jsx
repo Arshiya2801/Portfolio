@@ -222,7 +222,7 @@ const PrimaryProjectCard = ({ project }) => {
                             <h3 className="text-[var(--color-text-primary)] text-3xl sm:text-4xl font-bold mb-3 tracking-tight">
                                 {project.title}
                             </h3>
-                            <p className="text-[var(--color-text-secondary)] text-lg sm:text-xl font-medium leading-relaxed">
+                            <p className="text-[var(--color-text-secondary)] text-lg sm:text-xl font-medium leading-relaxed text-justify">
                                 {project.tagline}
                             </p>
                         </div>
@@ -286,7 +286,7 @@ const PrimaryProjectCard = ({ project }) => {
                                         {project.features.map((feature, idx) => (
                                             <li key={idx} className="text-[var(--color-text-secondary)] text-[16px] leading-relaxed flex gap-3">
                                                 <div className="w-1.5 h-1.5 rounded-full bg-[#f97316] mt-2.5 flex-shrink-0" />
-                                                <div>
+                                                <div className="text-justify">
                                                     <span className="font-semibold text-[var(--color-text-primary)]">{feature.title}:</span> {feature.desc}
                                                 </div>
                                             </li>
@@ -322,7 +322,7 @@ const PrimaryProjectCard = ({ project }) => {
                     {project.whyUnique && (
                         <div className="mt-8 bg-[var(--color-bg-tertiary)] p-6 rounded-2xl border border-[var(--color-border)]">
                             <h4 className="text-[var(--color-text-primary)] font-bold text-sm mb-3 uppercase tracking-wider opacity-80">Why it's Unique</h4>
-                            <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed italic border-l-2 border-[#f97316] pl-4">
+                            <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed italic border-l-2 border-[#f97316] pl-4 text-justify">
                                 "{project.whyUnique}"
                             </p>
                         </div>
@@ -367,7 +367,7 @@ const ProjectRow = ({ project }) => {
                             <h3 className="text-[var(--color-text-primary)] text-[22px] font-bold mb-1">
                                 {project.title}
                             </h3>
-                            <p className="text-[var(--color-text-secondary)] text-[15px] font-medium truncate max-w-[90%]">
+                            <p className="text-[var(--color-text-secondary)] text-[15px] font-medium truncate max-w-[90%] text-justify">
                                 {project.tagline}
                             </p>
                         </div>
@@ -426,13 +426,13 @@ const ProjectRow = ({ project }) => {
                             {project.features ? (
                                 <ul className="flex flex-col gap-3">
                                     {project.features.map((feature, idx) => (
-                                        <li key={idx} className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed">
+                                        <li key={idx} className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed text-justify">
                                             <span className="font-semibold text-[var(--color-text-primary)]">{feature.title}:</span> {feature.desc}
                                         </li>
                                     ))}
                                 </ul>
                             ) : (
-                                <p className="text-[var(--color-text-secondary)] text-[16px] leading-relaxed">
+                                <p className="text-[var(--color-text-secondary)] text-[16px] leading-relaxed text-justify">
                                     {project.description}
                                 </p>
                             )}
@@ -441,7 +441,7 @@ const ProjectRow = ({ project }) => {
                             {project.whyUnique && (
                                 <div className="mt-6">
                                     <h4 className="text-[var(--color-text-primary)] font-bold text-[16px] mb-2 font-sans tracking-wide">Why it's Unique</h4>
-                                    <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed border-l-2 border-[var(--color-accent)] pl-4 italic">
+                                    <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed border-l-2 border-[var(--color-accent)] pl-4 italic text-justify">
                                         {project.whyUnique}
                                     </p>
                                 </div>

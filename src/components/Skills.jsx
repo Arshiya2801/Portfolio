@@ -235,7 +235,7 @@ const Skills = () => {
                                 <div className="flex-1 min-w-0">
                                     <div className="text-sm text-[var(--color-text-secondary)]">{cert.issuer} • <span className="font-medium">{cert.date}</span></div>
                                     <div className="text-[16px] font-semibold mt-2">{cert.title}</div>
-                                    <div className="text-[13px] text-[var(--color-text-secondary)] mt-2">{cert.description}</div>
+                                    <div className="text-[13px] text-[var(--color-text-secondary)] mt-2 text-justify">{cert.description}</div>
                                 </div>
 
                                 <div className="ml-4">
