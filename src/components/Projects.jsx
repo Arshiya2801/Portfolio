@@ -17,7 +17,7 @@ const PrimaryProjects = [
             { title: 'Interview Simulator', desc: 'Features dynamic problem generation, adaptive difficulty scaling, timed assessments, and AI evaluations that mirror real interview experiences.' },
             { title: 'Secure & Personalized Experience', desc: 'Implements JWT authentication, bcrypt hashing, and MongoDB-backed session management to maintain secure user accounts and coding history.' }
         ],
-        whyUnique: 'Combines an AI mentor, coding workspace, and interview coach into a single environment that explains code, reviews solutions, simulates interviews, and provides personalized feedback.',
+        whyUnique: 'Unlike traditional IDEs or isolated coding platforms, Apollo converges an AI mentor, a fully-featured code workspace, and an interactive interview coach into one cohesive environment. It goes beyond simple code execution by actively providing real-time code explanations, reviewing complex logic, simulating timed interview scenarios with dynamic difficulty, and delivering personalized feedback, essentially serving as a dedicated pair-programmer and technical interviewer.',
         tags: [
             { name: 'React', type: 'frontend' },
             { name: 'Node.js', type: 'backend' },
@@ -41,7 +41,7 @@ const PrimaryProjects = [
             { title: 'AI-Enhanced Integrity', desc: 'Features a unique Gemini-powered fact-checking layer that provides live feedback and scoring, elevating the quality of arguments.' },
             { title: 'Engaging User Experience', desc: 'Includes a secure anonymous mode and a proprietary XP-based betting system that incentivizes spectators to engage deeply with the debates.' }
         ],
-        whyUnique: 'Unlike standard video chat, MindClash adds a "referee" and a "scoring system" layer. It turns passive debate-watching into an active, gamified, and intellectually honest experience.',
+        whyUnique: 'Unlike standard video conferencing platforms that struggle with structured discussions, MindClash introduces a real-time "referee" and an AI-driven "scoring system" layer to maintain debate integrity. By providing live fact-checking, scoring user arguments on the fly, and integrating a proprietary XP-based spectator betting system, it transforms passive debate-watching into a highly active, gamified, and intellectually honest ecosystem that rewards logical consistency over rhetoric.',
         tags: [
             { name: 'MongoDB', type: 'backend' },
             { name: 'Express.js', type: 'backend' },
