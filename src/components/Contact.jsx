@@ -18,13 +18,47 @@ const Contact = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(null);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically handle form submission, e.g., to an API or email service
-        console.log('Form Submitted:', formData);
-        alert('Thank you for reaching out! I will get back to you soon.');
-        // Reset form
-        setFormData({ name: '', email: '', message: '' });
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        try {
+            const response = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify({
+                    // Replace this with your Web3Forms access key
+                    access_key: "7e19994a-7e6c-4390-9a56-ae179c42a411",
+                    name: formData.name,
+                    email: formData.email,
+                    message: formData.message,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                setSubmitStatus('success');
+                setFormData({ name: '', email: '', message: '' });
+                alert('Thank you for reaching out! Your message has been sent successfully.');
+            } else {
+                setSubmitStatus('error');
+                alert('Oops! Something went wrong. Please try again.');
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            setSubmitStatus('error');
+            alert('Oops! Something went wrong. Please try again.');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -116,13 +150,14 @@ const Contact = () => {
                         {/* Submit Button */}
                         <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="mt-2">
                             <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.97 }}
+                                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                                whileTap={!isSubmitting ? { scale: 0.97 } : {}}
                                 type="submit"
-                                className="inline-flex items-center justify-center gap-2 bg-[#f97316] hover:bg-[#ff8f3d] text-white font-bold text-[15px] py-4 px-8 rounded-full transition-colors w-full"
+                                disabled={isSubmitting}
+                                className={`inline-flex items-center justify-center gap-2 bg-[#f97316] hover:bg-[#ff8f3d] text-white font-bold text-[15px] py-4 px-8 rounded-full transition-colors w-full ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
                             >
-                                <span>Send Message</span>
-                                <Send size={18} />
+                                <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+                                <Send size={18} className={isSubmitting ? 'animate-pulse' : ''} />
                             </motion.button>
                         </motion.div>
                     </motion.form>
