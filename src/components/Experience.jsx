@@ -44,7 +44,7 @@ const Experience = () => {
 
                     {/* Sub-header: Role & Date */}
                     <p className="text-[var(--color-text-secondary)] text-[16px] font-normal mb-6 flex items-center gap-2">
-                        <span>Web Development Intern | January 2026 - February 2026</span>
+                        <span>Web Development Intern | May 2026 - July 2026</span>
                         <a href="https://drive.google.com/file/d/16EhqDJlo8M1cNKoCMPLCjz4GN6BD4goD/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="ml-2 text-sm inline-flex items-center gap-1 text-[var(--color-accent)] hover:underline">
                             <ArrowUpRight size={14} />
                         </a>
@@ -61,14 +61,11 @@ const Experience = () => {
                         className="flex flex-col gap-2 list-none p-0 m-0 text-italics"
                     >
                         <motion.li variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="text-[var(--color-text-primary)] text-[14px] leading-relaxed relative pl-4 before:content-['•'] before:absolute before:left-0 before:text-[var(--color-accent)]">
-                            Architected a full-stack commercial website with category-based product listings and automated inquiry routing via Node.js email handlers, cutting manual client response time by 60%.
-                        </motion.li>
+                            Architected and deployed a MERN service management platform for 400+ service centres, implementing complaint registration, service assignment, billing, and real-time tracking to replace a manual phone-based workflow.                        </motion.li>
                         <motion.li variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="text-[var(--color-text-primary)] text-[14px] leading-relaxed relative pl-4 before:content-['•'] before:absolute before:left-0 before:text-[var(--color-accent)]">
-                            Built a role-based admin dashboard using React.js and Node.js with full CRUD capabilities and access control, reducing product content update time by 40% across 3 categories for non-technical staff.
-                        </motion.li>
+                            Developed a RBAC-based admin system using React.js, Node.js and JWT, featuring complaint management, product tracking, automated warranty validation, and a 5-step registration workflow and location mapping.                        </motion.li>
                         <motion.li variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="text-[var(--color-text-primary)] text-[14px] leading-relaxed relative pl-4 before:content-['•'] before:absolute before:left-0 before:text-[var(--color-accent)]">
-                            Streamlined CI/CD deployment pipeline and frontend performance through Gzip compression, code splitting, lazy loading, and meta-tag SEO enhancements, reducing initial page load time by 20%.
-                        </motion.li>
+                            Integrated the Meta WhatsApp Cloud API with 7 message templates and 8 automated workflows, built a Critical Action module for warranty handling, and deployed the application as a Progressive Web App (PWA).                        </motion.li>
                     </motion.ul>
                 </div>
 

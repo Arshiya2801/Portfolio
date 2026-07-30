@@ -118,7 +118,7 @@ const Hero = () => {
                 {/* Stats Row */}
                 <div className="grid grid-cols-3 gap-6 mb-16 border-b border-[var(--color-border)] pb-12">
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={2} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={3} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Months of<br />Experience</span>
                     </div>
                     <div className="flex flex-col">
@@ -126,7 +126,7 @@ const Hero = () => {
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">Projects<br />Completed</span>
                     </div>
                     <div className="flex flex-col">
-                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={550} /></span>
+                        <span className="text-5xl font-bold text-[var(--color-text-primary)] mb-2"><AnimatedCounter from={0} to={600} /></span>
                         <span className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider font-medium">DSA Questions <br />Solved</span>
                     </div>
                 </div>
@@ -160,7 +160,7 @@ const Hero = () => {
                         <div className="px-6 py-5 flex-1 flex flex-col gap-1.5 font-mono text-[12px] sm:text-[13px] leading-relaxed">
                             <TerminalLine delay={0.3} color="#6b7280" text="// about_me.js" />
                             <TerminalLine delay={0.8} color="#c792ea" text='const arshiya = {' />
-                            <TerminalLine delay={1.5} color="#ffcb6b" text='  role: "Full-Stack Engineer",' />
+                            <TerminalLine delay={1.5} color="#ffcb6b" text='  role: "Software Developer Engineer",' />
                             <TerminalLine delay={2.5} color="#c792ea" text="};" />
                             <div className="h-2" />
                             <TerminalLine delay={2.8} color="#546e7a" text="/**" />

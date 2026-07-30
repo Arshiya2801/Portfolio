@@ -95,27 +95,27 @@ const PrimaryProjects = [
 ];
 
 const SecondaryProjects = [
-    {
-        title: 'TalentIQ',
-        icon: Laptop,
-        tagline: 'The all-in-one technical interview environment for remote assessments.',
-        features: [
-            { title: 'Unified Workspace', desc: 'Combines real-time coding, video conferencing, and chat into one interface, eliminating the need to toggle between Zoom, VS Code, and Slack.' },
-            { title: 'Secure Sandboxed Coding', desc: 'Features an in-browser code editor with isolated execution, allowing interviewers to verify logic instantly without risking the host system.' },
-            { title: 'High-Stability Infrastructure', desc: 'Built with WebRTC to guarantee 99% call stability, ensuring zero friction during critical interview moments.' }
-        ],
-        whyUnique: 'It solves "Context-Switching Fatigue" for interviewers. By creating a professional, unified environment, it reduces evaluation time by 75% compared to multi-tool setups.',
-        tags: [
-            { name: 'React', type: 'frontend' },
-            { name: 'Tailwind CSS', type: 'frontend' },
-            { name: 'Node.js', type: 'backend' },
-            { name: 'Express.js', type: 'backend' },
-            { name: 'WebRTC', type: 'backend' },
-            { name: 'Stream', type: 'backend' },
-            { name: 'Clerk', type: 'backend' }
-        ],
-        link: 'https://github.com/Arshiya2801/TalentIQ'
-    },
+    // {
+    //     title: 'TalentIQ',
+    //     icon: Laptop,
+    //     tagline: 'The all-in-one technical interview environment for remote assessments.',
+    //     features: [
+    //         { title: 'Unified Workspace', desc: 'Combines real-time coding, video conferencing, and chat into one interface, eliminating the need to toggle between Zoom, VS Code, and Slack.' },
+    //         { title: 'Secure Sandboxed Coding', desc: 'Features an in-browser code editor with isolated execution, allowing interviewers to verify logic instantly without risking the host system.' },
+    //         { title: 'High-Stability Infrastructure', desc: 'Built with WebRTC to guarantee 99% call stability, ensuring zero friction during critical interview moments.' }
+    //     ],
+    //     whyUnique: 'It solves "Context-Switching Fatigue" for interviewers. By creating a professional, unified environment, it reduces evaluation time by 75% compared to multi-tool setups.',
+    //     tags: [
+    //         { name: 'React', type: 'frontend' },
+    //         { name: 'Tailwind CSS', type: 'frontend' },
+    //         { name: 'Node.js', type: 'backend' },
+    //         { name: 'Express.js', type: 'backend' },
+    //         { name: 'WebRTC', type: 'backend' },
+    //         { name: 'Stream', type: 'backend' },
+    //         { name: 'Clerk', type: 'backend' }
+    //     ],
+    //     link: 'https://github.com/Arshiya2801/TalentIQ'
+    // },
     {
         title: 'Streamly Backend API',
         icon: Server,
