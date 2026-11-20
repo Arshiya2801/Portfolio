@@ -1,10 +1,241 @@
+.circuit-grid {
+  --circuit-step: 32px;
+  --circuit-inset: 8px;
+  --circuit-line: #83113024;
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.dark .circuit-grid {
+  --circuit-line: #fda2ac29;
+}
+
+.circuit-grid::before,
+.circuit-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0 50% 0 0;
+  background-image:
+    linear-gradient(to right, var(--circuit-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--circuit-line) 1px, transparent 1px);
+  background-size: var(--circuit-step) var(--circuit-step);
+  background-position: var(--circuit-inset) 0;
+  mask-image: linear-gradient(to right, #000, #0002 55%, transparent 92%);
+}
+
+.circuit-grid::after {
+  inset: 0 0 0 50%;
+  transform: scaleX(-1);
+}
+
+@media (max-width: 760px) {
+  .circuit-grid {
+    --circuit-step: 12px;
+    --circuit-inset: 4px;
+  }
+
+  .circuit-grid::before,
+  .circuit-grid::after {
+    mask-image: linear-gradient(to right, #0009, transparent 45%);
+  }
+}
+
+.signal-particles {
+  --signal-primary: #a01c3b;
+  --signal-secondary: #536315;
+  --signal-highlight: #fff4ed;
+  --signal-opacity: .8;
+  --signal-trail-length: 20px;
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  overflow: clip;
+  pointer-events: none;
+}
+
+.dark .signal-particles {
+  --signal-primary: var(--pink);
+  --signal-secondary: var(--lime);
+  --signal-highlight: #38212e;
+  --signal-opacity: .65;
+  --signal-trail-length: 14px;
+}
+
+.signal-rail {
+  position: absolute;
+  inset-block: 0;
+  width: clamp(36px, calc((100% - 1248px) / 2), 96px);
+}
+
+.signal-rail-left {
+  left: 0;
+}
+
+.signal-rail-right {
+  right: 0;
+}
+
+.signal-particle {
+  position: absolute;
+  top: 100%;
+  left: var(--signal-position);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  color: var(--signal-primary);
+  background: currentColor;
+  box-shadow: 0 0 0 1px var(--signal-highlight);
+  animation: signal-drift var(--signal-duration) linear var(--signal-delay) infinite;
+}
+
+.signal-particle:nth-child(3n) {
+  color: var(--signal-secondary);
+}
+
+.signal-particle:nth-child(4n + 2)::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 1px;
+  width: 1px;
+  height: var(--signal-trail-length);
+  background: linear-gradient(currentColor, transparent);
+}
+
+@keyframes signal-drift {
+  0% {
+    transform: translate3d(0, 12px, 0);
+    opacity: 0;
+  }
+  12%, 85% {
+    opacity: var(--signal-opacity);
+  }
+  100% {
+    transform: translate3d(0, calc(-100dvh - 16px), 0);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 760px) {
+  .signal-rail {
+    width: 14px;
+  }
+  .signal-particle:nth-child(n + 7) {
+    display: none;
+  }
+}
+
+.editorial[data-motion="reduced"] .signal-particles {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signal-particles {
+    display: none;
+  }
+}
+
 /* Lightweight CSS solids, with bevels, side faces and cast shadows. */
+.desk-sphere-layer {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.skills-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+}
+
+.skills-heading > .section-heading {
+  margin-bottom: 0;
+}
+
+.skill-blocks {
+  position: relative;
+  width: clamp(80px, 13vw, 160px);
+  height: clamp(90px, 11vw, 136px);
+  flex: none;
+  perspective: 550px;
+  pointer-events: none;
+}
+
+.skill-block {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.skill-block span {
+  width: 58%;
+  aspect-ratio: 1;
+  transform: rotateX(55deg) rotateZ(-34deg);
+  border: 2px solid #86102b;
+  border-radius: 12%;
+  background: var(--block-face);
+  box-shadow: -3px 5px 0 var(--block-edge), -7px 10px 0 var(--block-edge);
+}
+
+.skill-block-0 {
+  top: 32%;
+  --block-face: var(--crimson);
+  --block-edge: #86102b;
+}
+
+.skill-block-1 {
+  --block-face: var(--pink);
+  --block-edge: #d05e74;
+}
+
+.skill-block-2 {
+  bottom: 32%;
+  --block-face: var(--lime);
+  --block-edge: #748315;
+}
+
+@media (max-width: 600px) {
+  .skills-heading {
+    gap: 8px;
+  }
+}
 
 .desk-stage {
+  --desk-glow-main: #da365c9c;
+  --desk-glow-secondary: #fff0ad8a;
   height: 510px;
   position: relative;
   perspective: 1100px;
   min-width: 0;
+}
+
+.desk-stage::before {
+  content: "";
+  position: absolute;
+  inset: -10% -14% -8% -18%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 69% 34%, var(--desk-glow-secondary), transparent 39%),
+    radial-gradient(ellipse at 49% 53%, var(--desk-glow-main), transparent 69%);
+  animation: desk-glow 16s ease-in-out infinite alternate;
+}
+
+@keyframes desk-glow {
+  from {
+    opacity: .72;
+    transform: translate3d(-3%, 2%, 0) scale(.97);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(4%, -4%, 0) scale(1.06);
+  }
 }
 
 .desk-assembly {

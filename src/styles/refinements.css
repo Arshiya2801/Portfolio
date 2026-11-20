@@ -21,6 +21,10 @@
   flex-wrap: wrap;
 }
 
+:root:has(.editorial[data-motion="reduced"]) {
+  scroll-behavior: auto;
+}
+
 .editorial[data-motion="reduced"] *, .editorial[data-motion="reduced"] *::before, .editorial[data-motion="reduced"] *::after {
   animation: none !important;
   transition: none !important;

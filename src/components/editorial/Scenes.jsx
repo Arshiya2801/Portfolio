@@ -1,10 +1,49 @@
 import { useRef } from 'react';
-import { useReducedMotion } from 'framer-motion';
-export function DeskScene() {
+import { motion, useInView } from 'framer-motion';
+
+const floatTransition = { duration: 3.6, ease: 'easeInOut', repeat: Infinity };
+const restTransition = { duration: 0 };
+
+const signalPositions = [14, 70, 39, 89, 25, 56, 78, 17, 47, 92, 31, 62];
+
+export function CircuitGrid() {
+  return <div className="circuit-grid" aria-hidden="true" />;
+}
+
+export function SignalParticles() {
+  return (
+    <div className="signal-particles" aria-hidden="true">
+      {['left', 'right'].map((edge, edgeIndex) => (
+        <div className={`signal-rail signal-rail-${edge}`} key={edge}>
+          {signalPositions.map((position, index) => {
+            const duration = 15 + index % 5 * 2;
+            const phase = ((index * 7 + edgeIndex * 11) % 29) / 29;
+
+            return (
+              <span
+                key={position}
+                className="signal-particle"
+                style={{
+                  '--signal-position': `${position}%`,
+                  '--signal-duration': `${duration}s`,
+                  '--signal-delay': `${-phase * duration}s`,
+                }}
+              />
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export function DeskScene({ motionPaused }) {
   const scene = useRef(null);
-  const reduceMotion = useReducedMotion();
+  const stage = useRef(null);
+  const isInView = useInView(stage, { amount: 0.15 });
+  const isFloating = isInView && !motionPaused;
   const move = event => {
-    if (reduceMotion || scene.current?.closest('[data-motion="reduced"]') || event.pointerType !== 'mouse') return;
+    if (motionPaused || event.pointerType !== 'mouse') return;
     const box = event.currentTarget.getBoundingClientRect();
     scene.current.style.setProperty('--tilt-x', `${(event.clientY - box.top - box.height / 2) / box.height * -6}deg`);
     scene.current.style.setProperty('--tilt-y', `${(event.clientX - box.left - box.width / 2) / box.width * 8}deg`);
@@ -13,15 +52,22 @@ export function DeskScene() {
     scene.current?.style.setProperty('--tilt-x', '0deg');
     scene.current?.style.setProperty('--tilt-y', '0deg');
   };
-  return <div className="desk-stage" onPointerMove={move} onPointerLeave={reset} aria-hidden="true">
+  return <div className="desk-stage" ref={stage} onPointerMove={move} onPointerLeave={reset} aria-hidden="true">
         <div className="desk-orbit" />
         <div className="desk-floor" />
         <div className="desk-assembly" ref={scene}>
+            <motion.div
+              className="desk-sphere-layer"
+              initial={false}
+              animate={isFloating ? { y: [0, -20, 0], x: [0, 8, 0] } : { y: 0, x: 0 }}
+              transition={isFloating ? floatTransition : restTransition}
+            >
             <div className="wire-sphere">{Array.from({
           length: 5
         }, (_, i) => <i key={i} style={{
           transform: `rotateY(${i * 36}deg)`
         }} />)}<b /><b /></div>
+            </motion.div>
             <div className="desk-monitor">
                 <div className="monitor-bezel">
                     <div className="monitor-title"><span>ARSHIYA / WORKSPACE</span><span>● ● ●</span></div>
@@ -35,6 +81,28 @@ export function DeskScene() {
         </div>
         <span className="scene-caption">A LITTLE PLAY. A LOT OF PURPOSE.</span>
     </div>;
+}
+
+export function SkillBlocks({ motionPaused }) {
+  const stack = useRef(null);
+  const isInView = useInView(stack, { amount: 0.2 });
+  const isFloating = isInView && !motionPaused;
+
+  return (
+    <div className="skill-blocks" ref={stack} aria-hidden="true">
+      {[0, 1, 2].map((level) => (
+        <motion.div
+          key={level}
+          className={`skill-block skill-block-${level}`}
+          initial={false}
+          animate={isFloating ? { y: [0, -6 - level * 12, 0] } : { y: 0 }}
+          transition={isFloating ? floatTransition : restTransition}
+        >
+          <span />
+        </motion.div>
+      ))}
+    </div>
+  );
 }
 export function ApolloScene() {
   return <div className="project-scene apollo-scene" aria-hidden="true">

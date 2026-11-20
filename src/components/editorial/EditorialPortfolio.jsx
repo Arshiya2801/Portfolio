@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
+import Lenis from 'lenis';
 import { ChevronDown, Download, Github, Linkedin, Mail, Menu, Moon, Sun, X, Code2, FileText, Globe, Plus } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
 import { primaryProjects, secondaryProjects, skillCategories, certifications, achievements, leadership, education, experiences } from '../../data/portfolio';
-import { ApolloScene, DeskScene, MindClashScene, MiniScene } from './Scenes';
+import { ApolloScene, CircuitGrid, DeskScene, MindClashScene, MiniScene, SignalParticles, SkillBlocks } from './Scenes';
 import EditorialContact from './EditorialContact';
 const resume = '/Arshiya-Singh-Resume.pdf';
 const navigation = [['About', '#about'], ['Experience', '#experience'], ['Work', '#project'], ['Skills', '#skills'], ['Achievements', '#achievements'], ['Education', '#education'], ['Contact', '#contact']];
@@ -46,11 +47,11 @@ function Navigation() {
     </header>
   );
 }
-function Hero() {
+function Hero({ motionPaused }) {
   return <section id="home" className="editorial-hero grain"><div className="section-shell">
         <div className="hero-meta"><span>SOFTWARE DEVELOPMENT ENGINEER</span><span>BASED IN INDIA · OPEN TO HIRE</span></div>
-        <div className="hero-grid"><div className="hero-copy"><div className="eyebrow"><span className="small-star">✳</span> FULL-STACK ENGINEER & ALGORITHMIC PROBLEM SOLVER</div><h1>ARSHIYA<br /><span>SINGH<span className="heading-dot">.</span></span></h1><p className="hero-intro">B.Tech in Information Technology at IIIT Una, graduating in 2027. Full-stack and GenAI developer with two internships shipping production LLM and web features.</p><div className="hero-actions"><a href="#project" className="button button-crimson">Explore my work <Code2 size={18} /></a><a href={resume} className="button button-outline" target="_blank" rel="noopener noreferrer">View résumé <Download size={17} /></a></div><a href="#achievements" className="hero-rank"><span>42</span><span>ICPC ALGO QUEEN 2026<br /><b>NATIONAL RANK / 1,658 PARTICIPANTS</b></span></a></div><DeskScene /></div>
-        <div className="hero-bottom"><p>THOUGHTFUL INTERFACES.<br /><strong>SERIOUS ENGINEERING.</strong></p><div className="hero-stats"><div><b>3<span>+</span></b><span>MONTHS OF EXPERIENCE</span></div><div><b>10<span>+</span></b><span>PROJECTS COMPLETED</span></div><div><b>600<span>+</span></b><span>DSA QUESTIONS SOLVED</span></div></div><a className="scroll-link" href="#about">SCROLL TO EXPLORE <ChevronDown size={18} /></a></div>
+        <div className="hero-grid"><div className="hero-copy"><div className="eyebrow"><span className="small-star">✳</span> FULL-STACK ENGINEER & ALGORITHMIC PROBLEM SOLVER</div><h1>ARSHIYA<br /><span>SINGH<span className="heading-dot">.</span></span></h1><p className="hero-intro">B.Tech in Information Technology at IIIT Una, graduating in 2027. Full-stack and GenAI developer with two internships shipping production LLM and web features.</p><div className="hero-actions"><a href="#project" className="button button-crimson">Explore my work <Code2 size={18} /></a><a href={resume} className="button button-outline" target="_blank" rel="noopener noreferrer">View résumé <Download size={17} /></a></div><a href="#achievements" className="hero-rank"><span>42</span><span>ICPC ALGO QUEEN 2026<br /><b>NATIONAL RANK / 1,658 PARTICIPANTS</b></span></a></div><DeskScene motionPaused={motionPaused} /></div>
+        <div className="hero-bottom"><p>THOUGHTFUL INTERFACES.<br /><strong>SERIOUS ENGINEERING.</strong></p><div className="hero-stats"><div><b>5<span>+</span></b><span>MONTHS OF EXPERIENCE</span></div><div><b>10<span>+</span></b><span>PROJECTS COMPLETED</span></div><div><b>600<span>+</span></b><span>DSA QUESTIONS SOLVED</span></div></div><a className="scroll-link" href="#about">SCROLL TO EXPLORE <ChevronDown size={18} /></a></div>
     </div></section>;
 }
 function SectionHeading({
@@ -89,15 +90,16 @@ function Projects() {
     </div></section>;
 }
 function Experience() {
-  return <section id="experience" className="experience-section"><div className="section-shell"><SectionHeading label="LEARNING BY SHIPPING" title="REAL WORLD." accent="REAL WORK." />
+  return <section id="experience" className="experience-section"><div className="section-shell">
+        <SectionHeading label="LEARNING BY SHIPPING" title="REAL WORLD." accent="REAL WORK." />
         <div className="experience-timeline">{experiences.map(experience => <article className="experience-entry" key={experience.company}><div className="experience-sidebar"><span className="date-marker">{experience.date}</span><span className="experience-location">{experience.location}</span><img src={experience.logo} alt={`${experience.company} logo`} loading="lazy" /><a className="text-link" href={experience.document} target="_blank" rel="noopener noreferrer"><FileText size={16} />{experience.documentLabel}</a></div><div className="experience-body"><p className="eyebrow">{experience.company}</p><h3>{experience.role}</h3>{experience.scope && <p className="experience-scope">{experience.scope}</p>}<ul>{experience.details.map(detail => <li key={detail}>{detail}</li>)}</ul></div></article>)}</div>
     </div></section>;
 }
 function About() {
   return <section id="about" className="about-section grain"><div className="section-shell about-grid"><div className="portrait-composition"><span className="portrait-edge" /><img src="/profile.jpg" alt="Arshiya Singh" loading="lazy" /><span className="portrait-sticker">CURIOUS<br />BY DEFAULT.</span><span className="portrait-caption">ARSHIYA SINGH / DEVELOPER & PROBLEM SOLVER</span></div><div className="about-copy"><p className="eyebrow">THE PERSON BEHIND THE COMMITS</p><h2>A LITTLE<br />ABOUT <span>ME.</span></h2><p className="large-copy">I build with React, Node.js, Python, MongoDB, and Redis—from a RAG customer assistant to a multi-tenant service platform.</p><p>Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset with deep MERN stack expertise to deliver high-performance, optimized architectures.</p><p>Whether integrating AI-driven features or streamlining backend processing, I bridge complex challenges and intuitive user experiences through clean code.</p><div className="availability-panel"><span>OPEN TO WHAT’S NEXT</span><dl><div><dt>Opportunities</dt><dd>Full-time / Internship</dd></div><div><dt>Location</dt><dd>India · Remote · Open to relocation</dd></div><div><dt>Response time</dt><dd>Less than 24 hours</dd></div></dl></div><div className="about-socials"><a href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer"><Github size={18} />GitHub</a><a href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer"><Linkedin size={18} />LinkedIn</a><a href="mailto:singharshiya.work@gmail.com"><Mail size={18} />Email</a></div></div></div></section>;
 }
-function Skills() {
-  return <section id="skills" className="skills-section"><div className="section-shell"><SectionHeading label="THE TOOLS BEHIND THE IDEAS" title="MY BUILDING" accent="BLOCKS." />
+function Skills({ motionPaused }) {
+  return <section id="skills" className="skills-section"><div className="section-shell"><div className="skills-heading"><SectionHeading label="THE TOOLS BEHIND THE IDEAS" title="MY BUILDING" accent="BLOCKS." /><SkillBlocks motionPaused={motionPaused} /></div>
         <div className="skill-groups">{skillCategories.map(category => <div className="skill-group" key={category.title}><h3>{category.title}</h3><ul>{category.skills.map(({
               name,
               subtitle,
@@ -133,5 +135,11 @@ export default function EditorialPortfolio() {
   const systemReduced = useReducedMotion();
   const [paused, setPaused] = useState(false);
   const motionPaused = Boolean(systemReduced || paused);
-  return <div className="editorial" data-motion={motionPaused ? 'reduced' : 'full'}><a className="skip-link" href="#main-content">Skip to content</a><Navigation /><main id="main-content" tabIndex={-1}><Hero /><div className="editorial-ticker" aria-hidden="true"><span>FULL-STACK DEVELOPMENT</span><b>✳</b><span>GEN AI & REAL-TIME SYSTEMS</span><b>✳</b><span>IDEAS INTO IMPACT</span><b>✳</b></div><About /><Experience /><Projects /><Skills /><Achievements /><Education /><EditorialContact /></main><Footer motionPaused={motionPaused} toggleMotion={() => setPaused(!paused)} systemReduced={Boolean(systemReduced)} /></div>;
+  useEffect(() => {
+    if (motionPaused) return;
+
+    const scroll = new Lenis({ autoRaf: true, lerp: 0.12, stopInertiaOnNavigate: true });
+    return () => scroll.destroy();
+  }, [motionPaused]);
+  return <div className="editorial" data-motion={motionPaused ? 'reduced' : 'full'}><CircuitGrid /><SignalParticles /><a className="skip-link" href="#main-content">Skip to content</a><Navigation /><main id="main-content" tabIndex={-1}><Hero motionPaused={motionPaused} /><div className="editorial-ticker" aria-hidden="true"><span>FULL-STACK DEVELOPMENT</span><b>✳</b><span>GEN AI & REAL-TIME SYSTEMS</span><b>✳</b><span>IDEAS INTO IMPACT</span><b>✳</b></div><About /><Experience /><Projects /><Skills motionPaused={motionPaused} /><Achievements /><Education /><EditorialContact /></main><Footer motionPaused={motionPaused} toggleMotion={() => setPaused(!paused)} systemReduced={Boolean(systemReduced)} /></div>;
 }
