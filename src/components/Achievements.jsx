@@ -6,52 +6,59 @@ import { useTheme } from './ThemeContext';
 const achievementsData = [
     {
         icon: Trophy,
+        title: 'ICPC Algo Queen 2026',
+        highlight: '42nd National Rank',
+        desc: 'Ranked 42nd among 1,658 participants nationally in The Girls’ Competitive Programming Cup.',
+        color: 'var(--color-lavender)'
+    },
+    {
+        icon: Trophy,
         title: 'National Road Safety Hackathon',
         highlight: 'Semi-Finalist',
         desc: 'Top 50 out of 5,000+ teams — organized by the Ministry of Road Transport & Highways (MoRTH).',
-        color: '#f59e0b'
+        color: 'var(--color-accent-text)'
     },
     {
         icon: Award,
         title: "Engineer's Ring of Honour",
         highlight: '3rd Rank',
         desc: 'Naukri Campus Competition — secured 3rd position with a ₹10,000 prize.',
-        color: '#3b82f6'
+        color: 'var(--color-accent-text)'
     },
     {
         icon: Code2,
         title: 'Competitive Programming',
         highlight: '600+ Problems Solved',
         desc: 'Across LeetCode (Knight), CodeChef (2 Star) & GeeksforGeeks.',
-        color: '#f97316'
+        color: 'var(--color-accent-text)'
     },
     {
         icon: Users,
         title: 'Open Source Contributor',
         highlight: 'GSSoC 2024',
         desc: 'Active contributor during GirlScript Summer of Code 2024.',
-        color: '#8b5cf6'
+        color: 'var(--color-lavender)'
     },
     {
         icon: Flame,
         title: 'Adobe GenSolve Hackathon',
         highlight: 'Round 2 Qualifier',
         desc: 'Top 4,000 out of 260,000+ participants nationwide.',
-        color: '#ef4444'
+        color: 'var(--color-accent-text)'
     },
     {
         icon: Medal,
         title: 'Yalgaar Sports Fest',
         highlight: 'Gold & Bronze Medals',
         desc: 'Gold Medal in Basketball and Bronze Medal in 400m Relay at IIIT Una.',
-        color: '#22c55e'
+        color: 'var(--color-accent-text)'
     },
     {
         icon: Award,
         title: "Ryan's Scholars Award",
         highlight: 'Academic Excellence',
         desc: 'Recognized for outstanding academic performance and overall contribution.',
-        color: '#ec4899'
+        color: 'var(--color-accent-text)'
     }
 ];
 
@@ -61,21 +68,21 @@ const leadershipData = [
         role: 'Design Lead',
         org: 'Eunoia Club',
         desc: 'Leading visual identity, branding, and creative direction for college cultural initiatives.',
-        color: '#14b8a6'
+        color: 'var(--color-lavender)'
     },
     {
         icon: PenTool,
         role: 'Graphic Designer',
         org: 'FORCE Club',
         desc: 'Crafting promotional material, social media graphics, and event branding.',
-        color: '#f59e0b'
+        color: 'var(--color-accent-text)'
     },
     {
         icon: Megaphone,
         role: 'Content Writer',
         org: 'EPMOC Club',
         desc: 'Producing engaging written content, articles, and event communications for the club.',
-        color: '#8b5cf6'
+        color: 'var(--color-lavender)'
     }
 ];
 
@@ -89,11 +96,11 @@ const AchievementCard = ({ data, index }) => {
                     transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.5, delay: index * 0.05 }
                 }
             }}
-            className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl p-6 hover:border-[var(--color-accent)] transition-all duration-300 group relative overflow-hidden"
+            className={`bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl p-6 transition-all duration-300 group relative overflow-hidden achievement-card ${data.title === 'ICPC Algo Queen 2026' ? 'achievement-featured' : ''}`} style={{ '--card-accent': data.color }}
         >
             {/* Subtle top-left glow */}
             <div
-                className="absolute -top-10 -left-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none blur-2xl"
+                className="absolute -top-10 -left-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-15 transition-opacity duration-500 pointer-events-none blur-2xl"
                 style={{ background: data.color }}
             />
 
@@ -101,7 +108,7 @@ const AchievementCard = ({ data, index }) => {
                 {/* Icon */}
                 <div
                     className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors duration-300"
-                    style={{ backgroundColor: `${data.color}15` }}
+                    style={{ backgroundColor: `color-mix(in srgb, ${data.color} 10%, transparent)` }}
                 >
                     <data.icon size={22} style={{ color: data.color }} />
                 </div>
@@ -136,11 +143,11 @@ const LeadershipCard = ({ data, index }) => {
                     transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.5, delay: index * 0.08 }
                 }
             }}
-            className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl p-6 hover:border-[var(--color-accent)] transition-all duration-300 group relative overflow-hidden"
+            className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl p-6 transition-all duration-300 group relative overflow-hidden achievement-card" style={{ '--card-accent': data.color }}
         >
             {/* Subtle glow */}
             <div
-                className="absolute -top-8 -right-8 w-28 h-28 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none blur-2xl"
+                className="absolute -top-8 -right-8 w-28 h-28 rounded-full opacity-0 group-hover:opacity-15 transition-opacity duration-500 pointer-events-none blur-2xl"
                 style={{ background: data.color }}
             />
 
@@ -148,7 +155,7 @@ const LeadershipCard = ({ data, index }) => {
                 {/* Icon */}
                 <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300"
-                    style={{ backgroundColor: `${data.color}15` }}
+                    style={{ backgroundColor: `color-mix(in srgb, ${data.color} 10%, transparent)` }}
                 >
                     <data.icon size={24} style={{ color: data.color }} />
                 </div>
@@ -192,7 +199,7 @@ const Achievements = () => {
                     whileInView={{ x: 0, opacity: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
-                    className="text-[#4D4D4D]"
+                    className="text-[var(--color-text-secondary)]"
                 >
                     ACHIEVEMENTS
                 </motion.span>

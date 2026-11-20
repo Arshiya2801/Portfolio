@@ -7,7 +7,7 @@ import {
     GitBranch, Github, Code, Send, Image, Key, Sparkles, PenTool,
     Radio, Wifi, Shield, Brain, Monitor, Mail, Rocket, Activity
 } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useTheme } from './ThemeContext';
 import msLogo from '../assets/microsoft-logo.svg';
 import cwLogo from '../assets/commonwealth-logo.svg';
@@ -15,7 +15,7 @@ import cwLogo from '../assets/commonwealth-logo.svg';
 const skillCategories = [
     {
         title: "Languages",
-        color: "#f97316",
+        color: "var(--color-accent-text)",
         skills: [
             { name: "C", subtitle: "Programming", icon: Code2, color: "#60a5fa" },
             { name: "C++", subtitle: "System Lang", icon: FileCode2, color: "#3b82f6" },
@@ -25,7 +25,7 @@ const skillCategories = [
     },
     {
         title: "Frontend",
-        color: "#a3e635",
+        color: "var(--color-accent-text)",
         skills: [
             { name: "React.js", subtitle: "UI Library", icon: Atom, color: "#22d3ee" },
             { name: "Tailwind", subtitle: "CSS Framework", icon: Wind, color: "#2dd4bf" },
@@ -36,7 +36,7 @@ const skillCategories = [
     },
     {
         title: "Backend & Databases",
-        color: "#f97316",
+        color: "var(--color-accent-text)",
         skills: [
             { name: "Node.js", subtitle: "Runtime", icon: Server, color: "#22c55e" },
             { name: "Express", subtitle: "Framework", icon: Box, color: "#d1d5db" },
@@ -49,12 +49,30 @@ const skillCategories = [
             { name: "WebRTC", subtitle: "Video Calls", icon: Wifi, color: "#5c6bc0" },
             { name: "SSE", subtitle: "Server Events", icon: Radio, color: "#f97316" },
             { name: "JWT", subtitle: "Authentication", icon: Shield, color: "#ff6b6b" },
-            { name: "REST APIs", subtitle: "Integration", icon: Code2, color: "#14b8a6" }
+            { name: "REST APIs", subtitle: "Integration", icon: Code2, color: "#14b8a6" },
+            { name: "WebSockets", subtitle: "Real-time", icon: Network, color: "#22d3ee" },
+            { name: "RBAC", subtitle: "Authorization", icon: Shield, color: "#f87171" },
+            { name: "Atlas Vector Search", subtitle: "MongoDB", icon: Database, color: "#22c55e" }
+        ]
+    },
+    {
+        title: "Generative AI",
+        color: "var(--color-lavender)",
+        skills: [
+            { name: "RAG Pipelines", subtitle: "Context Retrieval", icon: Brain, color: "var(--color-lavender)" },
+            { name: "Embeddings", subtitle: "Vector Search", icon: Database, color: "var(--color-lavender)" },
+            { name: "Semantic Search", subtitle: "Retrieval", icon: Sparkles, color: "var(--color-lavender)" },
+            { name: "LLM Integration", subtitle: "AI Features", icon: Webhook, color: "var(--color-lavender)" },
+            { name: "OpenAI", subtitle: "LLM API", icon: Brain, color: "var(--color-lavender)" },
+            { name: "Llama 3", subtitle: "Language Model", icon: Brain, color: "var(--color-lavender)" },
+            { name: "AI Agents", subtitle: "Tool Calling", icon: Cpu, color: "var(--color-lavender)" },
+            { name: "MCP", subtitle: "Tool Integration", icon: Network, color: "var(--color-lavender)" },
+            { name: "Prompt Engineering", subtitle: "LLM Instructions", icon: TerminalSquare, color: "var(--color-lavender)" }
         ]
     },
     {
         title: "DevOps & Cloud",
-        color: "#a3e635",
+        color: "var(--color-accent-text)",
         skills: [
             { name: "Linux", subtitle: "OS", icon: Terminal, color: "#fef08a" },
             { name: "AWS EC2", subtitle: "Compute", icon: Cloud, color: "#fb923c" },
@@ -64,7 +82,7 @@ const skillCategories = [
     },
     {
         title: "Tools",
-        color: "#f97316",
+        color: "var(--color-accent-text)",
         skills: [
             { name: "Git", subtitle: "Version Ctrl", icon: GitBranch, color: "#f97316" },
             { name: "GitHub", subtitle: "Collaboration", icon: Github, color: "#e5e7eb" },
@@ -76,12 +94,28 @@ const skillCategories = [
             { name: "Gemini AI", subtitle: "LLM", icon: Brain, color: "#4285f4" },
             { name: "Monaco", subtitle: "Code Editor", icon: Monitor, color: "#007acc" },
             { name: "Judge0", subtitle: "Code Execution", icon: Cpu, color: "#ff6b00" },
-            { name: "Canva", subtitle: "Design", icon: PenTool, color: "#67e8f9" }
+            { name: "Canva", subtitle: "Design", icon: PenTool, color: "#67e8f9" },
+            { name: "Claude Code", subtitle: "AI Coding", icon: Terminal, color: "#fb923c" },
+            { name: "Cursor", subtitle: "AI Editor", icon: Code, color: "#a3a3a3" }
+        ]
+    },
+    {
+        title: "Core Computer Science",
+        color: "var(--color-accent-text)",
+        skills: [
+            { name: "DSA", subtitle: "Problem Solving", icon: Code2, color: "var(--color-accent-text)" },
+            { name: "System Design", subtitle: "Architecture", icon: Network, color: "var(--color-accent-text)" },
+            { name: "Distributed Systems", subtitle: "Core CS", icon: Server, color: "var(--color-accent-text)" },
+            { name: "OOP", subtitle: "Programming", icon: Box, color: "var(--color-accent-text)" },
+            { name: "Operating Systems", subtitle: "Core CS", icon: Terminal, color: "var(--color-accent-text)" },
+            { name: "Computer Networks", subtitle: "Core CS", icon: Globe, color: "var(--color-accent-text)" },
+            { name: "DBMS", subtitle: "Data Management", icon: Database, color: "var(--color-accent-text)" }
         ]
     }
 ];
 
 const FloatingSkillIcon = ({ skill, index }) => {
+    const reduceMotion = useReducedMotion();
     const { theme } = useTheme();
     const Icon = skill.icon;
     const color = skill.color;
@@ -95,7 +129,7 @@ const FloatingSkillIcon = ({ skill, index }) => {
             transition={{ delay: index * 0.06, duration: 0.4, ease: 'easeOut' }}
         >
             <motion.div
-                animate={{
+                animate={reduceMotion ? { y: 0 } : {
                     y: [0, -8, 0, 6, 0],
                 }}
                 transition={{
@@ -109,10 +143,10 @@ const FloatingSkillIcon = ({ skill, index }) => {
                 <div
                     className="relative w-20 h-20 rounded-2xl flex items-center justify-center border backdrop-blur-sm transition-all duration-300 hover:scale-110"
                     style={{
-                        borderColor: `${color}30`,
+                        borderColor: `color-mix(in srgb, ${color} 20%, transparent)`,
                         backgroundColor: theme === 'dark'
-                            ? `${color}12`
-                            : `${color}18`,
+                            ? `color-mix(in srgb, ${color} 7%, transparent)`
+                            : `color-mix(in srgb, ${color} 9%, transparent)`,
                     }}
                 >
                     {/* Glow */}
@@ -136,6 +170,15 @@ const FloatingSkillIcon = ({ skill, index }) => {
 
 const Skills = () => {
     const certifications = [
+        {
+            id: 3,
+            title: 'AI Fluency: Framework & Foundations',
+            issuer: 'Anthropic',
+            logo: '/anthropic-logo.png',
+            link: 'https://verify.skilljar.com/c/ng4zxm5w222h',
+            color: 'var(--color-lavender)',
+            description: 'Certified in AI fundamentals, use, and tool application.'
+        },
         {
             id: 1,
             title: 'Walmart Advanced Software Engineering Job Simulation',
@@ -176,7 +219,7 @@ const Skills = () => {
                     whileInView={{ x: 0, opacity: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
-                    className="text-[#4D4D4D]"
+                    className="text-[var(--color-text-secondary)]"
                 >
                     SKILLS
                 </motion.span>
@@ -207,7 +250,7 @@ const Skills = () => {
             <div className="mt-12">
                 <h4
                     className="text-[20px] font-bold mb-6 font-sans tracking-wider uppercase"
-                    style={{ color: '#60a5fa' }}
+                    style={{ color: 'var(--color-lavender)' }}
                 >
                     CERTIFICATIONS
                 </h4>
@@ -224,27 +267,28 @@ const Skills = () => {
                         >
                             {/* Subtle glow like Achievement cards */}
                             <div
-                                className="absolute -top-10 -left-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none blur-2xl"
+                                className="absolute -top-10 -left-10 w-32 h-32 rounded-full opacity-0 group-hover:opacity-15 transition-opacity duration-500 pointer-events-none blur-2xl"
                                 style={{ background: cert.color }}
                             />
 
-                            <div className="relative z-10 flex items-start gap-4">
+                            <div className="relative z-10 flex flex-wrap items-start gap-3">
                                 <div
                                     className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 transition-colors duration-300"
-                                    style={{ backgroundColor: `${cert.color}15` }}
+                                    style={{ backgroundColor: `color-mix(in srgb, ${cert.color} 9%, transparent)` }}
                                 >
-                                    <img src={cert.logo} alt={`${cert.issuer} logo`} className="w-8 h-8 object-contain" />
+                                    {cert.logo ? <img src={cert.logo} alt={`${cert.issuer} logo`} className="w-8 h-8 object-contain" /> : <Brain size={28} style={{ color: cert.color }} aria-hidden="true" />}
                                 </div>
 
-                                <div className="flex-1 min-w-0">
-                                    <div className="text-sm text-[var(--color-text-secondary)]">{cert.issuer} • <span className="font-medium">{cert.date}</span></div>
+                                <div className="flex-1 min-w-[140px]">
+                                    <div className="text-sm text-[var(--color-text-secondary)]">{cert.issuer}{cert.date && <> • <span className="font-medium">{cert.date}</span></>}</div>
                                     <div className="text-[16px] font-semibold mt-2">{cert.title}</div>
                                     <div className="text-[13px] text-[var(--color-text-secondary)] mt-2 text-justify">{cert.description}</div>
                                 </div>
 
-                                <div className="ml-4">
+                                <div className="ml-auto">
                                     <a
                                         href={cert.link}
+                                        aria-label={`View ${cert.title} certificate`}
                                         target="_blank"
                                         rel="noreferrer"
                                         className="inline-block px-3 py-1.5 bg-[var(--color-accent)] text-white rounded-md text-sm hover:opacity-95"

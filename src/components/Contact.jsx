@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Send, Linkedin, Github, Mail, Phone, Twitter } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { sendContactMessage } from '../lib/contact';
 
 const Contact = () => {
     // Basic state for the form
@@ -20,43 +21,28 @@ const Contact = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null);
+    const [submitError, setSubmitError] = useState('');
+    const submissionInFlight = useRef(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (submissionInFlight.current) return;
+        if (!e.currentTarget.reportValidity()) return;
+        const botcheck = new FormData(e.currentTarget).get('botcheck');
+        submissionInFlight.current = true;
         setIsSubmitting(true);
         setSubmitStatus(null);
+        setSubmitError('');
 
         try {
-            const response = await fetch("https://api.web3forms.com/submit", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                },
-                body: JSON.stringify({
-                    // Replace this with your Web3Forms access key
-                    access_key: "7e19994a-7e6c-4390-9a56-ae179c42a411",
-                    name: formData.name,
-                    email: formData.email,
-                    message: formData.message,
-                }),
-            });
-
-            const result = await response.json();
-
-            if (result.success) {
-                setSubmitStatus('success');
-                setFormData({ name: '', email: '', message: '' });
-                alert('Thank you for reaching out! Your message has been sent successfully.');
-            } else {
-                setSubmitStatus('error');
-                alert('Oops! Something went wrong. Please try again.');
-            }
+            await sendContactMessage({ ...formData, botcheck });
+            setSubmitStatus('success');
+            setFormData({ name: '', email: '', message: '' });
         } catch (error) {
-            console.error("Error submitting form:", error);
             setSubmitStatus('error');
-            alert('Oops! Something went wrong. Please try again.');
+            setSubmitError(error.message);
         } finally {
+            submissionInFlight.current = false;
             setIsSubmitting(false);
         }
     };
@@ -79,7 +65,7 @@ const Contact = () => {
                     whileInView={{ x: 0, opacity: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
-                    className="text-[#4D4D4D]"
+                    className="text-[var(--color-text-secondary)]"
                 >
                     TOGETHER
                 </motion.span>
@@ -94,8 +80,12 @@ const Contact = () => {
                         whileInView="visible"
                         viewport={{ once: true, margin: "-80px" }}
                         variants={{ visible: { transition: { staggerChildren: 0.1 } } }}
-                        onSubmit={handleSubmit} className="flex flex-col gap-6"
+                        onSubmit={handleSubmit} aria-busy={isSubmitting} aria-describedby="contact-status" className="flex flex-col gap-6"
                     >
+                        <div hidden aria-hidden="true">
+                            <label htmlFor="contact-botcheck">Leave this field empty</label>
+                            <input type="text" id="contact-botcheck" name="botcheck" tabIndex={-1} autoComplete="off" />
+                        </div>
                         {/* Name & Email Row */}
                         <div className="flex flex-col md:flex-row gap-6">
                             <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="flex-1 flex flex-col gap-2">
@@ -106,6 +96,9 @@ const Contact = () => {
                                     type="text"
                                     id="name"
                                     name="name"
+                                    autoComplete="name"
+                                    maxLength={100}
+                                    disabled={isSubmitting}
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
@@ -121,6 +114,9 @@ const Contact = () => {
                                     type="email"
                                     id="email"
                                     name="email"
+                                    autoComplete="email"
+                                    maxLength={254}
+                                    disabled={isSubmitting}
                                     value={formData.email}
                                     onChange={handleChange}
                                     required
@@ -138,6 +134,8 @@ const Contact = () => {
                             <textarea
                                 id="message"
                                 name="message"
+                                maxLength={5000}
+                                disabled={isSubmitting}
                                 value={formData.message}
                                 onChange={handleChange}
                                 required
@@ -161,6 +159,11 @@ const Contact = () => {
                             </motion.button>
                         </motion.div>
                     </motion.form>
+                    <div id="contact-status" role="status" aria-live="polite" aria-atomic="true" className="mt-4 text-sm leading-relaxed">
+                        {isSubmitting && <p className="text-[var(--color-text-secondary)]">Sending your message…</p>}
+                        {submitStatus === 'success' && <p className="text-[var(--color-text-primary)]">Thank you for reaching out! Your message has been sent successfully.</p>}
+                        {submitStatus === 'error' && <p className="text-[var(--color-text-primary)]">{submitError} <a className="underline" href="mailto:singharshiya.work@gmail.com">Email Arshiya</a>.</p>}
+                    </div>
                 </div>
 
                 {/* Part 2: The "Verify & Connect" Zone (Socials) */}
@@ -176,9 +179,9 @@ const Contact = () => {
                     >
 
                         {/* Email Card */}
-                        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="bg-[var(--color-bg-secondary)] border border-[#f87171]/20 rounded-xl p-6 flex items-start gap-4 hover:border-[#f87171]/50 transition-colors duration-300">
-                            <div className="w-10 h-10 rounded-lg bg-[#ef4444]/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                <Mail className="text-[#ef4444]" size={20} />
+                        <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="bg-[var(--color-bg-secondary)] border border-[var(--color-lavender-border)] rounded-xl p-6 flex items-start gap-4 hover:border-[var(--color-lavender)] transition-colors duration-300">
+                            <div className="w-10 h-10 rounded-lg bg-[var(--color-lavender-soft)] flex items-center justify-center flex-shrink-0 mt-1">
+                                <Mail className="text-[var(--color-lavender)]" size={20} />
                             </div>
                             <div className="flex flex-col">
                                 <h4 className="text-[var(--color-text-primary)] font-bold text-[18px] mb-1">Email</h4>
@@ -186,15 +189,15 @@ const Contact = () => {
                                     Reach out via email. I usually reply within 24-48 hours.
                                 </p>
                                 <p className="text-[var(--color-text-secondary)] text-[14px]">
-                                    Email: <a href="mailto:singharshiya.work@gmail.com" className="text-[#ef4444] hover:underline">singharshiya.work@gmail.com</a>
+                                    Email: <a href="mailto:singharshiya.work@gmail.com" className="text-[var(--color-lavender)] hover:underline">singharshiya.work@gmail.com</a>
                                 </p>
                             </div>
                         </motion.div>
 
                         {/* Phone Card */}
                         <motion.div variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0, transition: { ease: [0.25, 0.46, 0.45, 0.94], duration: 0.6 } } }} className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-xl p-6 flex items-start gap-4 hover:border-[#374151] transition-colors duration-300">
-                            <div className="w-10 h-10 rounded-lg bg-[#22c55e]/10 flex items-center justify-center flex-shrink-0 mt-1">
-                                <Phone className="text-[#22c55e]" size={20} />
+                            <div className="w-10 h-10 rounded-lg bg-[#f97316]/10 flex items-center justify-center flex-shrink-0 mt-1">
+                                <Phone className="text-[var(--color-accent-text)]" size={20} />
                             </div>
                             <div className="flex flex-col">
                                 <h4 className="text-[var(--color-text-primary)] font-bold text-[18px] mb-1">Phone</h4>
@@ -202,7 +205,7 @@ const Contact = () => {
                                     For quicker communication, feel free to drop a message or call.
                                 </p>
                                 <p className="text-[var(--color-text-secondary)] text-[14px]">
-                                    Contact: <span className="text-[#3b82f6]">+91 9821937286</span>
+                                    Contact: <a href="tel:+919821937286" className="text-[var(--color-lavender)] hover:underline">+91 9821937286</a>
                                 </p>
                             </div>
                         </motion.div>
@@ -234,7 +237,7 @@ const Contact = () => {
                                     Connect with me professionally on LinkedIn.
                                 </p>
                                 <p className="text-[var(--color-text-secondary)] text-[14px]">
-                                    Profile: <a href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer" className="text-[#3b82f6] hover:underline">/in/arshiya-singh</a>
+                                    Profile: <a href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer" className="text-[var(--color-lavender)] hover:underline">/in/arshiya-singh</a>
                                 </p>
                             </div>
                         </motion.div>

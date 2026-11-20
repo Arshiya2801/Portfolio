@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { motion, useSpring, useMotionValue, useReducedMotion } from 'framer-motion';
 import { useTheme } from './ThemeContext';
 
 const CustomCursor = () => {
+    const reduceMotion = useReducedMotion();
     const { theme } = useTheme();
     const [isHovering, setIsHovering] = useState(false);
     const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -58,7 +59,7 @@ const CustomCursor = () => {
         });
     }, [isTouchDevice]);
 
-    if (isTouchDevice) return null;
+    if (isTouchDevice || reduceMotion) return null;
 
     return (
         <>
@@ -75,7 +76,7 @@ const CustomCursor = () => {
                         transform: "translate(-50%, -50%)",
                         background: theme === 'dark'
                             ? "radial-gradient(circle, rgba(255,115,34,0.15) 0%, rgba(255,115,34,0.06) 40%, transparent 70%)"
-                            : "radial-gradient(circle, rgba(37,99,235,0.15) 0%, rgba(37,99,235,0.06) 40%, transparent 70%)"
+                            : "radial-gradient(circle, rgba(109,79,194,0.15) 0%, rgba(109,79,194,0.06) 40%, transparent 70%)"
                     }}
                 />
             </motion.div>
@@ -91,7 +92,7 @@ const CustomCursor = () => {
                     animate={{
                         width: isHovering ? 60 : 36,
                         height: isHovering ? 60 : 36,
-                        border: theme === 'dark' ? "2px solid #f97316" : "2px solid #2563eb",
+                        border: theme === 'dark' ? "2px solid #f97316" : "2px solid #6d4fc2",
                         backgroundColor: isHovering ? (theme === 'dark' ? "rgba(249, 115, 22, 0.25)" : "rgba(37, 99, 235, 0.25)") : "transparent"
                     }}
                     transition={{ duration: 0.3, ease: "easeOut" }}

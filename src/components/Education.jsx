@@ -6,8 +6,8 @@ const educationData = [
     {
         institution: "Indian Institute of Information Technology, Una",
         degree: "B.Tech in Information Technology",
-        date: "2023 – Present",
-        grade: "Current CGPA: 8.5",
+        date: "Aug 2023 – 2027 (Expected)",
+        grade: "Current CGPA: 8.59 / 10.0",
         logo: "/iiit-logo.png",
         details: [
             { label: "Relevant Coursework", value: "Data Structures and Algorithms (DSA), Database Management System (DBMS), Operating Systems, Computer Networks, Software Engineering, Object-Oriented Programming (OOP)" }
@@ -72,7 +72,7 @@ const EducationCard = ({ data }) => {
                     <div className="mt-3">
                         <p className="text-[15px]">
                             <span className="text-[#888888]">Grade: </span>
-                            <span className="text-[#3b82f6] font-medium">{data.grade}</span>
+                            <span className="text-[var(--color-lavender)] font-medium">{data.grade}</span>
                         </p>
                     </div>
                 )}

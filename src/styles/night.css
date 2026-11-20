@@ -1,0 +1,140 @@
+/* Darker surfaces carry the same strawberry, crimson, and lime hues. */
+:root.dark {
+  --night-plum: #21151b;
+  --night-strawberry: #381d2a;
+  --night-crimson: #511627;
+  --night-lime: #2a3018;
+  --night-field: #21181d;
+  --paper: #271b22;
+  --paper-alt: #30232a;
+  --line: #624653;
+  --muted: #d6c1c8;
+  color: var(--body-ink);
+  background: var(--night-plum);
+}
+
+.dark .editorial :focus-visible {
+  outline-color: var(--lime);
+}
+
+.dark .editorial .skip-link:focus-visible {
+  outline-color: var(--cream);
+}
+
+.dark .site-header,
+.dark .editorial-hero {
+  background-color: var(--night-plum);
+  color: var(--pink);
+}
+
+.dark .site-header,
+.dark .navigation,
+.dark .hero-bottom {
+  border-color: var(--line);
+}
+
+.dark .editorial-hero {
+  background-image: radial-gradient(ellipse at 78% 48%, #682039 0%, transparent 52%);
+}
+
+.dark .navigation,
+.dark .hero-meta,
+.dark .hero-intro,
+.dark .hero-bottom,
+.dark .hero-rank {
+  color: var(--body-ink);
+}
+
+.dark .hero-copy .eyebrow,
+.dark .hero-stats b,
+.dark .theme-button,
+.dark .menu-toggle,
+.dark .navigation .nav-resume,
+.dark .navigation > a:hover,
+.dark .editorial-hero .button-outline {
+  color: var(--pink);
+}
+
+.dark .hero-rank > span:first-child {
+  color: var(--ink);
+}
+
+.dark .desk-orbit { border-color: #b6648080; }
+.dark .desk-floor { background: #090408; opacity: .65; }
+.dark .desk-sticker { color: var(--crimson); }
+.dark .scene-caption { color: var(--muted); }
+.dark .editorial-ticker { background: var(--night-crimson); }
+
+.dark .about-section { background-color: var(--night-crimson); }
+.dark .about-copy h2 span { color: var(--pink); }
+.dark .featured-project-visual { background: var(--night-strawberry); }
+.dark .project-mindclash .featured-project-visual { background: var(--night-lime); }
+.dark .mini-scene { background: var(--night-strawberry); }
+.dark .small-project:nth-child(even) .mini-scene { background: var(--night-lime); }
+
+.dark .visual-footer,
+.dark .scene-label {
+  color: var(--body-ink);
+}
+
+.dark .visual-footer { border-color: var(--line); }
+.dark .project-category span,
+.dark .featured-project h3 > span,
+.dark .more-work-heading h3 span { color: var(--pink); }
+
+.dark .technology-tags li:nth-child(4n+1),
+.dark .grade-chip {
+  background: var(--night-lime);
+  color: var(--lime);
+  border: 1px solid #718231;
+}
+
+.dark .date-marker,
+.dark .skill-group:nth-child(4) li {
+  background: var(--night-strawberry);
+  color: var(--pink);
+  border-color: #92566b;
+}
+
+.dark .skill-group:nth-child(4) li small { color: var(--muted); }
+.dark .achievements-section { background: var(--night-strawberry); color: var(--body-ink); }
+.dark .achievements-section .section-heading h2 span,
+.dark .achievement-grid strong { color: var(--pink); }
+.dark .achievements-section .subsection-heading > span { color: var(--muted); }
+.dark .achievement-grid article { background: var(--paper); border-color: var(--line); }
+.dark .achievement-grid article.achievement-lead { background: var(--night-crimson); border-color: #a3546d; }
+.dark .achievement-grid .achievement-lead strong { color: var(--lime); }
+.dark .leadership-grid { border-color: var(--line); }
+
+.dark .contact-section {
+  background-color: var(--night-lime);
+  background-image: radial-gradient(ellipse at 90% 12%, #3e4821, transparent 58%);
+  color: var(--body-ink);
+}
+
+.dark .section-kicker { border-color: #738345; }
+.dark .contact-heading h2 > span,
+.dark .contact-email { color: var(--lime); }
+.dark .contact-email { border-color: var(--lime); }
+
+.dark .contact-form {
+  background: var(--paper-alt);
+  border-color: #718231;
+  box-shadow: 6px 6px 0 #13180a;
+  color: var(--body-ink);
+  color-scheme: dark;
+}
+
+.dark .contact-form label > span { color: var(--pink); }
+.dark .contact-form input,
+.dark .contact-form textarea {
+  background: var(--night-field);
+  border-color: #9c7487;
+  color: var(--body-ink);
+  padding-inline: 10px;
+}
+
+.dark .contact-form input::placeholder,
+.dark .contact-form textarea::placeholder { color: var(--muted); }
+.dark .contact-form #contact-status a { color: var(--lime); }
+.dark .site-footer { background: #180f14; }

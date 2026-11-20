@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const TypewriterEffect = ({ text, delay = 0, speed = 40, pause = 2000, className = "" }) => {
+    const reduceMotion = useReducedMotion();
     const [displayedText, setDisplayedText] = useState('');
     const [isDeleting, setIsDeleting] = useState(false);
     const [startTyping, setStartTyping] = useState(false);
@@ -14,7 +15,7 @@ const TypewriterEffect = ({ text, delay = 0, speed = 40, pause = 2000, className
     }, [delay]);
 
     useEffect(() => {
-        if (!startTyping) return;
+        if (!startTyping || reduceMotion) return;
 
         let timeout;
 
@@ -38,12 +39,13 @@ const TypewriterEffect = ({ text, delay = 0, speed = 40, pause = 2000, className
         }
 
         return () => clearTimeout(timeout);
-    }, [displayedText, isDeleting, startTyping, text, speed, pause]);
+    }, [displayedText, isDeleting, startTyping, text, speed, pause, reduceMotion]);
 
     return (
-        <span className={className}>
-            {displayedText}
+        <span className={className} aria-label={text}>
+            <span aria-hidden="true">{reduceMotion ? text : displayedText}</span>
             <motion.span
+                aria-hidden="true"
                 animate={{ opacity: [1, 0] }}
                 transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
                 className="inline-block w-[3px] h-[1em] bg-[#f97316] ml-1 align-middle"

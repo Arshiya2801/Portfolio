@@ -13,7 +13,7 @@ export default function GradientBlob() {
                 style={{
                     background: isDark
                         ? 'radial-gradient(circle, #f97316, #f59e0b, #ef4444)'
-                        : 'radial-gradient(circle, #2563eb, #3b82f6, #6366f1)',
+                        : 'radial-gradient(circle, #f97316, #fb923c, transparent)',
                     top: '10%',
                     left: '10%',
                 }}
@@ -23,8 +23,8 @@ export default function GradientBlob() {
                 className="absolute w-[400px] h-[400px] rounded-full blur-[100px] opacity-[0.08] animate-blob animation-delay-2000"
                 style={{
                     background: isDark
-                        ? 'radial-gradient(circle, #ff9f58, #f97316, #ea580c)'
-                        : 'radial-gradient(circle, #60a5fa, #2563eb, #4f46e5)',
+                        ? 'radial-gradient(circle, #c4b5fd, #a78bfa, transparent)'
+                        : 'radial-gradient(circle, #c4b5fd, #6d4fc2, transparent)',
                     bottom: '10%',
                     right: '5%',
                     animationDelay: '2s',
@@ -36,8 +36,8 @@ export default function GradientBlob() {
                 className="absolute w-[300px] h-[300px] rounded-full blur-[80px] opacity-[0.06] animate-blob"
                 style={{
                     background: isDark
-                        ? 'radial-gradient(circle, #fbbf24, #f97316)'
-                        : 'radial-gradient(circle, #818cf8, #3b82f6)',
+                        ? 'radial-gradient(circle, #f97316, transparent)'
+                        : 'radial-gradient(circle, #c4b5fd, transparent)',
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',

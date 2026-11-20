@@ -3,26 +3,21 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-    // Check local storage or system preference on load
     const [theme, setTheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            const savedTheme = localStorage.getItem('theme');
-            if (savedTheme) {
-                return savedTheme;
-            }
-            return 'dark'; // Defaulting to dark mode
+        try {
+            return window.localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+        } catch {
+            return 'light';
         }
-        return 'dark'; // Fallback
     });
 
     useEffect(() => {
-        const root = window.document.documentElement;
-        if (theme === 'dark') {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        try {
+            window.localStorage.setItem('theme', theme);
+        } catch {
+            // The toggle still works when the browser blocks storage.
         }
-        localStorage.setItem('theme', theme);
     }, [theme]);
 
     const toggleTheme = () => {

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useId } from 'react';
 import { Github, ChevronDown, Brain, Laptop, Server, Coins, Palette, CheckSquare, PieChart, Briefcase, ExternalLink } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Tilt from 'react-parallax-tilt';
@@ -15,6 +15,9 @@ const PrimaryProjects = [
             { title: 'Intelligent Coding Assistance', desc: 'Provides real-time code explanation, debugging, and review through 20+ specialized AI personas, enhancing learning and productivity.' },
             { title: 'Interactive Development Environment', desc: 'Integrates Monaco Editor and Judge0 for secure multi-language execution with instant feedback and collaborative live sessions.' },
             { title: 'Interview Simulator', desc: 'Features dynamic problem generation, adaptive difficulty scaling, timed assessments, and AI evaluations that mirror real interview experiences.' },
+            { title: 'Streaming AI Copilot', desc: 'Uses the OpenAI API and SSE token streaming for context-aware explanation, debugging, and review across concurrent sessions.' },
+            { title: 'Codebase Retrieval', desc: 'Combines a custom RAG pipeline with MongoDB Atlas Vector Search for contextual codebase Q&A, alongside WebRTC collaborative video rooms.' },
+            { title: 'Sandboxed Execution', desc: 'Executes code securely through Judge0 across 10+ programming languages in isolated runtimes.' },
             { title: 'Secure & Personalized Experience', desc: 'Implements JWT authentication, bcrypt hashing, and MongoDB-backed session management to maintain secure user accounts and coding history.' }
         ],
         whyUnique: 'Unlike traditional IDEs or isolated coding platforms, Apollo converges an AI mentor, a fully-featured code workspace, and an interactive interview coach into one cohesive environment. It goes beyond simple code execution by actively providing real-time code explanations, reviewing complex logic, simulating timed interview scenarios with dynamic difficulty, and delivering personalized feedback, essentially serving as a dedicated pair-programmer and technical interviewer.',
@@ -23,13 +26,16 @@ const PrimaryProjects = [
             { name: 'Node.js', type: 'backend' },
             { name: 'Express.js', type: 'backend' },
             { name: 'Monaco', type: 'frontend' },
-            { name: 'Gemini API', type: 'backend' },
+            { name: 'MongoDB Atlas Vector Search', type: 'backend' },
+            { name: 'RAG', type: 'backend' },
+            { name: 'SSE', type: 'backend' },
+            { name: 'OpenAI API', type: 'backend' },
             { name: 'WebRTC', type: 'backend' },
             { name: 'Socket.io', type: 'backend' },
             { name: 'Judge0', type: 'backend' }
         ],
         link: 'https://github.com/Arshiya2801/Apollo',
-        deploymentLink: 'https://mind-clash-nine.vercel.app'
+        deploymentLink: 'https://apollo-phi-two.vercel.app'
     },
     {
         title: 'MindClash',
@@ -38,7 +44,10 @@ const PrimaryProjects = [
         tagline: 'A gamified, real-time debate arena with AI-driven moderation.',
         features: [
             { title: 'Seamless Interaction', desc: 'Enables 1v1 and team-based debating with <1s latency, ensuring participants stay synced without refreshing.' },
-            { title: 'AI-Enhanced Integrity', desc: 'Features a unique Gemini-powered fact-checking layer that provides live feedback and scoring, elevating the quality of arguments.' },
+            { title: 'AI-Enhanced Integrity', desc: 'Features a unique OpenAI-powered fact-checking layer that provides live feedback and scoring, elevating the quality of arguments.' },
+            { title: 'Reliable Real-Time Sessions', desc: 'Supports reconnection retries, sub-100ms event propagation, spectator mode, and live interactive scoring using Socket.io and Redis.' },
+            { title: 'AI Evaluation & Analytics', desc: 'Integrates OpenAI for speech evaluation, debate moderation, and live fact-checking, with Redis queues for message reliability and detailed post-match analytics.' },
+            { title: 'Backend Architecture', desc: 'Includes 40+ REST APIs, Redis pub/sub and caching, and indexed MongoDB schemas for concurrent sessions and real-time message processing.' },
             { title: 'Engaging User Experience', desc: 'Includes a secure anonymous mode and a proprietary XP-based betting system that incentivizes spectators to engage deeply with the debates.' }
         ],
         whyUnique: 'Unlike standard video conferencing platforms that struggle with structured discussions, MindClash introduces a real-time "referee" and an AI-driven "scoring system" layer to maintain debate integrity. By providing live fact-checking, scoring user arguments on the fly, and integrating a proprietary XP-based spectator betting system, it transforms passive debate-watching into a highly active, gamified, and intellectually honest ecosystem that rewards logical consistency over rhetoric.',
@@ -50,11 +59,11 @@ const PrimaryProjects = [
             { name: 'Socket.io', type: 'backend' },
             { name: 'Redis', type: 'backend' },
             { name: 'JWT', type: 'backend' },
-            { name: 'Gemini API', type: 'backend' },
+            { name: 'OpenAI API', type: 'backend' },
             { name: 'Tailwind CSS', type: 'frontend' }
         ],
         link: 'https://github.com/Arshiya2801/MindClash',
-        deploymentLink: 'https://mindclash-live.vercel.app',
+        deploymentLink: 'https://mind-clash-nine.vercel.app/',
 
     },
     {
@@ -197,10 +206,13 @@ const SecondaryProjects = [
     }
 ];
 
+const tagTone = (tag) => /OpenAI|RAG|Vector Search/i.test(tag.name)
+    ? 'project-tag-ai' : tag.type === 'frontend' ? '' : 'project-tag-backend';
+
 const PrimaryProjectCard = ({ project }) => {
     const { theme } = useTheme();
     const [isExpanded, setIsExpanded] = useState(false);
-    const contentRef = useRef(null);
+    const panelId = useId();
 
     return (
         <div className="bg-[var(--color-bg-secondary)] border border-[var(--color-border)] rounded-2xl overflow-hidden mb-12 transition-all hover:border-[var(--color-accent)] group flex flex-col pointer-events-auto">
@@ -258,9 +270,9 @@ const PrimaryProjectCard = ({ project }) => {
                             </div>
 
                             {/* Expand Chevron */}
-                            <div className={`p-3 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)]' : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] group-hover:bg-[#f97316]/10'}`}>
-                                <ChevronDown size={24} />
-                            </div>
+                            <button type="button" aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${project.title} details`} aria-expanded={isExpanded} aria-controls={panelId} onClick={(event) => { event.stopPropagation(); setIsExpanded(!isExpanded); }} className={`p-3 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 bg-[var(--color-bg-tertiary)] text-[var(--color-text-primary)]' : 'bg-[var(--color-bg-tertiary)] text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)] group-hover:bg-[#f97316]/10'}`}>
+                                <ChevronDown size={24} aria-hidden="true" />
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -268,14 +280,13 @@ const PrimaryProjectCard = ({ project }) => {
 
             {/* Expandable Details Section */}
             <div
-                ref={contentRef}
-                className="transition-all duration-500 ease-in-out overflow-hidden"
-                style={{
-                    maxHeight: isExpanded ? `${contentRef.current?.scrollHeight}px` : '0px',
-                    opacity: isExpanded ? 1 : 0
-                }}
+                id={panelId}
+                className="disclosure"
+                inert={!isExpanded}
+                aria-hidden={!isExpanded}
+                style={{ gridTemplateRows: isExpanded ? '1fr' : '0fr' }}
             >
-                <div className="p-6 sm:p-8 md:p-10 pt-0 sm:pt-0">
+                <div className="disclosure-content"><div className="p-6 sm:p-8 md:p-10 pt-0 sm:pt-0">
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 border-t border-[var(--color-border)] pt-8 mt-2">
                         {/* Detailed Features List */}
                         <div className="lg:col-span-2 flex flex-col gap-8">
@@ -305,10 +316,7 @@ const PrimaryProjectCard = ({ project }) => {
                                     {project.tags.map((tag, index) => (
                                         <span
                                             key={index}
-                                            className={`px-4 py-1.5 rounded-full text-[13px] font-bold tracking-wide ${tag.type === 'frontend'
-                                                ? 'bg-[#a3e635]/10 text-[#a3e635] border border-[#a3e635]/20'
-                                                : 'bg-[#f97316]/10 text-[#f97316] border border-[#f97316]/20'
-                                                }`}
+                                            className={`project-tag px-4 py-1.5 rounded-full text-[13px] font-bold tracking-wide ${tagTone(tag)}`}
                                         >
                                             {tag.name}
                                         </span>
@@ -322,12 +330,12 @@ const PrimaryProjectCard = ({ project }) => {
                     {project.whyUnique && (
                         <div className="mt-8 bg-[var(--color-bg-tertiary)] p-6 rounded-2xl border border-[var(--color-border)]">
                             <h4 className="text-[var(--color-text-primary)] font-bold text-sm mb-3 uppercase tracking-wider opacity-80">Why it's Unique</h4>
-                            <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed italic border-l-2 border-[#f97316] pl-4 text-justify">
+                            <p className="text-[var(--color-text-secondary)] text-[15px] leading-relaxed italic border-l-2 border-[var(--color-lavender)] pl-4 text-justify">
                                 "{project.whyUnique}"
                             </p>
                         </div>
                     )}
-                </div>
+                </div></div>
             </div>
         </div>
     );
@@ -336,7 +344,7 @@ const PrimaryProjectCard = ({ project }) => {
 const ProjectRow = ({ project }) => {
     const { theme } = useTheme();
     const [isExpanded, setIsExpanded] = useState(false);
-    const contentRef = useRef(null);
+    const panelId = useId();
 
     return (
         <Tilt tiltMaxAngleX={8} tiltMaxAngleY={8} scale={1.02} transitionSpeed={1500} glareEnable={true} glareMaxOpacity={0.08} className="mb-4">
@@ -346,10 +354,10 @@ const ProjectRow = ({ project }) => {
             >
                 {/* Default View (Always visible header) */}
                 <div
-                    className="p-5 flex items-center justify-between cursor-pointer group"
+                    className="p-4 sm:p-5 flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between cursor-pointer group"
                     onClick={() => setIsExpanded(!isExpanded)}
                 >
-                    <div className="flex items-center gap-6 flex-1 pr-4">
+                    <div className="flex items-center gap-3 sm:gap-6 flex-1 min-w-0 sm:pr-4">
                         {/* Thumbnail Image */}
                         <div className={`w-[80px] h-[80px] flex-shrink-0 rounded-xl flex items-center justify-center border overflow-hidden ${theme === 'dark' ? 'bg-[#1a1a1a] border-[#222]' : 'bg-[#e5e5e5] border-[#d4d4d4]'}`}>
                             {project.thumbnail ? (
@@ -363,18 +371,18 @@ const ProjectRow = ({ project }) => {
 
 
                         {/* Middle Content */}
-                        <div className="flex flex-col flex-1">
+                        <div className="flex flex-col flex-1 min-w-0">
                             <h3 className="text-[var(--color-text-primary)] text-[22px] font-bold mb-1">
                                 {project.title}
                             </h3>
-                            <p className="text-[var(--color-text-secondary)] text-[15px] font-medium truncate max-w-[90%] text-justify">
+                            <p className="text-[var(--color-text-secondary)] text-[15px] font-medium leading-relaxed">
                                 {project.tagline}
                             </p>
                         </div>
                     </div>
 
                     {/* Right Side Icons */}
-                    <div className="flex flex-col items-end justify-between self-stretch">
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between self-stretch">
                         <div className="flex items-center">
                             {/* Deployment Link */}
                             {project.deploymentLink && (
@@ -405,22 +413,21 @@ const ProjectRow = ({ project }) => {
                         </div>
 
                         {/* Expand Chevron */}
-                        <div className={`p-2 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 text-[var(--color-text-primary)]' : 'rotate-0 text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)]'}`}>
-                            <ChevronDown size={20} />
-                        </div>
+                        <button type="button" aria-label={`${isExpanded ? 'Collapse' : 'Expand'} ${project.title} details`} aria-expanded={isExpanded} aria-controls={panelId} onClick={(event) => { event.stopPropagation(); setIsExpanded(!isExpanded); }} className={`p-2 rounded-full transition-transform duration-300 ${isExpanded ? 'rotate-180 text-[var(--color-text-primary)]' : 'rotate-0 text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)]'}`}>
+                            <ChevronDown size={20} aria-hidden="true" />
+                        </button>
                     </div>
                 </div>
 
                 {/* Expanded View with Smooth Height Transition */}
                 <div
-                    ref={contentRef}
-                    className="transition-all duration-500 ease-in-out overflow-hidden"
-                    style={{
-                        maxHeight: isExpanded ? `${contentRef.current?.scrollHeight}px` : '0px',
-                        opacity: isExpanded ? 1 : 0
-                    }}
+                    id={panelId}
+                className="disclosure"
+                inert={!isExpanded}
+                aria-hidden={!isExpanded}
+                style={{ gridTemplateRows: isExpanded ? '1fr' : '0fr' }}
                 >
-                    <div className="p-5 pt-0 pl-[124px] pr-6 border-t border-[var(--color-border)] mt-1">
+                    <div className="disclosure-content"><div className="p-5 pt-0 sm:pl-[124px] pr-6 border-t border-[var(--color-border)] mt-1">
                         {/* Detailed Features List */}
                         <div className="pt-5 mb-6">
                             {project.features ? (
@@ -452,10 +459,7 @@ const ProjectRow = ({ project }) => {
                                 {project.tags.map((tag, index) => (
                                     <span
                                         key={index}
-                                        className={`px-3 py-1 rounded-full text-[13px] font-semibold tracking-wide ${tag.type === 'frontend'
-                                            ? 'bg-[#a3e635]/15 text-[#a3e635] border border-[#a3e635]/30'
-                                            : 'bg-[#f97316]/15 text-[#f97316] border border-[#f97316]/30'
-                                            }`}
+                                        className={`project-tag px-3 py-1 rounded-full text-[13px] font-semibold tracking-wide ${tagTone(tag)}`}
                                     >
                                         {tag.name}
                                     </span>
@@ -464,7 +468,7 @@ const ProjectRow = ({ project }) => {
                         </div>
 
 
-                    </div>
+                    </div></div>
                 </div>
             </motion.div>
         </Tilt>
@@ -473,7 +477,7 @@ const ProjectRow = ({ project }) => {
 
 const Projects = () => {
     const [showMore, setShowMore] = useState(false);
-    const secondaryListRef = useRef(null);
+    const secondaryListId = useId();
 
     return (
         <section id="project" className="relative scroll-mt-32">
@@ -493,7 +497,7 @@ const Projects = () => {
                     whileInView={{ x: 0, opacity: 1 }}
                     viewport={{ once: true, margin: "-100px" }}
                     transition={{ ease: [0.25, 0.46, 0.45, 0.94], duration: 0.75 }}
-                    className="text-[#4D4D4D]"
+                    className="text-[var(--color-text-secondary)]"
                 >
                     PROJECTS
                 </motion.span>
@@ -518,19 +522,17 @@ const Projects = () => {
                 whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
                 variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
-                ref={secondaryListRef}
-                className="transition-all duration-700 ease-in-out overflow-hidden"
-                style={{
-                    maxHeight: showMore ? `${secondaryListRef.current?.scrollHeight}px` : '0px',
-                    opacity: showMore ? 1 : 0,
-                    marginTop: showMore ? '1rem' : '0'
-                }}
+                id={secondaryListId}
+                className="disclosure"
+                inert={!showMore}
+                aria-hidden={!showMore}
+                style={{ gridTemplateRows: showMore ? '1fr' : '0fr', marginTop: showMore ? '1rem' : '0' }}
             >
-                <div className="flex flex-col">
+                <div className="disclosure-content"><div className="flex flex-col">
                     {SecondaryProjects.map((project, index) => (
                         <ProjectRow key={`secondary-${index}`} project={project} />
                     ))}
-                </div>
+                </div></div>
             </motion.div>
 
             {/* View More / View Less Button */}
@@ -538,6 +540,8 @@ const Projects = () => {
                 <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
+                    aria-expanded={showMore}
+                    aria-controls={secondaryListId}
                     onClick={() => setShowMore(!showMore)}
                     className="px-8 py-3 rounded-full bg-[var(--color-bg-tertiary)] border border-[var(--color-border)] text-[var(--color-text-primary)] font-medium hover:bg-[var(--color-bg-secondary)] hover:border-[var(--color-accent)] transition-all duration-300 group flex items-center gap-2"
                 >

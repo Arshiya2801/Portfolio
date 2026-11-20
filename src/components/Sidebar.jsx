@@ -32,19 +32,19 @@ const Sidebar = () => {
                     <motion.a
                         whileHover={{ y: -3, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer" className="text-[#f97316] flex items-center justify-center">
+                        aria-label="Arshiya Singh on LinkedIn" href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer" className="text-[#f97316] flex items-center justify-center">
                         <Linkedin size={26} className="stroke-[1.5]" />
                     </motion.a>
                     <motion.a
                         whileHover={{ y: -3, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer" className="text-[#f97316] flex items-center justify-center">
+                        aria-label="Arshiya Singh on GitHub" href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer" className="text-[#f97316] flex items-center justify-center">
                         <Github size={26} className="stroke-[1.5]" />
                     </motion.a>
                     <motion.a
                         whileHover={{ y: -3, scale: 1.1 }}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
-                        href="mailto:singharshiya.work@gmail.com" className="text-[#f97316] flex items-center justify-center">
+                        aria-label="Email Arshiya Singh" href="mailto:singharshiya.work@gmail.com" className="text-[#f97316] flex items-center justify-center">
                         <Mail size={26} className="stroke-[1.5]" />
                     </motion.a>
                 </div>

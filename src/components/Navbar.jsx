@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, GraduationCap, Briefcase, FolderGit2, Code2, Mail, Sun, Moon } from 'lucide-react';
+import { Home, GraduationCap, Briefcase, FolderGit2, Code2, Mail, Sun, Moon, Trophy, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useTheme } from './ThemeContext';
 
@@ -8,12 +8,14 @@ const navItems = [
     { name: 'Experience', icon: Briefcase, href: '#experience' },
     { name: 'Project', icon: FolderGit2, href: '#project' },
     { name: 'Skills', icon: Code2, href: '#skills' },
+    { name: 'Achievements', icon: Trophy, href: '#achievements' },
     { name: 'Education', icon: GraduationCap, href: '#education' },
     { name: 'Contact Me', icon: Mail, href: '#contact' }
 ];
 
 const Navbar = () => {
     const [activeSection, setActiveSection] = React.useState('#home');
+    const [menuOpen, setMenuOpen] = React.useState(false);
     const { theme, toggleTheme } = useTheme();
 
     React.useEffect(() => {
@@ -22,7 +24,8 @@ const Navbar = () => {
             const scrollPos = window.scrollY + window.innerHeight / 3;
 
             sections.forEach(section => {
-                if (section && section.offsetTop <= scrollPos && section.offsetTop + section.offsetHeight > scrollPos) {
+                const top = section ? section.getBoundingClientRect().top + window.scrollY : 0;
+                if (section && top <= scrollPos && top + section.offsetHeight > scrollPos) {
                     setActiveSection('#' + section.id);
                 }
             });
@@ -34,18 +37,21 @@ const Navbar = () => {
     }, []);
 
     return (
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border)] transition-colors duration-300">
+        <nav aria-label="Main navigation" onKeyDown={(event) => { if (event.key === 'Escape') { setMenuOpen(false); document.getElementById('navigation-toggle')?.focus(); } }} className="fixed top-0 left-0 right-0 z-50 bg-[var(--color-bg-primary)]/90 backdrop-blur-md border-b border-[var(--color-border)] transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex items-center justify-center h-16 w-full">
+                <div className="flex flex-wrap items-center justify-between lg:justify-center min-h-16 w-full">
+                    <a href="#home" className="lg:hidden font-bold py-4" onClick={() => setMenuOpen(false)}>Arshiya Singh</a>
+                    <button id="navigation-toggle" type="button" className="lg:hidden p-3" aria-label={menuOpen ? 'Close navigation' : 'Open navigation'} aria-expanded={menuOpen} aria-controls="navigation-links" onClick={() => setMenuOpen(!menuOpen)}>{menuOpen ? <X size={22} /> : <Menu size={22} />}</button>
 
                     {/* Navigation Links */}
-                    <div className="flex justify-center w-full px-4 overflow-x-auto">
-                        <div className="flex items-center gap-x-8 sm:gap-x-12 md:gap-x-16 min-w-max">
+                    <div id="navigation-links" className={`${menuOpen ? 'block' : 'hidden'} lg:block w-full pb-4 lg:pb-0`}>
+                        <div className="grid grid-cols-2 lg:flex lg:justify-center items-center gap-x-4 xl:gap-x-7 gap-y-2">
                             {navItems.map((item) => (
                                 <a
                                     key={item.name}
                                     href={item.href}
-                                    onClick={() => setActiveSection(item.href)}
+                                    onClick={() => { setActiveSection(item.href); setMenuOpen(false); }}
+                                    aria-current={activeSection === item.href ? 'location' : undefined}
                                     className="relative flex items-center text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] transition-colors duration-300 ease-in-out opacity-100 py-2 group"
                                 >
                                     <item.icon className={`w-4 h-4 mr-2 stroke-[1.5px] transition-colors ${activeSection === item.href ? 'text-[var(--color-accent)]' : 'text-[var(--color-text-secondary)] group-hover:text-[var(--color-text-primary)]'}`} />
@@ -63,7 +69,7 @@ const Navbar = () => {
                             {/* Theme Toggle Button */}
                             <button
                                 onClick={toggleTheme}
-                                className="p-2 rounded-full hover:bg-[var(--color-bg-secondary)] transition-colors ml-4 text-[var(--color-text-primary)]"
+                                className="p-3 rounded-full hover:bg-[var(--color-bg-secondary)] transition-colors justify-self-start text-[var(--color-text-primary)]"
                                 aria-label="Toggle Theme"
                             >
                                 {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}

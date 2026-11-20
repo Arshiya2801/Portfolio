@@ -1,12 +1,13 @@
 import React from 'react';
 import { Linkedin, Instagram, Mail, ArrowRight, Download, Code2, FolderGit2, Flame } from 'lucide-react';
-import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate, useInView, useReducedMotion } from 'framer-motion';
 import TypewriterEffect from './TypewriterEffect';
 import GradientBlob from './GradientBlob';
 import Tilt from 'react-parallax-tilt';
 
 // Typewriter terminal line — types out text character by character
 const TerminalLine = ({ children, delay, color, text }) => {
+    const reduceMotion = useReducedMotion();
     const ref = React.useRef(null);
     const isInView = useInView(ref, { once: true });
     const [displayedChars, setDisplayedChars] = React.useState(0);
@@ -32,8 +33,8 @@ const TerminalLine = ({ children, delay, color, text }) => {
     if (useTypewriter) {
         return (
             <div ref={ref} style={{ color, minHeight: '1.2em' }}>
-                {started ? text.slice(0, displayedChars) : ''}
-                {started && displayedChars < text.length && (
+                {reduceMotion ? text : started ? text.slice(0, displayedChars) : ''}
+                {!reduceMotion && started && displayedChars < text.length && (
                     <span className="inline-block w-1.5 h-3.5 bg-current opacity-70 ml-px animate-pulse" />
                 )}
             </div>
@@ -56,6 +57,7 @@ const TerminalLine = ({ children, delay, color, text }) => {
 };
 
 const AnimatedCounter = ({ from, to, prefix = "+" }) => {
+    const reduceMotion = useReducedMotion();
     const ref = React.useRef(null);
     const motionValue = useMotionValue(from);
     const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -63,15 +65,13 @@ const AnimatedCounter = ({ from, to, prefix = "+" }) => {
 
     React.useEffect(() => {
         if (inView) {
-            animate(motionValue, to, {
-                duration: 2,
+            const controls = animate(motionValue, to, {
+                duration: reduceMotion ? 0 : 2,
                 ease: "easeOut",
-                repeat: Infinity,
-                repeatType: "loop",
-                repeatDelay: 1.5
             });
+            return () => controls.stop();
         }
-    }, [motionValue, inView, to]);
+    }, [motionValue, inView, to, reduceMotion]);
 
     return (
         <span ref={ref} className="inline-flex">
@@ -81,6 +81,8 @@ const AnimatedCounter = ({ from, to, prefix = "+" }) => {
 };
 
 const Hero = () => {
+    const resumeLink = '/Arshiya-Singh-Resume.pdf';
+
     return (
         <section id="home" className="relative">
             {/* Gradient Blob Background */}
@@ -109,10 +111,16 @@ const Hero = () => {
                         whileInView={{ opacity: 1 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="text-[var(--color-text-secondary)] font-medium text-[20px] mb-10 max-w leading-relaxed relative z-20 h-[30px]"
+                        className="text-[var(--color-text-secondary)] font-medium text-[20px] mt-5 mb-6 leading-relaxed relative z-20 min-h-[30px]"
                     >
                         <TypewriterEffect text="Full-Stack Engineer & Algorithmic Problem Solver" delay={800} speed={40} />
                     </motion.div>
+                    <p className="text-[var(--color-text-secondary)] text-base sm:text-lg leading-relaxed max-w-2xl">
+                        B.Tech in Information Technology at IIIT Una, graduating in 2027. Full-stack and GenAI developer with two internships shipping production LLM and web features—from a RAG customer assistant to a multi-tenant service platform. I build with React, Node.js, Python, MongoDB, and Redis.
+                    </p>
+                    <a href="#achievements" className="hero-achievement inline-flex items-center gap-2 mt-5 text-sm font-semibold transition-colors">
+                        <Code2 size={16} aria-hidden="true" /> ICPC Algo Queen 2026 · National Rank 42 / 1,658
+                    </a>
                 </div>
 
                 {/* Stats Row */}
@@ -159,15 +167,15 @@ const Hero = () => {
                         {/* Terminal Body */}
                         <div className="px-6 py-5 flex-1 flex flex-col gap-1.5 font-mono text-[12px] sm:text-[13px] leading-relaxed">
                             <TerminalLine delay={0.3} color="#6b7280" text="// about_me.js" />
-                            <TerminalLine delay={0.8} color="#c792ea" text='const arshiya = {' />
+                            <TerminalLine delay={0.8} color="#c4b5fd" text='const arshiya = {' />
                             <TerminalLine delay={1.5} color="#ffcb6b" text='  role: "Software Developer Engineer",' />
-                            <TerminalLine delay={2.5} color="#c792ea" text="};" />
+                            <TerminalLine delay={2.5} color="#c4b5fd" text="};" />
                             <div className="h-2" />
-                            <TerminalLine delay={2.8} color="#546e7a" text="/**" />
-                            <TerminalLine delay={3.0} color="#546e7a" text=" * Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset with deep MERN stack expertise to deliver high-performance, optimized architectures." />
+                            <TerminalLine delay={2.8} color="#9cabb9" text="/**" />
+                            <TerminalLine delay={3.0} color="#9cabb9" text=" * Passionate about architecting scalable, real-time web applications. I combine a rigorous algorithmic mindset with deep MERN stack expertise to deliver high-performance, optimized architectures." />
 
-                            <TerminalLine delay={8.0} color="#546e7a" text=" * Whether integrating AI-driven features or streamlining backend processing, I bridge complex challenges and intuitive user experiences through clean code." />
-                            <TerminalLine delay={12.0} color="#546e7a" text=" */" />
+                            <TerminalLine delay={8.0} color="#9cabb9" text=" * Whether integrating AI-driven features or streamlining backend processing, I bridge complex challenges and intuitive user experiences through clean code." />
+                            <TerminalLine delay={12.0} color="#9cabb9" text=" */" />
 
                             {/* Blinking cursor — appears after all lines */}
                             <motion.div
@@ -205,14 +213,14 @@ const Hero = () => {
                                 glareColor="#ffffff"
                                 className="rounded-[2rem]"
                             >
-                                <div className="bg-white/5 backdrop-blur-xl rounded-[2rem] p-6 sm:p-8 flex items-center justify-between relative overflow-hidden group border border-white/10 hover:border-[#2563eb]/30 dark:hover:border-[#f97316]/30 transition-all duration-300">
+                                <a href={resumeLink} target="_blank" rel="noopener noreferrer" className="block bg-white/5 backdrop-blur-xl rounded-[2rem] p-6 sm:p-8 flex items-center justify-between relative overflow-hidden group border border-white/10 hover:border-[#f97316]/30 transition-all duration-300">
                                     {/* Accent left stripe — blue in light, orange in dark */}
-                                    <div className="absolute left-0 top-4 bottom-4 w-1 rounded-full bg-gradient-to-b from-[#2563eb] to-[#3b82f6] dark:from-[#f97316] dark:to-[#f59e0b]" />
+                                    <div className="absolute left-0 top-4 bottom-4 w-1 rounded-full bg-gradient-to-b from-[#f97316] to-[#fb923c]" />
 
                                     <div className="relative z-10 flex flex-col gap-2 pl-3">
                                         {/* Pulsing icon */}
                                         <motion.div
-                                            className="bg-[#2563eb]/10 dark:bg-[#f97316]/10 p-2.5 rounded-xl w-max text-[#2563eb] dark:text-[#f97316]"
+                                            className="bg-[#f97316]/10 p-2.5 rounded-xl w-max text-[#f97316]"
                                             animate={{ scale: [1, 1.05, 1] }}
                                             transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
                                         >
@@ -223,15 +231,14 @@ const Hero = () => {
                                         </h3>
                                     </div>
 
-                                    <motion.a
+                                    <motion.div
                                         whileHover={{ scale: 1.1, rotate: -45 }}
                                         whileTap={{ scale: 0.95 }}
-                                        href="https://drive.google.com/file/d/1-ORzMv6GS6BgxrEa1W5YaFf2i7-9CttY/view?usp=drive_link" rel="noopener noreferrer"
-                                        className="relative z-10 bg-[#2563eb] dark:bg-[#f97316] text-white w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-[#2563eb] dark:group-hover:text-[#f97316] transition-colors duration-300 cursor-pointer flex-shrink-0"
+                                        className="relative z-10 bg-[#f97316] text-white w-12 h-12 rounded-full flex items-center justify-center group-hover:bg-white group-hover:text-[#f97316] transition-colors duration-300 cursor-pointer flex-shrink-0"
                                     >
                                         <ArrowRight size={20} className="-rotate-45" />
-                                    </motion.a>
-                                </div>
+                                    </motion.div>
+                                </a>
                             </Tilt>
                         </motion.div>
 
@@ -264,9 +271,9 @@ const Hero = () => {
                                 {/* availability */}
                                 <TerminalLine delay={0.3} color="#f97316" text="$ availability" />
                                 <TerminalLine delay={0.8} color="#6b7280">
-                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span className="text-[#c4b5fd]">▸ </span>
                                     <span>open_to_hire: </span>
-                                    <span className="text-[#84cc16]">true</span>
+                                    <span className="text-[#c4b5fd]">true</span>
                                     <span className="ml-2 inline-flex">
                                         <motion.span
                                             className="inline-block w-2 h-2 rounded-full bg-[#84cc16]"
@@ -283,29 +290,29 @@ const Hero = () => {
                                     </span>
                                 </TerminalLine>
                                 <TerminalLine delay={1.0} color="#6b7280">
-                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span className="text-[#c4b5fd]">▸ </span>
                                     <span>type: </span>
-                                    <span className="text-[#84cc16]">fulltime/intern</span>
+                                    <span className="text-[#c4b5fd]">fulltime/intern</span>
                                 </TerminalLine>
                                 <TerminalLine delay={1.2} color="#6b7280">
-                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span className="text-[#c4b5fd]">▸ </span>
                                     <span>remote: </span>
-                                    <span className="text-[#84cc16]">true</span>
+                                    <span className="text-[#c4b5fd]">true</span>
                                 </TerminalLine>
                                 <TerminalLine delay={1.4} color="#6b7280">
-                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span className="text-[#c4b5fd]">▸ </span>
                                     <span>open_to_relocation: </span>
-                                    <span className="text-[#84cc16]">true</span>
+                                    <span className="text-[#c4b5fd]">true</span>
                                 </TerminalLine>
                                 <TerminalLine delay={1.6} color="#6b7280">
-                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span className="text-[#c4b5fd]">▸ </span>
                                     <span>location: </span>
                                     <span className="text-[#f97316]">"India"</span>
                                 </TerminalLine>
                                 <TerminalLine delay={1.8} color="#6b7280">
-                                    <span className="text-[#84cc16]">▸ </span>
+                                    <span className="text-[#c4b5fd]">▸ </span>
                                     <span>response_time: </span>
-                                    <span className="text-[#84cc16]">" less 24 hours"</span>
+                                    <span className="text-[#c4b5fd]">" less 24 hours"</span>
                                 </TerminalLine>
 
 

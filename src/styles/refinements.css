@@ -1,0 +1,114 @@
+/* Text on the bright canvas uses a deeper crimson to preserve small-type contrast. */
+
+.hero-copy .eyebrow {
+  color: var(--ink);
+}
+
+.motion-toggle {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.motion-toggle:disabled {
+  opacity: .8;
+  cursor: default;
+}
+
+.site-footer > div {
+  flex-wrap: wrap;
+}
+
+.editorial[data-motion="reduced"] *, .editorial[data-motion="reduced"] *::before, .editorial[data-motion="reduced"] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.editorial[data-motion="reduced"] .desk-assembly {
+  transform: none !important;
+}
+
+.editorial[data-motion="reduced"] .featured-project .apollo-editor,
+.editorial[data-motion="reduced"] .featured-project .apollo-terminal,
+.editorial[data-motion="reduced"] .featured-project .apollo-graph {
+  transform: rotateX(18deg) rotateY(-18deg) rotateZ(-9deg);
+}
+
+.editorial[data-motion="reduced"] .envelope-link .envelope-flap,
+.editorial[data-motion="reduced"] .envelope-link .envelope-letter,
+.editorial[data-motion="reduced"] .button:hover {
+  transform: none;
+}
+
+.navigation .nav-resume, .editorial-hero .button-outline {
+  color: #8e0b25;
+}
+
+.navigation > a:hover {
+  color: #8e0b25;
+}
+
+.featured-project:has(.project-details[open]) .project-scene {
+  position: sticky;
+  top: 100px;
+}
+
+.featured-project:has(.project-details[open]) .visual-footer {
+  margin-top: auto;
+}
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.hero-copy, .about-copy, .contact-intro, .contact-form, .experience-body {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .hero-grid, .contact-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .envelope-link {
+    display: block;
+    width: 65px;
+    height: 65px;
+    margin: 0;
+    transform: none;
+    flex-shrink: 0;
+  }
+  .envelope-scene {
+    transform: scale(.34) rotate(-12deg);
+    transform-origin: left top;
+  }
+  .contact-heading h2 {
+    font-size: clamp(51px, 14.5vw, 75px);
+  }
+  .hero-rank {
+    max-width: 100%;
+  }
+  .hero-rank > span:first-child {
+    flex-shrink: 0;
+  }
+  .hero-rank > span:last-child {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 390px) {
+  .desk-stage {
+    transform: scale(.60);
+    margin-bottom: -125px;
+  }
+  .hero-rank > span:last-child {
+    font-size: 9px;
+  }
+  .hero-rank b {
+    font-size: 8px;
+  }
+}

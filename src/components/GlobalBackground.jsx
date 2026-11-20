@@ -3,6 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Sphere } from '@react-three/drei';
 import * as THREE from 'three';
 import { useTheme } from './ThemeContext';
+import { useReducedMotion } from 'framer-motion';
 
 // 1. Reactive Particle Field (Now Global)
 const GlobalParticleSystem = () => {
@@ -67,7 +68,7 @@ const GlobalParticleSystem = () => {
         pointsRef.current.rotation.y = state.clock.elapsedTime * 0.05;
     });
 
-    const particleColor = theme === 'dark' ? '#f97316' : '#2563eb'; // Orange for dark mode, subtle blue for light mode
+    const particleColor = theme === 'dark' ? '#f97316' : '#6d4fc2'; // Orange for dark mode, subtle blue for light mode
 
     return (
         <points ref={pointsRef}>
@@ -91,6 +92,8 @@ const GlobalParticleSystem = () => {
 };
 
 const GlobalBackground = () => {
+    const reduceMotion = useReducedMotion();
+    if (reduceMotion) return null;
     return (
         <div className="fixed inset-0 z-0 pointer-events-none" style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 0 }}>
             <Canvas camera={{ position: [0, 0, 15], fov: 75 }} gl={{ alpha: true, antialias: false }}>
