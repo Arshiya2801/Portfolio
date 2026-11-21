@@ -16,11 +16,7 @@
 }
 
 :root.dark {
-  --paper: #281e20;
-  --paper-alt: #34282b;
-  --body-ink: #fff4ed;
-  --muted: #d2bec0;
-  --line: #584248;
+  background: #21151b;
   color-scheme: dark;
 }
 
@@ -76,6 +72,41 @@ button:disabled {
 
 .editorial {
   overflow: clip;
+  color-scheme: light;
+}
+
+.theme-lens {
+  --lens-radius: 62px;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 70;
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  overflow-anchor: none;
+  clip-path: circle(var(--lens-radius) at var(--lens-x, 0px) var(--lens-y, 0px));
+}
+
+.theme-lens[data-visible] {
+  visibility: visible;
+}
+
+.theme-lens::after {
+  content: "";
+  position: fixed;
+  left: var(--lens-x, 0px);
+  top: var(--lens-y, 0px);
+  width: calc(2 * var(--lens-radius));
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px #fff4edb3, inset 0 0 0 2px #281e2059;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-lens {
+    display: none;
+  }
 }
 
 .editorial h1,.editorial h2,.editorial h3,.editorial h4,.editorial p {
@@ -470,7 +501,7 @@ button:disabled {
   color: var(--crimson);
 }
 
-.dark .section-heading h2 span {
+.editorial[data-theme="dark"] .section-heading h2 span {
   color: var(--pink);
 }
 
@@ -826,7 +857,7 @@ button:disabled {
   font-weight: 800;
 }
 
-.dark .experience-body li:before {
+.editorial[data-theme="dark"] .experience-body li:before {
   color: var(--pink);
 }
 
@@ -1360,12 +1391,12 @@ button:disabled {
   width: 100%;
 }
 
-.contact-form #contact-status p {
+.contact-form .contact-status p {
   font-size: 14px;
   margin-top: 15px;
 }
 
-.contact-form #contact-status a {
+.contact-form .contact-status a {
   text-decoration: underline;
 }
 

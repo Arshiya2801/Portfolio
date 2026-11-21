@@ -6,6 +6,7 @@ import { useTheme } from '../ThemeContext';
 import { primaryProjects, secondaryProjects, skillCategories, certifications, achievements, leadership, education, experiences } from '../../data/portfolio';
 import { ApolloScene, CircuitGrid, DeskScene, MindClashScene, MiniScene, SignalParticles, SkillBlocks } from './Scenes';
 import EditorialContact from './EditorialContact';
+import ThemeLens from './ThemeLens';
 const resume = '/Arshiya-Singh-Resume.pdf';
 const navigation = [['About', '#about'], ['Experience', '#experience'], ['Work', '#project'], ['Skills', '#skills'], ['Achievements', '#achievements'], ['Education', '#education'], ['Contact', '#contact']];
 function Navigation() {
@@ -132,6 +133,8 @@ function Footer({
   return <footer className="site-footer"><a className="wordmark" href="#home">AS<span className="wordmark-star">✳</span></a><p>© 2026 Arshiya Singh. All rights reserved.</p><div><a href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer">GitHub</a><a href={resume} target="_blank" rel="noopener noreferrer">Résumé</a><button className="motion-toggle" type="button" aria-pressed={motionPaused} disabled={systemReduced} onClick={toggleMotion}>{systemReduced ? 'Reduced motion' : motionPaused ? 'Resume motion' : 'Pause motion'}</button><a href="#home">Back to top</a></div></footer>;
 }
 export default function EditorialPortfolio() {
+  const { theme } = useTheme();
+  const sourceRef = useRef(null);
   const systemReduced = useReducedMotion();
   const [paused, setPaused] = useState(false);
   const motionPaused = Boolean(systemReduced || paused);
@@ -141,5 +144,16 @@ export default function EditorialPortfolio() {
     const scroll = new Lenis({ autoRaf: true, lerp: 0.12, stopInertiaOnNavigate: true });
     return () => scroll.destroy();
   }, [motionPaused]);
-  return <div className="editorial" data-motion={motionPaused ? 'reduced' : 'full'}><CircuitGrid /><SignalParticles /><a className="skip-link" href="#main-content">Skip to content</a><Navigation /><main id="main-content" tabIndex={-1}><Hero motionPaused={motionPaused} /><div className="editorial-ticker" aria-hidden="true"><span>FULL-STACK DEVELOPMENT</span><b>✳</b><span>GEN AI & REAL-TIME SYSTEMS</span><b>✳</b><span>IDEAS INTO IMPACT</span><b>✳</b></div><About /><Experience /><Projects /><Skills motionPaused={motionPaused} /><Achievements /><Education /><EditorialContact /></main><Footer motionPaused={motionPaused} toggleMotion={() => setPaused(!paused)} systemReduced={Boolean(systemReduced)} /></div>;
+  return <>
+    <div ref={sourceRef} className="editorial" data-theme={theme} data-motion={motionPaused ? 'reduced' : 'full'}>
+      <CircuitGrid /><SignalParticles /><a className="skip-link" href="#main-content">Skip to content</a><Navigation />
+      <main id="main-content" tabIndex={-1}>
+        <Hero motionPaused={motionPaused} />
+        <div className="editorial-ticker" aria-hidden="true"><span>FULL-STACK DEVELOPMENT</span><b>✳</b><span>GEN AI & REAL-TIME SYSTEMS</span><b>✳</b><span>IDEAS INTO IMPACT</span><b>✳</b></div>
+        <About /><Experience /><Projects /><Skills motionPaused={motionPaused} /><Achievements /><Education /><EditorialContact />
+      </main>
+      <Footer motionPaused={motionPaused} toggleMotion={() => setPaused(!paused)} systemReduced={Boolean(systemReduced)} />
+    </div>
+    <ThemeLens sourceRef={sourceRef} theme={theme} disabled={motionPaused} />
+  </>;
 }

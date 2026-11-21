@@ -9,7 +9,7 @@
   pointer-events: none;
 }
 
-.dark .circuit-grid {
+.editorial[data-theme="dark"] .circuit-grid {
   --circuit-line: #fda2ac29;
 }
 
@@ -56,7 +56,7 @@
   pointer-events: none;
 }
 
-.dark .signal-particles {
+.editorial[data-theme="dark"] .signal-particles {
   --signal-primary: var(--pink);
   --signal-secondary: var(--lime);
   --signal-highlight: #38212e;
