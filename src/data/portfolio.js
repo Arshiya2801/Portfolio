@@ -364,7 +364,8 @@ export const achievements = [
         icon: Code2,
         title: 'Competitive Programming',
         highlight: '600+ Problems Solved',
-        desc: 'Across LeetCode (Knight), CodeChef (2 Star) & GeeksforGeeks.',
+        desc: 'Across LeetCode (Knight), CodeChef (3 Star) & GeeksforGeeks.',
+        featured: true,
         color: 'var(--color-accent-text)'
     },
     {
@@ -459,7 +460,7 @@ export const experiences = [
     "company": "Infinito Comics",
     "logo": "/infinito-comics-logo.png",
     "role": "Full Stack AI Developer Intern",
-    "date": "July 2026 - September 2026",
+    "date": "July 2026 - October 2026",
     "location": "Remote",
     "document": "/infinito-comics-offer-letter.pdf",
     "documentLabel": "Offer letter",

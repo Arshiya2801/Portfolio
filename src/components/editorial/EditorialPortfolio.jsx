@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import Lenis from 'lenis';
-import { ChevronDown, Download, Github, Linkedin, Mail, Menu, Moon, Sun, X, Code2, FileText, Globe, Plus } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Download, Github, Linkedin, Mail, Menu, Moon, Sun, X, Code2, FileText, Globe, Plus } from 'lucide-react';
 import { useTheme } from '../ThemeContext';
 import { primaryProjects, secondaryProjects, skillCategories, certifications, achievements, leadership, education, experiences } from '../../data/portfolio';
 import { ApolloScene, CircuitGrid, DeskScene, MindClashScene, MiniScene, SignalParticles, SkillBlocks } from './Scenes';
@@ -43,15 +43,32 @@ function Navigation() {
       </div>
       <nav id="editorial-navigation" aria-label="Main navigation" className={open ? 'navigation is-open' : 'navigation'}>
         {navigation.map(([label, href]) => <a key={href} href={href} onClick={() => setOpen(false)}>{label}</a>)}
-        <a className="nav-resume" href={resume} target="_blank" rel="noopener noreferrer">Résumé <Download size={13} /></a>
+        <a className="nav-resume" href={resume} target="_blank" rel="noopener noreferrer">Resume <Download size={13} /></a>
       </nav>
     </header>
   );
 }
 function Hero({ motionPaused }) {
   return <section id="home" className="editorial-hero grain"><div className="section-shell">
-        <div className="hero-meta"><span>SOFTWARE DEVELOPMENT ENGINEER</span><span>BASED IN INDIA · OPEN TO HIRE</span></div>
-        <div className="hero-grid"><div className="hero-copy"><div className="eyebrow"><span className="small-star">✳</span> FULL-STACK ENGINEER & ALGORITHMIC PROBLEM SOLVER</div><h1>ARSHIYA<br /><span>SINGH<span className="heading-dot">.</span></span></h1><p className="hero-intro">B.Tech in Information Technology at IIIT Una, graduating in 2027. Full-stack and GenAI developer with two internships shipping production LLM and web features.</p><div className="hero-actions"><a href="#project" className="button button-crimson">Explore my work <Code2 size={18} /></a><a href={resume} className="button button-outline" target="_blank" rel="noopener noreferrer">View résumé <Download size={17} /></a></div><a href="#achievements" className="hero-rank"><span>42</span><span>ICPC ALGO QUEEN 2026<br /><b>NATIONAL RANK / 1,658 PARTICIPANTS</b></span></a></div><DeskScene motionPaused={motionPaused} /></div>
+        <div className="hero-meta"><span>SOFTWARE DEVELOPMENT ENGINEER</span><span>BASED IN INDIA · OPEN TO INTERNSHIPS &amp; FULL-TIME ROLES</span></div>
+        <div className="hero-grid">
+          <div className="hero-copy">
+            <div className="eyebrow"><span className="small-star">✳</span> FULL-STACK ENGINEER & ALGORITHMIC PROBLEM SOLVER</div>
+            <h1>ARSHIYA<br /><span>SINGH<span className="heading-dot">.</span></span></h1>
+            <nav className="hero-socials" aria-label="Professional profiles">
+              <a className="button hero-social-linkedin" href="https://linkedin.com/in/arshiya-singh" target="_blank" rel="noopener noreferrer">
+                <Linkedin size={17} aria-hidden="true" /> LinkedIn <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+              <a className="button hero-social-github" href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer">
+                <Github size={17} aria-hidden="true" /> GitHub <ArrowUpRight size={15} aria-hidden="true" />
+              </a>
+            </nav>
+            <p className="hero-intro">B.Tech in Information Technology at IIIT Una, graduating in 2027. Full-stack and GenAI developer with two internships shipping production LLM and web features.</p>
+            <div className="hero-actions"><a href="#project" className="button button-crimson">Explore my work <Code2 size={18} /></a><a href={resume} className="button button-outline" target="_blank" rel="noopener noreferrer">Resume <Download size={17} /></a></div>
+            <a href="#achievements" className="hero-rank"><span>42</span><span>ICPC ALGO QUEEN 2026<br /><b>NATIONAL RANK / 1,658 PARTICIPANTS</b></span></a>
+          </div>
+          <DeskScene motionPaused={motionPaused} />
+        </div>
         <div className="hero-bottom"><p>THOUGHTFUL INTERFACES.<br /><strong>SERIOUS ENGINEERING.</strong></p><div className="hero-stats"><div><b>5<span>+</span></b><span>MONTHS OF EXPERIENCE</span></div><div><b>10<span>+</span></b><span>PROJECTS COMPLETED</span></div><div><b>600<span>+</span></b><span>DSA QUESTIONS SOLVED</span></div></div><a className="scroll-link" href="#about">SCROLL TO EXPLORE <ChevronDown size={18} /></a></div>
     </div></section>;
 }
@@ -114,8 +131,12 @@ function Achievements() {
           title,
           highlight,
           desc,
+          featured,
           icon: Icon
-        }, index) => <article key={title} className={index === 0 ? 'achievement-lead' : ''}><Icon size={26} strokeWidth={1.6} /><strong>{highlight}</strong><h3>{title}</h3><p>{desc}</p></article>)}</div><div className="subsection-heading"><h3>LEADERSHIP & INVOLVEMENT</h3><span>BEYOND THE CODE.</span></div><div className="leadership-grid">{leadership.map(({
+        }, index) => {
+          const cardClass = index === 0 ? 'achievement-lead' : featured ? 'achievement-featured' : undefined;
+          return <article key={title} className={cardClass}><Icon size={26} strokeWidth={1.6} /><strong>{highlight}</strong><h3>{title}</h3><p>{desc}</p></article>;
+        })}</div><div className="subsection-heading"><h3>LEADERSHIP & INVOLVEMENT</h3><span>BEYOND THE CODE.</span></div><div className="leadership-grid">{leadership.map(({
           role,
           org,
           desc,
@@ -130,7 +151,7 @@ function Footer({
   toggleMotion,
   systemReduced
 }) {
-  return <footer className="site-footer"><a className="wordmark" href="#home">AS<span className="wordmark-star">✳</span></a><p>© 2026 Arshiya Singh. All rights reserved.</p><div><a href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer">GitHub</a><a href={resume} target="_blank" rel="noopener noreferrer">Résumé</a><button className="motion-toggle" type="button" aria-pressed={motionPaused} disabled={systemReduced} onClick={toggleMotion}>{systemReduced ? 'Reduced motion' : motionPaused ? 'Resume motion' : 'Pause motion'}</button><a href="#home">Back to top</a></div></footer>;
+  return <footer className="site-footer"><a className="wordmark" href="#home">AS<span className="wordmark-star">✳</span></a><p>© 2026 Arshiya Singh. All rights reserved.</p><div><a href="https://github.com/Arshiya2801" target="_blank" rel="noopener noreferrer">GitHub</a><a href={resume} target="_blank" rel="noopener noreferrer">Resume</a><button className="motion-toggle" type="button" aria-pressed={motionPaused} disabled={systemReduced} onClick={toggleMotion}>{systemReduced ? 'Reduced motion' : motionPaused ? 'Resume motion' : 'Pause motion'}</button><a href="#home">Back to top</a></div></footer>;
 }
 export default function EditorialPortfolio() {
   const { theme } = useTheme();

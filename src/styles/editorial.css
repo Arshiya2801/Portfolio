@@ -351,7 +351,7 @@ button:disabled {
   font-size: clamp(100px,12vw,182px);
   line-height: .8;
   letter-spacing: -.025em;
-  margin: 25px 0 28px;
+  margin: 25px 0 20px;
 }
 
 .hero-copy h1>span {
@@ -361,6 +361,32 @@ button:disabled {
 .heading-dot {
   color: var(--lime);
   text-shadow: 2px 2px 0 var(--crimson);
+}
+
+.hero-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.hero-socials .button {
+  min-height: 44px;
+  gap: 8px;
+  padding-inline: 12px;
+  border-color: var(--ink);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.hero-social-linkedin {
+  background: var(--lime);
+  color: var(--ink);
+}
+
+.hero-social-github {
+  background: var(--ink);
+  color: var(--cream);
 }
 
 .hero-intro {
@@ -1139,6 +1165,13 @@ button:disabled {
   transform: rotate(-1deg);
 }
 
+.achievement-grid article.achievement-featured {
+  background: var(--lime);
+  border-color: var(--ink);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
 .achievement-grid svg {
   margin-bottom: 28px;
 }
@@ -1153,6 +1186,10 @@ button:disabled {
 .achievement-lead strong {
   color: var(--lime);
   font-size: 40px;
+}
+
+.achievement-featured strong {
+  color: inherit;
 }
 
 .achievement-grid h3 {

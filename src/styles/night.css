@@ -62,6 +62,10 @@
   color: var(--ink);
 }
 
+.editorial[data-theme="dark"] .hero-social-github {
+  border-color: var(--pink);
+}
+
 .editorial[data-theme="dark"] .desk-orbit { border-color: #b6648080; }
 .editorial[data-theme="dark"] .desk-floor { background: #090408; opacity: .65; }
 .editorial[data-theme="dark"] .desk-sticker { color: var(--crimson); }
@@ -107,6 +111,12 @@
 .editorial[data-theme="dark"] .achievement-grid article { background: var(--paper); border-color: var(--line); }
 .editorial[data-theme="dark"] .achievement-grid article.achievement-lead { background: var(--night-crimson); border-color: #a3546d; }
 .editorial[data-theme="dark"] .achievement-grid .achievement-lead strong { color: var(--lime); }
+.editorial[data-theme="dark"] .achievement-grid article.achievement-featured {
+  background: var(--night-lime);
+  border-color: #718231;
+  color: var(--body-ink);
+}
+.editorial[data-theme="dark"] .achievement-grid .achievement-featured strong { color: var(--lime); }
 .editorial[data-theme="dark"] .leadership-grid { border-color: var(--line); }
 
 .editorial[data-theme="dark"] .contact-section {
